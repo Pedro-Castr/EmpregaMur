@@ -3,5 +3,8 @@
   "scripts": {
     "services:up": "docker compose up -d",
     "services:down": "docker compose down"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
   }
 }
