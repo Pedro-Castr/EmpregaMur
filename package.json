@@ -2,7 +2,9 @@
   "name": "projeto-extensao",
   "scripts": {
     "services:up": "docker compose up -d",
-    "services:down": "docker compose down"
+    "services:down": "docker compose down",
+    "lint:check": "prettier --check .",
+    "lint:fix": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "^3.5.3"
