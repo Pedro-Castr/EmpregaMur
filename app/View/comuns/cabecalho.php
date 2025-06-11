@@ -22,56 +22,29 @@ use Core\Library\Session;
     </head>
     <body>
         <header class="container-fluid">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid px-5">
+                    <a class="navbar-brand" href="<?= baseUrl() ?>"><img src="/assets/img/logo6.png" alt="EmpregaMur" height="80"></a>
 
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="<?= baseUrl() ?>"><img class="login-img" src="/assets/img/AtomPHP-logo.png" alt="" height="90" width="90"></a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?= baseUrl() ?>">Home</a>
+
+                    <div class="collapse navbar-collapse" id="navbarLinks">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link active" href="#"><img src="/assets/img/work.png" alt="vagas"></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Quem Somos</a>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#"><img src="/assets/img/bell.png" alt="notificações"></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Produtos/Serviços</a>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#"><img src="/assets/img/person.png" alt="perfil"></a>
                         </li>
-
-                        <?php if (Session::get("userId")): ?>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Usuário
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="<?= baseUrl() ?>login/signOut">Sair</a></li>
-                                    <?php if ((int)Session::get("userNivel") <= 20): ?>
-                                        <li><a class="dropdown-item" href="<?= baseUrl() ?>usuario">Usuario</a></li>
-                                    <?php endif; ?>                
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="<?= baseUrl() ?>Usuario/formTrocarSenha">Trocar a Senha</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="<?= baseUrl() ?>uf">UF's</a></li>
-                                    <li><a class="dropdown-item" href="<?= baseUrl() ?>cidade">Cidade</a></li>
-                                </ul>
-                            </li>
-
-                        <?php else: ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= baseUrl() ?>Login">Área restrita</a>
-                            </li>
-
-                        <?php endif; ?>
-
-                    </ul>
+                        </ul>
                     </div>
-                </div>
+                    </div>
                 </nav>
         </header>
-        
+
         <main class="container">
