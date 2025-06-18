@@ -1,8 +1,6 @@
 {
-  "name": "projeto-extensao",
+  "name": "empregamur",
   "scripts": {
-    "services:up": "docker compose up -d",
-    "services:down": "docker compose down",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write ."
   },
