@@ -9,7 +9,7 @@
   <footer class="bg-dark text-light py-4 mt-5">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="mb-3 mb-md-0">
-        <a href="index.html" class="text-decoration-none text-light fw-bold fs-5">EmpregaMur</a>
+        <img src="<?= baseUrl() ?>assets/img/logo1.png" alt="Logo" height="80vh">
         <p class="mb-0 small">© 2025 EmpregaMur. Todos os direitos reservados.</p>
       </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EmpregaMur</title>
-  <link href="<?= baseUrl() ?>assets/img/AtomPHP-icone.png" rel="icon" type="image/png">
+  <link href="<?= baseUrl() ?>assets/img/logo5.png" rel="icon" type="image/png">
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -12,7 +12,7 @@
   <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
       <a class="d-flex align-items-center" href="#">
-        <img src="<?= baseUrl() ?>assets/img/logo6.png" alt="Logo" height="100vh" class="me-2 rounded-circle">
+        <img src="<?= baseUrl() ?>assets/img/logo6.png" alt="Logo" height="100vh" class="me-2">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
         aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
