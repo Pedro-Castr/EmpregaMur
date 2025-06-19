@@ -11,7 +11,7 @@
 <body>
   <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
-      <a class="d-flex align-items-center" href="#">
+      <a class="d-flex align-items-center" href="<?= baseUrl()?>">
         <img src="<?= baseUrl() ?>assets/img/logo6.png" alt="Logo" height="100vh" class="me-2">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -21,16 +21,16 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="#">🏠 Home</a>
+            <a class="nav-link active" href="<?= baseUrl()?>">🏠 Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">💼 Empregos</a>
+            <a class="nav-link active" href="<?= baseUrl() ?>Emprego">💼 Empregos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">🔔 Notificações</a>
+            <a class="nav-link active" href="#">🔔 Notificações</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">👤 Perfil</a>
+            <a class="nav-link active" href="#">👤 Perfil</a>
           </li>
         </ul>
       </div>

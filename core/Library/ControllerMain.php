@@ -38,23 +38,12 @@ class ControllerMain
 
         // carregar helper padrão
         $this->loadHelper(["formulario", "utilits"]);
-
-        // Verifida os controllers autorizados sem login efetuado, permitindo passar controller Api que serão validados a parte
-        if (substr($this->controller, 0, 3) != "Api") {
-
-            if (!in_array($this->controller, CONTROLLER_AUTH)) {
-                if (!Session::get("userId")) {
-                    return Redirect::page("login", ['msgError' => "Para acessar a rotina favor antes efetuar o login."]);
-                }
-            }
-
-        }
     }
 
     /**
      * validaNivelAcesso
      *
-     * @param int $nivelMinino 
+     * @param int $nivelMinino
      * @return void
      */
     public function validaNivelAcesso(int $nivelMinino = 20)
@@ -67,13 +56,13 @@ class ControllerMain
     /**
      * loadModel
      *
-     * @param string $nomeModel 
+     * @param string $nomeModel
      * @return void|object
      */
     public function loadModel($nomeModel)
     {
         $pathModel = "App\Model\\" . $nomeModel . "Model";
-        
+
         if (class_exists($pathModel)) {
             return new $pathModel();
         }
@@ -82,7 +71,7 @@ class ControllerMain
     /**
      * loadHelper
      *
-     * @param string|array $nomeHelper 
+     * @param string|array $nomeHelper
      * @return void
      */
     public function loadHelper($nomeHelper)
@@ -93,7 +82,7 @@ class ControllerMain
 
         foreach ($nomeHelper AS $value) {
             $pathHelperAtom = ".." . DIRECTORY_SEPARATOR . "core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "{$value}.php";
-            
+
             if (file_exists($pathHelperAtom)) {
                 require_once $pathHelperAtom;
             } else {
@@ -102,16 +91,16 @@ class ControllerMain
                 if (file_exists($pathHelperUser)) {
                     require_once $pathHelperUser;
                 }
-            }        
+            }
         }
     }
 
     /**
      * loadView
      *
-     * @param string $nome 
-     * @param array $dados 
-     * @param bool $exibeCabRodape 
+     * @param string $nome
+     * @param array $dados
+     * @param bool $exibeCabRodape
      * @return void
      */
     public function loadView($nome, $dados = [], $exibeCabRodape = true)
@@ -137,7 +126,7 @@ class ControllerMain
 				$_POST = $dados;
 			}
 		}
-        
+
         // Será utilizado futuramente para recuperar valores quando idenficado
         if (Session::get("errors") != false) {
             $_POST['formErrors'] = Session::getDestroy('errors');

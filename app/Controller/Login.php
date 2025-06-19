@@ -42,15 +42,15 @@ class Login extends ControllerMain
 
         if (count($aUser) > 0) {
 
-            // validar a senha            
+            // validar a senha
             if (!password_verify(trim($post["senha"]), trim($aUser['senha'])) ) {
                 return Redirect::page("login", [
                     "msgError" => 'Login ou senha inválido.',
                     'inputs' => ["email" => $post['email']]
                 ]);
             }
-            
-            // validar o status do usuário            
+
+            // validar o status do usuário
             if ($aUser['statusRegistro'] == 2 ) {
                 return Redirect::page("login", [
                     "msgError" => 'Usuário Inativo, não será possível prosseguir !',
@@ -59,17 +59,17 @@ class Login extends ControllerMain
             }
 
             //  Criar flag's de usuário logado no sistema
-            
+
             Session::set("userId"   , $aUser['id']);
             Session::set("userNome" , $aUser['nome']);
             Session::set("userEmail", $aUser['email']);
             Session::set("userNivel", $aUser['nivel']);
             Session::set("userSenha", $aUser['senha']);
-            
+
             // Direcionar o usuário para página home
             return Redirect::page("sistema");
             //
-            
+
         } else {
             return Redirect::page("login", [
                 "msgError" => 'Login ou senha inválido.',
@@ -90,7 +90,7 @@ class Login extends ControllerMain
         Session::destroy('userEmail');
         Session::destroy('userNivel');
         Session::destroy('userSenha');
-        
+
         return Redirect::Page("home");
     }
 
@@ -147,7 +147,7 @@ class Login extends ControllerMain
 
                 // Inserindo nova solicitação
                 $resIns = $usuarioRecuperaSenhaModel->db->table('usuariorecuperasenha')->insert([
-                    "usuario_id" => $user["id"], 
+                    "usuario_id" => $user["id"],
                     "chave" => $chave,
                     "created_at" => $created_at
                 ]);
@@ -155,9 +155,9 @@ class Login extends ControllerMain
                 if ($resIns) {
                     return Redirect::page("login", [
                         "msgSucesso" => "Link para recuperação da senha enviado com sucesso! Verifique seu e-mail."
-                    ]);   
+                    ]);
                 } else {
-                    return Redirect::page("login/esqueciASenha");   
+                    return Redirect::page("login/esqueciASenha");
                 }
 
             } else {
@@ -169,7 +169,7 @@ class Login extends ControllerMain
     /**
      * recuperarSenha
      *
-     * @param string $chave 
+     * @param string $chave
      * @return void
      */
     public function recuperarSenha($chave)
@@ -209,7 +209,7 @@ class Login extends ControllerMain
 
                         return Redirect::page("Login/esqueciASenha", [
                             "msgError" => "Link de recuperação da senha inválida."
-                        ]); 
+                        ]);
                     }
 
                 } else {
@@ -219,10 +219,10 @@ class Login extends ControllerMain
 
                     return Redirect::page("Login/esqueciASenha", [
                         "msgError" => "Usuário para o link de recuperação da senha não localizado."
-                    ]); 
+                    ]);
 
                 }
-                
+
             } else {
 
                 // Desativa chave
@@ -230,13 +230,13 @@ class Login extends ControllerMain
 
                 return Redirect::page("Login/esqueciASenha", [
                     "msgError" => "Link de recuperação da senha expirada."
-                ]); 
+                ]);
             }
 
         } else {
             return Redirect::page("Login/esqueciASenha", [
                 "msgError" => "Link de recuperação da senha não localizada."
-            ]);             
+            ]);
         }
     }
 
@@ -272,7 +272,7 @@ class Login extends ControllerMain
                     Session::destroy("msgError");
                     return Redirect::page("Login", [
                         "msgSuccesso"    => "Senha atualizada com sucesso !"
-                    ]);  
+                    ]);
 
                 } else {
                     return $this->loadView("login/recuperarSenha", $post);
@@ -297,10 +297,10 @@ class Login extends ControllerMain
     public function criaSuperUser()
     {
         $dados = [
-            "nivel"             => 1,
-            "nome"              => "Aldecir Fonseca",
-            "email"             => "aldecir.fonseca@santamarcelina.edu.br",
-            "senha"             => password_hash("fasm@2025", PASSWORD_DEFAULT),
+            "pessoa_fisica_id" => 1,
+            "senha" => "Super Admin",
+            "email"             => "empregamur@gmail.com",
+            "senha"             => password_hash("EmpregaMur123", PASSWORD_DEFAULT),
             "statusRegistro"    => 1
         ];
 
