@@ -9,16 +9,20 @@ class EmpregoModel extends ModelMain
     protected $table = "vaga";
 
     public $validationRules = [
-        "nome"  => [
-            "label" => 'Nome',
+        "descricao"  => [
+            "label" => 'Descrição',
             "rules" => 'required|min:3|max:50'
         ],
-        "codIBGE"  => [
-            "label" => 'Código do IBGE',
-            "rules" => 'required|min:7|max:7'
+        "sobreaVaga"  => [
+            "label" => 'Sobre a Vaga',
+            "rules" => 'required|min:10|max:150'
         ],
-        "uf_id"  => [
-            "label" => 'UF',
+        "modalidade"  => [
+            "label" => 'Modalidade',
+            "rules" => 'required|int'
+        ],
+        "vinculo"  => [
+            "label" => 'Vínculo',
             "rules" => 'required|int'
         ]
     ];
