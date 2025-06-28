@@ -1,3 +1,8 @@
+<?php 
+$aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
+$aVinculo  = ["1" => "CLT", "2" => "PJ"];
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -23,8 +28,8 @@
               <h5 class="card-title"><?= $value['descricao'] ?></h5>
               <p class="card-text text-muted small">Empresa XYZ Ltda</p>
               <p class="card-text"><?= $value['sobreaVaga'] ?></p>
-              <span class="badge bg-primary me-2">Presencial</span>
-              <span class="badge bg-success">CLT</span>
+              <span class="badge bg-primary me-2"><?= $aModalidade[$value['modalidade']] ?></span>
+              <span class="badge bg-success"><?= $aVinculo[$value['vinculo']] ?></span>
             </div>
             <div class="card-footer bg-transparent text-end">
               <a href="#" class="btn btn-sm btn-outline-success">Candidatar a Vaga</a>
