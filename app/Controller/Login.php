@@ -50,16 +50,7 @@ class Login extends ControllerMain
                 ]);
             }
 
-            // validar o status do usuário
-            if ($aUser['statusRegistro'] == 2 ) {
-                return Redirect::page("login", [
-                    "msgError" => 'Usuário Inativo, não será possível prosseguir !',
-                    'inputs' => ["email" => $post['email']]
-                ]);
-            }
-
             //  Criar flag's de usuário logado no sistema
-
             Session::set("userId"   , $aUser['id']);
             Session::set("userNome" , $aUser['nome']);
             Session::set("userEmail", $aUser['email']);
@@ -68,7 +59,6 @@ class Login extends ControllerMain
 
             // Direcionar o usuário para página home
             return Redirect::page("sistema");
-            //
 
         } else {
             return Redirect::page("login", [

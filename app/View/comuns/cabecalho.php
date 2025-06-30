@@ -30,7 +30,7 @@
             <a class="nav-link active" href="#">🔔 Notificações</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">👤 Perfil</a>
+            <a class="nav-link active" href="<?= baseUrl() ?>Login">👤 Perfil</a>
           </li>
         </ul>
       </div>
