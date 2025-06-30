@@ -47,5 +47,5 @@ INSERT INTO vaga (cargo_id, descricao, sobreaVaga, modalidade, vinculo, dtInicio
 (1, 'Auxiliar Administrativo', 'Atuar com atendimento ao público, organização de documentos e apoio geral nas rotinas administrativas.', 1, 1, '2025-06-01', '2025-07-01', 1, 1),
 (2, 'Desenvolvedor Front-End', 'Desenvolvimento de interfaces web responsivas usando HTML, CSS, JavaScript e frameworks modernos.', 2, 2, '2025-06-10', '2025-08-10', 2, 1),
 (3, 'Técnico de Suporte', 'Prestar suporte técnico a usuários internos, instalar e configurar equipamentos e redes.', 1, 1, '2025-06-15', '2025-07-15', 3, 1),
-(4, 'Estagiário de Marketing', 'Auxílio na criação de campanhas, postagens em redes sociais e monitoramento de resultados.', 3, 3, '2025-06-20', '2025-09-20', 4, 1),
+(4, 'Estagiário de Marketing', 'Auxílio na criação de campanhas, postagens em redes sociais e monitoramento de resultados.', 3, 1, '2025-06-20', '2025-09-20', 4, 1),
 (5, 'Analista de Sistemas', 'Análise e desenvolvimento de sistemas conforme as demandas de negócio, documentação e testes.', 3, 1, '2025-06-18', '2025-08-18', 5, 1);
