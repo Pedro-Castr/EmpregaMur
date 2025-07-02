@@ -11,7 +11,6 @@
       justify-content: center;
       align-items: center;
       padding: 2rem 1rem;
-      background-color: #f8f9fa;
     }
 
     .login-box {
@@ -43,7 +42,7 @@
         <button type="submit" class="btn btn-primary w-100">Entrar</button>
       </form>
       <div class="text-center mt-3">
-        <small>Não tem uma conta? <a href="<?= baseUrl() ?>Login/cadastro">Cadastre-se</a></small>
+        <small>Não tem uma conta? <a href="<?= baseUrl() ?>cadastro">Cadastre-se</a></small>
       </div>
     </div>
   </div>
