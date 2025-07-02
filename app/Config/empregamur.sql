@@ -8,7 +8,6 @@ CREATE TABLE estabelecimento (
   latitude CHAR(12) NOT NULL,
   longitude CHAR(12) NOT NULL,
   email VARCHAR(150) DEFAULT NULL,
-  foto_perfil VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (estabelecimento_id),
   FULLTEXT INDEX ft_busca (nome)
 );
@@ -40,13 +39,15 @@ CREATE TABLE pessoa_fisica (
 CREATE TABLE usuario (
   usuario_id INT NOT NULL AUTO_INCREMENT,
   pessoa_fisica_id INT NOT NULL,
+  estabelecimento_id INT NOT NULL,
   login VARCHAR(50) DEFAULT NULL,
   senha VARCHAR(50) DEFAULT NULL,
   tipo CHAR(2) NOT NULL,
   foto_perfil VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (usuario_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
-  FOREIGN KEY (pessoa_fisica_id) REFERENCES pessoa_fisica (pessoa_fisica_id)
+  FOREIGN KEY (pessoa_fisica_id) REFERENCES pessoa_fisica (pessoa_fisica_id),
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (estabelecimento_id)
 );
 
 CREATE TABLE telefone (
@@ -216,3 +217,15 @@ CREATE TABLE postagem_reacao (
   FOREIGN KEY (postagem_id) REFERENCES postagem (postagem_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
 );
+
+/*
+Alterações feitas até agora:
+
+1. Criação das tabelas postagem e psotagem_reacao, para guardar informações do feed.
+
+2. Adição de um campo na tabela de usuario para armazenar a foto de perfil.
+
+3. Relacionamento entre a tabela de estabelecimento com a tabela de usuario.
+
+4. Alteração do campo senha na tabela usuario para VARCHAR(255), para comportar o hash da senha criada.
+*/
