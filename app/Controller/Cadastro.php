@@ -6,6 +6,7 @@ use App\Model\UsuarioModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
+use Core\Library\Validator;
 
 class Cadastro extends ControllerMain
 {
@@ -30,40 +31,51 @@ class Cadastro extends ControllerMain
     }
 
     /**
-     * signIn
+     * singUpPf
      *
      * @return void
      */
-    public function signIn()
+    public function signUpPf()
     {
-        $post   = $this->request->getPost();
-        $aUser  = $this->model->getUserEmail($post['email']);
+        $post = $this->request->getPost();
 
-        if (count($aUser) > 0) {
-
-            // validar a senha
-            if (!password_verify(trim($post["senha"]), trim($aUser['senha'])) ) {
-                return Redirect::page("login", [
-                    "msgError" => 'Login ou senha inválido.',
-                    'inputs' => ["email" => $post['email']]
-                ]);
-            }
-
-            //  Criar flag's de usuário logado no sistema
-            Session::set("userId"   , $aUser['id']);
-            Session::set("userNome" , $aUser['nome']);
-            Session::set("userEmail", $aUser['email']);
-            Session::set("userNivel", $aUser['nivel']);
-            Session::set("userSenha", $aUser['senha']);
-
-            // Direcionar o usuário para página home
-            return Redirect::page("sistema");
-
-        } else {
-            return Redirect::page("login", [
-                "msgError" => 'Login ou senha inválido.',
-                'inputs' => ["email" =>$post['email']]
-            ]);
+        if (Validator::make($post, $this->model->validationRulesPf)) {
+            return Redirect::page("cadastro");
         }
+
+        if ($this->model->getUserEmail($post['email'])) {
+            Session::set("msgError", "E-mail já cadastrado.");
+            Session::set("inputs", $post);
+            return Redirect::page("cadastro");
+        }
+
+        // Primeiro: inserir na tabela pessoa_fisica
+        $dadosPf = [
+            "nome" => $post['nome'],
+            "cpf"  => $post['cpf']
+        ];
+        $idPessoaFisica = $this->model->db->table("pessoa_fisica")->insert($dadosPf);
+
+        if (!$idPessoaFisica) {
+            Session::set("msgError", "Erro ao cadastrar pessoa física.");
+            return Redirect::page("cadastro");
+        }
+
+        // Segundo: inserir na tabela usuario
+        $dadosUsuario = [
+            "pessoa_fisica_id" => $idPessoaFisica,
+            "login"           => $post["email"],
+            "senha"           => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "tipo"            => "PF"
+        ];
+        $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
+
+        if (!$idUsuario) {
+            Session::set("msgError", "Erro ao cadastrar usuário.");
+            return Redirect::page("cadastro");
+        }
+
+        return Redirect::page("login", ["msgSucesso" => "Cadastro realizado com sucesso!"]);
     }
+
 }

@@ -27,6 +27,9 @@
   <div class="cadastro-wrapper">
     <div class="cadastro-box">
       <h3 class="mb-4 text-center">Cadastro</h3>
+      <div class="col-12 mb-3">
+          <?= exibeAlerta() ?>
+      </div>
       <ul class="nav nav-tabs mb-3" id="cadastroTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="pf-tab" data-bs-toggle="tab" data-bs-target="#pf-pane" type="button" role="tab" aria-controls="pf-pane" aria-selected="true">

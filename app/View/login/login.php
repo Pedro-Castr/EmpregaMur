@@ -27,6 +27,9 @@
   <div class="login-wrapper">
     <div class="login-box">
       <h3 class="text-center mb-4">Acesse sua conta</h3>
+      <div class="col-12 mb-3">
+          <?= exibeAlerta() ?>
+      </div>
       <form action="login/signIn" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>

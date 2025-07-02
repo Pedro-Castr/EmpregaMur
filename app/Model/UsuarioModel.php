@@ -8,33 +8,64 @@ class UsuarioModel extends ModelMain
 {
     protected $table = "usuario";
 
-    public $validationRules = [
-        "nome"  => [
-            "label" => 'Nome',
-            "rules" => 'required|min:3|max:60'
+    public $validationRulesPf = [
+        "nome" => [
+            "label" => "Nome",
+            "rules" => "required|min:3|max:100"
         ],
-        "email"  => [
-            "label" => 'Email',
-            "rules" => 'required|min:5|max:150'
+        "email" => [
+            "label" => "E-mail",
+            "rules" => "required|email|max:150"
         ],
-        "nivel"  => [
-            "label" => 'Nível',
-            "rules" => 'required|int'
+        "cpf" => [
+            "label" => "CPF",
+            "rules" => "required|min:11|max:11"
         ],
-        "statusRegistro"  => [
-            "label" => 'Status',
-            "rules" => 'required|int'
+        "senha" => [
+            "label" => "Senha",
+            "rules" => "required|min:6|max:100"
+        ],
+        "confirmar_senha" => [
+            "label" => "Confirmação de Senha",
+            "rules" => "required|min:6|max:100"
+        ]
+    ];
+
+    public $validationRulesPj = [
+        "nome_empresa" => [
+            "label" => "Nome da Empresa",
+            "rules" => "required|min:3|max:100"
+        ],
+        "email" => [
+            "label" => "E-mail",
+            "rules" => "required|email|max:150"
+        ],
+        "latitude" => [
+            "label" => "Latitude",
+            "rules" => "required"
+        ],
+        "longitude" => [
+            "label" => "Longitude",
+            "rules" => "required"
+        ],
+        "senha" => [
+            "label" => "Senha",
+            "rules" => "required|min:6|max:100"
+        ],
+        "confirmar_senha" => [
+            "label" => "Confirmação de Senha",
+            "rules" => "required|min:6|max:100"
         ]
     ];
 
     /**
      * getUserEmail
      *
-     * @param string $email 
+     * @param string $email
      * @return array
      */
     public function getUserEmail($email)
     {
-        return $this->db->where("email", $email)->first();
+        return $this->db->where("login", $email)->first();
     }
 }
