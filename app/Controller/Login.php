@@ -278,32 +278,4 @@ class Login extends ControllerMain
             return $this->loadView("login/recuperarSenha", $post);
         }
     }
-
-    /**
-     * criaSuperUser
-     *
-     * @return void
-     */
-    public function criaSuperUser()
-    {
-        $dados = [
-            "pessoa_fisica_id" => 1,
-            "senha" => "Super Admin",
-            "email"             => "empregamur@gmail.com",
-            "senha"             => password_hash("EmpregaMur123", PASSWORD_DEFAULT),
-            "statusRegistro"    => 1
-        ];
-
-        $aSuperUser = $this->model->getUserEmail($dados['email']);
-
-        if (count($aSuperUser) > 0) {
-            return Redirect::Page("login", ["msgError" => "Login já existe."]);
-        } else {
-            if ($this->model->insert($dados)) {
-                return Redirect::Page("login", ["msgSucesso" => "Login criado com sucesso."]);
-            } else {
-                return Redirect::Page("login");
-            }
-        }
-    }
 }
