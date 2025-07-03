@@ -51,14 +51,13 @@ class Login extends ControllerMain
             }
 
             //  Criar flag's de usuário logado no sistema
-            Session::set("userId"   , $aUser['id']);
+            Session::set("userId"   , $aUser['usuario_id']);
             Session::set("userNome" , $aUser['nome']);
-            Session::set("userEmail", $aUser['email']);
-            Session::set("userNivel", $aUser['nivel']);
-            Session::set("userSenha", $aUser['senha']);
+            Session::set("userEmail", $aUser['login']);
+            Session::set("userTipo", $aUser['tipo']);
 
             // Direcionar o usuário para página home
-            return Redirect::page("sistema");
+            return Redirect::page("home");
 
         } else {
             return Redirect::page("login", [
@@ -78,8 +77,7 @@ class Login extends ControllerMain
         Session::destroy('userId');
         Session::destroy('userNome');
         Session::destroy('userEmail');
-        Session::destroy('userNivel');
-        Session::destroy('userSenha');
+        Session::destroy('userTipo');
 
         return Redirect::Page("home");
     }

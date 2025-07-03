@@ -72,9 +72,10 @@ class Cadastro extends ControllerMain
         // Segundo: inserir na tabela usuario
         $dadosUsuario = [
             "pessoa_fisica_id" => $idPessoaFisica,
-            "login"           => $post["email"],
-            "senha"           => password_hash($post["senha"], PASSWORD_DEFAULT),
-            "tipo"            => "PF"
+            "nome"             => $post['nome'],
+            "login"            => $post["email"],
+            "senha"            => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "tipo"             => "PF"
         ];
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
 
@@ -129,9 +130,10 @@ class Cadastro extends ControllerMain
         // Segundo: inserir na tabela usuario
         $dadosUsuario = [
             "estabelecimento_id" => $idEstabelecimento,
-            "login"           => $post["email"],
-            "senha"           => password_hash($post["senha"], PASSWORD_DEFAULT),
-            "tipo"            => "PJ"
+            "nome"               => $post['nome_empresa'],
+            "login"              => $post["email"],
+            "senha"              => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "tipo"               => "PJ"
         ];
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
 

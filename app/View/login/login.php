@@ -33,11 +33,11 @@
       <form action="login/signIn" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="exemplo@email.com" required>
+          <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="mb-1">
           <label for="senha" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+          <input type="password" class="form-control" id="senha" name="senha" required>
         </div>
         <div class="text-end mb-3">
           <a href="<?= baseUrl() ?>Login/esqueciASenha" class="link-secondary" style="font-size: 0.9rem;">Esqueci minha senha</a>
