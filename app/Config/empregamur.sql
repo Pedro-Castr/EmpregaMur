@@ -40,6 +40,7 @@ CREATE TABLE usuario (
   usuario_id INT NOT NULL AUTO_INCREMENT,
   pessoa_fisica_id INT NOT NULL,
   estabelecimento_id INT NOT NULL,
+  nome VARCHAR(150) NOT NULL,
   login VARCHAR(50) DEFAULT NULL,
   senha VARCHAR(50) DEFAULT NULL,
   tipo CHAR(2) NOT NULL,
@@ -223,7 +224,7 @@ Alterações feitas até agora:
 
 1. Criação das tabelas postagem e psotagem_reacao, para guardar informações do feed.
 
-2. Adição de um campo na tabela de usuario para armazenar a foto de perfil.
+2. Adição dos campos foto_perfil e nome na tabela de usuario.
 
 3. Relacionamento entre a tabela de estabelecimento com a tabela de usuario.
 
