@@ -78,4 +78,54 @@ class Cadastro extends ControllerMain
         return Redirect::page("login", ["msgSucesso" => "Cadastro realizado com sucesso!"]);
     }
 
+        /**
+     * singUpPj
+     *
+     * @return void
+     */
+    public function signUpPj()
+    {
+        $post = $this->request->getPost();
+
+        if (Validator::make($post, $this->model->validationRulesPj)) {
+            return Redirect::page("cadastro");
+        }
+
+        if ($this->model->getUserEmail($post['email'])) {
+            Session::set("msgError", "E-mail já cadastrado.");
+            Session::set("inputs", $post);
+            return Redirect::page("cadastro");
+        }
+
+        // Primeiro: inserir na tabela estabelecimento
+        $dadosPj = [
+            "nome"      => $post['nome_empresa'],
+            "latitude"  => $post['latitude'],
+            "longitude" => $post['longitude'],
+            "email"     => $post["email"]
+        ];
+        $idEstabelecimento = $this->model->db->table("estabelecimento")->insert($dadosPj);
+
+        if (!$idEstabelecimento) {
+            Session::set("msgError", "Erro ao cadastrar empresa.");
+            return Redirect::page("cadastro");
+        }
+
+        // Segundo: inserir na tabela usuario
+        $dadosUsuario = [
+            "estabelecimento_id" => $idEstabelecimento,
+            "login"           => $post["email"],
+            "senha"           => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "tipo"            => "PJ"
+        ];
+        $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
+
+        if (!$idUsuario) {
+            Session::set("msgError", "Erro ao cadastrar usuário.");
+            return Redirect::page("cadastro");
+        }
+
+        return Redirect::page("login", ["msgSucesso" => "Cadastro realizado com sucesso!"]);
+    }
+
 }
