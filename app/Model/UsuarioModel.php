@@ -31,6 +31,21 @@ class UsuarioModel extends ModelMain
         ]
     ];
 
+    public function validatePfData(array $data): ?string
+    {
+        // Confirmação de senha
+        if ($data['senha'] !== $data['confirmar_senha']) {
+            return "As senhas não coincidem.";
+        }
+
+        // Validação simples de CPF
+        if (!preg_match('/^\d{11}$/', $data['cpf'])) {
+            return "CPF inválido. Deve conter apenas números (11 dígitos).";
+        }
+
+        return null; // Tudo certo
+    }
+
     public $validationRulesPj = [
         "nome_empresa" => [
             "label" => "Nome da Empresa",
@@ -57,6 +72,21 @@ class UsuarioModel extends ModelMain
             "rules" => "required|min:6|max:100"
         ]
     ];
+
+    public function validatePjData(array $data): ?string
+    {
+        // Confirmação de senha
+        if ($data["senha"] !== $data["confirmar_senha"]) {
+            return "As senhas não coincidem.";
+        }
+
+        // verificar se latitude e longitude são floats válidos
+        if (!is_numeric($data["latitude"]) || !is_numeric($data["longitude"])) {
+            return "Latitude e Longitude devem ser números válidos.";
+        }
+
+        return null; // Tudo certo
+    }
 
     /**
      * getUserEmail
