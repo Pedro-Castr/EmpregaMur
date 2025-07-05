@@ -7,8 +7,8 @@ if (! function_exists('setValor')) {
     /**
      * setValor
      *
-     * @param string $campo 
-     * @param mixed $default 
+     * @param string $campo
+     * @param mixed $default
      * @return mixed
      */
     function setValor($campo, $default = "")
@@ -26,7 +26,7 @@ if (! function_exists('setMsgFilderError')) {
     /**
      * setMsgFilderError
      *
-     * @param string $campo 
+     * @param string $campo
      * @return string
      */
     function setMsgFilderError($campo)
@@ -43,7 +43,7 @@ if (! function_exists('setMsgFilderError')) {
     }
 }
 
-if (! function_exists('exibeAlerta')) {
+if (!function_exists('exibeAlerta')) {
     /**
      * exibeAlerta
      *
@@ -54,28 +54,26 @@ if (! function_exists('exibeAlerta')) {
         $msgSucesso = Session::getDestroy('msgSucesso');
         $msgError   = Session::getDestroy('msgError');
         $msgAlerta  = Session::getDestroy('msgAlerta');
+
         $mensagem   = '';
-        $classAlert = '';
+        $tipo       = 'info'; // padrão
 
         if ($msgSucesso != "") {
-            $mensagem   = $msgSucesso;
-            $classAlert = 'success';
+            $mensagem = $msgSucesso;
+            $tipo     = 'success';
         } elseif ($msgError != "") {
-            $mensagem   = $msgError;
-            $classAlert = 'danger';
+            $mensagem = $msgError;
+            $tipo     = 'error';
         } elseif ($msgAlerta != "") {
-            $mensagem   = $msgAlerta;
-            $classAlert = 'warning';
+            $mensagem = $msgAlerta;
+            $tipo     = 'warning';
         }
 
         if ($mensagem == "") {
             return "";
-        } else {
-            return  '<div class="m-2 alert alert-' . $classAlert . ' alert-dismissible fade show" role="alert">
-                        ' . $mensagem . '
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
         }
+
+        return "<script>showToast(" . json_encode($mensagem) . ", '$tipo');</script>";
     }
 }
 
@@ -83,7 +81,7 @@ if (! function_exists('datatables')) {
     /**
      * datatables
      *
-     * @param string $idTable 
+     * @param string $idTable
      * @return string
      */
     function datatables($idTable)

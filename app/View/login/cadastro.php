@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <style>
   .cadastro-wrapper {
     display: flex;
@@ -24,6 +27,10 @@
 </style>
 </head>
 <body>
+    <!-- Toastify -->
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="<?= baseUrl(); ?>assets/js/toastify.js"></script>
+
   <div class="cadastro-wrapper">
     <div class="cadastro-box">
       <h3 class="mb-4 text-center">Cadastro</h3>
