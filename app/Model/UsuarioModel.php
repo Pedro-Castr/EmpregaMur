@@ -9,82 +9,70 @@ class UsuarioModel extends ModelMain
     protected $table = "usuario";
 
     public $validationRulesPf = [
-        "nome" => [
+        "nome_pf" => [
             "label" => "Nome",
-            "rules" => "required|min:3|max:100"
+            "rules" => "required|min:5|max:150"
         ],
-        "email" => [
+        "email_pf" => [
             "label" => "E-mail",
-            "rules" => "required|email|max:150"
+            "rules" => "required|email|max:50"
         ],
         "cpf" => [
             "label" => "CPF",
-            "rules" => "required|min:11|max:11"
+            "rules" => "required|int|min:11|max:11"
         ],
-        "senha" => [
+        "senha_pf" => [
             "label" => "Senha",
-            "rules" => "required|min:6|max:100"
+            "rules" => "required|min:8|max:50"
         ],
-        "confirmar_senha" => [
+        "confirmar_senha_pf" => [
             "label" => "Confirmação de Senha",
-            "rules" => "required|min:6|max:100"
+            "rules" => "required|min:8|max:50"
         ]
     ];
 
     public function validatePfData(array $data): ?string
     {
         // Confirmação de senha
-        if ($data['senha'] !== $data['confirmar_senha']) {
+        if ($data['senha_pf'] !== $data['confirmar_senha_pf']) {
             return "As senhas não coincidem.";
         }
-
-        // Validação simples de CPF
-        if (!preg_match('/^\d{11}$/', $data['cpf'])) {
-            return "CPF inválido. Deve conter apenas números (11 dígitos).";
-        }
-
         return null; // Tudo certo
     }
 
     public $validationRulesPj = [
-        "nome_empresa" => [
+        "nome_pj" => [
             "label" => "Nome da Empresa",
-            "rules" => "required|min:3|max:100"
+            "rules" => "required|min:5|max:50"
         ],
-        "email" => [
+        "email_pj" => [
             "label" => "E-mail",
-            "rules" => "required|email|max:150"
+            "rules" => "required|email|max:50"
         ],
         "latitude" => [
             "label" => "Latitude",
-            "rules" => "required"
+            "rules" => "required|float"
         ],
         "longitude" => [
             "label" => "Longitude",
-            "rules" => "required"
+            "rules" => "required|float"
         ],
-        "senha" => [
+        "senha_pj" => [
             "label" => "Senha",
-            "rules" => "required|min:6|max:100"
+            "rules" => "required|min:8|max:50"
         ],
-        "confirmar_senha" => [
+        "confirmar_senha_pj" => [
             "label" => "Confirmação de Senha",
-            "rules" => "required|min:6|max:100"
+            "rules" => "required|min:8|max:50"
         ]
     ];
 
     public function validatePjData(array $data): ?string
     {
         // Confirmação de senha
-        if ($data["senha"] !== $data["confirmar_senha"]) {
+        if ($data["senha_pj"] !== $data["confirmar_senha_pj"]) {
             return "As senhas não coincidem.";
         }
-
-        // verificar se latitude e longitude são floats válidos
-        if (!is_numeric($data["latitude"]) || !is_numeric($data["longitude"])) {
-            return "Latitude e Longitude devem ser números válidos.";
-        }
-
         return null; // Tudo certo
     }
 

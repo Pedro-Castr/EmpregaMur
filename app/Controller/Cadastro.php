@@ -40,6 +40,7 @@ class Cadastro extends ControllerMain
         $post = $this->request->getPost();
 
         if (Validator::make($post, $this->model->validationRulesPf)) {
+            Session::set("formTipo", "PF");
             return Redirect::page("cadastro");
         }
 
@@ -51,7 +52,7 @@ class Cadastro extends ControllerMain
             return Redirect::page("cadastro");
         }
 
-        if ($this->model->getUserEmail($post['email'])) {
+        if ($this->model->getUserEmail($post['email_pf'])) {
             Session::set("msgError", "E-mail já cadastrado.");
             Session::set("inputs", $post);
             return Redirect::page("cadastro");
@@ -59,7 +60,7 @@ class Cadastro extends ControllerMain
 
         // Primeiro: inserir na tabela pessoa_fisica
         $dadosPf = [
-            "nome" => $post['nome'],
+            "nome" => $post['nome_pf'],
             "cpf"  => $post['cpf']
         ];
         $idPessoaFisica = $this->model->db->table("pessoa_fisica")->insert($dadosPf);
@@ -72,9 +73,9 @@ class Cadastro extends ControllerMain
         // Segundo: inserir na tabela usuario
         $dadosUsuario = [
             "pessoa_fisica_id" => $idPessoaFisica,
-            "nome"             => $post['nome'],
-            "login"            => $post["email"],
-            "senha"            => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "nome"             => $post['nome_pf'],
+            "login"            => $post["email_pf"],
+            "senha"            => password_hash($post["senha_pf"], PASSWORD_DEFAULT),
             "tipo"             => "PF"
         ];
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
@@ -97,6 +98,7 @@ class Cadastro extends ControllerMain
         $post = $this->request->getPost();
 
         if (Validator::make($post, $this->model->validationRulesPj)) {
+            Session::set("formTipo", "PJ");
             return Redirect::page("cadastro");
         }
 
@@ -107,7 +109,7 @@ class Cadastro extends ControllerMain
             return Redirect::page("cadastro");
         }
 
-        if ($this->model->getUserEmail($post['email'])) {
+        if ($this->model->getUserEmail($post['email_pj'])) {
             Session::set("msgError", "E-mail já cadastrado.");
             Session::set("inputs", $post);
             return Redirect::page("cadastro");
@@ -115,10 +117,10 @@ class Cadastro extends ControllerMain
 
         // Primeiro: inserir na tabela estabelecimento
         $dadosPj = [
-            "nome"      => $post['nome_empresa'],
+            "nome"      => $post['nome_pj'],
             "latitude"  => $post['latitude'],
             "longitude" => $post['longitude'],
-            "email"     => $post["email"]
+            "email"     => $post["email_pj"]
         ];
         $idEstabelecimento = $this->model->db->table("estabelecimento")->insert($dadosPj);
 
@@ -130,9 +132,9 @@ class Cadastro extends ControllerMain
         // Segundo: inserir na tabela usuario
         $dadosUsuario = [
             "estabelecimento_id" => $idEstabelecimento,
-            "nome"               => $post['nome_empresa'],
-            "login"              => $post["email"],
-            "senha"              => password_hash($post["senha"], PASSWORD_DEFAULT),
+            "nome"               => $post['nome_pj'],
+            "login"              => $post["email_pj"],
+            "senha"              => password_hash($post["senha_pj"], PASSWORD_DEFAULT),
             "tipo"               => "PJ"
         ];
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
