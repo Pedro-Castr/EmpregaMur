@@ -31,15 +31,6 @@ class UsuarioModel extends ModelMain
         ]
     ];
 
-    public function validatePfData(array $data): ?string
-    {
-        // Confirmação de senha
-        if ($data['senha_pf'] !== $data['confirmar_senha_pf']) {
-            return "As senhas não coincidem.";
-        }
-        return null; // Tudo certo
-    }
-
     public $validationRulesPj = [
         "nome_pj" => [
             "label" => "Nome da Empresa",
@@ -66,15 +57,6 @@ class UsuarioModel extends ModelMain
             "rules" => "required|min:8|max:50"
         ]
     ];
-
-    public function validatePjData(array $data): ?string
-    {
-        // Confirmação de senha
-        if ($data["senha_pj"] !== $data["confirmar_senha_pj"]) {
-            return "As senhas não coincidem.";
-        }
-        return null; // Tudo certo
-    }
 
     /**
      * getUserEmail

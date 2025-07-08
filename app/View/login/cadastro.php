@@ -12,6 +12,7 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Toastify -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -82,13 +83,17 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
             </div>
             <div class="mb-3">
               <label for="senha-pf" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="senha-pf" name="senha_pf" />
+              <input type="password" class="form-control" id="senha-pf" name="senha_pf"
+              onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha', 'msgConfSenha', 'btnCadastrarPf');" />
+              <small id="msgSenha" class="mt-3"></small>
             </div>
             <div class="mb-3">
               <label for="confirma-senha-pf" class="form-label">Confirmar Senha</label>
-              <input type="password" class="form-control" id="confirma-senha-pf" name="confirmar_senha_pf" />
+              <input type="password" class="form-control" id="confirma-senha-pf" name="confirmar_senha_pf"
+              onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha', 'msgConfSenha', 'btnCadastrarPf');" />
+              <small id="msgConfSenha" class="mt-3"></small>
             </div>
-            <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+            <button type="submit" id="btnCadastrarPf" class="btn btn-success w-100" disabled>Cadastrar</button>
             <div class="text-center mt-3">
               <small>Já tem uma conta? <a href="<?= baseUrl() ?>login">Faça login</a></small>
             </div>
@@ -122,13 +127,17 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
             </div>
             <div class="mb-3">
               <label for="senha-pj" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="senha-pj" name="senha_pj" />
+              <input type="password" class="form-control" id="senha-pj" name="senha_pj"
+              onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha', 'msgConfSenha', 'btnCadastrarPj');" />
+              <small id="msgSenha" class="mt-3"></small>
             </div>
             <div class="mb-3">
               <label for="confirma-senha-pj" class="form-label">Confirmar Senha</label>
-              <input type="password" class="form-control" id="confirma-senha-pj" name="confirmar_senha_pj" />
+              <input type="password" class="form-control" id="confirma-senha-pj" name="confirmar_senha_pj"
+              onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha', 'msgConfSenha', 'btnCadastrarPj');" />
+              <small id="msgConfSenha" class="mt-3"></small>
             </div>
-            <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+            <button type="submit" id="btnCadastrarPj" class="btn btn-success w-100" disabled>Cadastrar</button>
             <div class="text-center mt-3">
               <small>Já tem uma conta? <a href="<?= baseUrl() ?>login">Faça login</a></small>
             </div>

@@ -1,51 +1,49 @@
-/*
- * Chega nivel de segurança da Senha
- */
+function checa_segur_senha(idSenha, idConfSenha, campoMsgSenha, campoMsgConfSenha, bBotEnviar) {
+  var senha = document.getElementById(idSenha).value;
+  var confirma = document.getElementById(idConfSenha).value;
 
-function checa_segur_senha(pass, campo, bBotEnviar) {
-  var senha = document.getElementById(pass).value;
   var entrada = 0;
-  var lRet = false;
-  var resultado = '';
+  var senhaOk = false;
+  var confirmacaoOk = false;
 
-  // Verifica se o tamanho da senha é menor que 7 caracteres
+  var resultadoSenha = '';
+  var resultadoConf = '';
 
-  if (senha.length < 7) {
-    entrada = entrada - 1;
-  }
-
-  // verifica se a senha possui caracteres alfanuméricos em minusculos ou numeros
-
-  if (!senha.match(/[a-z_]/i) || !senha.match(/[0-9]/)) {
-    entrada = entrada - 1;
-  }
-
-  // Não-alfanumérico
-
-  if (!senha.match(/\W/)) {
-    entrada = entrada - 1;
-  }
+  // Verifica força da senha
+  if (senha.length < 7) entrada--;
+  if (!senha.match(/[a-z_]/i) || !senha.match(/[0-9]/)) entrada--;
+  if (!senha.match(/\W/)) entrada--;
 
   if (entrada == 0) {
-    resultado = "A segurança de sua senha e: <b><font color='#99C55D'>EXCELENTE</font></b>";
-    lRet = true;
+    resultadoSenha = "A segurança de sua senha é: <b><font color='#99C55D'>EXCELENTE</font></b>";
+    senhaOk = true;
   } else if (entrada == -1) {
-    resultado = "A segurança de sua senha e: <b><font color='#7F7FFF'>BOA</font></b>";
-    lRet = true;
+    resultadoSenha = "A segurança de sua senha é: <b><font color='#7F7FFF'>BOA</font></b>";
+    senhaOk = true;
   } else if (entrada == -2) {
-    resultado = "A segurança de sua senha e: <b><font color='#FF5F55'>RUIM</font></b>";
-  } else if (entrada == -3) {
-    resultado = "A segurança de sua senha e: <b><font color='#A04040'>MUITO RUIM</font></b>";
+    resultadoSenha = "A segurança de sua senha é: <b><font color='#FF5F55'>RUIM</font></b>";
+  } else if (entrada <= -3) {
+    resultadoSenha = "A segurança de sua senha é: <b><font color='#A04040'>MUITO RUIM</font></b>";
   }
 
-  document.getElementById(campo).innerHTML = resultado;
+  document.getElementById(campoMsgSenha).innerHTML = resultadoSenha;
 
-  if (lRet) {
-    document.getElementById(bBotEnviar).disabled = 0; // Habilita botão enviar
+  // Verifica se as senhas coincidem
+  if (confirma.length > 0) {
+    if (senha !== confirma) {
+      resultadoConf = "<font color='red'>As senhas não coincidem</font>";
+      confirmacaoOk = false;
+    } else {
+      resultadoConf = '';
+      confirmacaoOk = true;
+    }
+
+    document.getElementById(campoMsgConfSenha).innerHTML = resultadoConf;
   } else {
-    document.getElementById(pass).focus = true;
-    document.getElementById(bBotEnviar).disabled = 1; // Desabilita botão enviar
+    document.getElementById(campoMsgConfSenha).innerHTML = '';
   }
 
-  return lRet;
+  // Ativa ou desativa o botão passado por parâmetro
+  var botao = document.getElementById(bBotEnviar);
+  botao.disabled = !(senhaOk && confirmacaoOk);
 }

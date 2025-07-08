@@ -44,14 +44,6 @@ class Cadastro extends ControllerMain
             return Redirect::page("cadastro");
         }
 
-        // validações de negócio (mais específicas)
-        $erroNegocio = $this->model->validatePfData($post);
-        if ($erroNegocio) {
-            Session::set("msgError", $erroNegocio);
-            Session::set("inputs", $post);
-            return Redirect::page("cadastro");
-        }
-
         if ($this->model->getUserEmail($post['email_pf'])) {
             Session::set("msgError", "E-mail já cadastrado.");
             Session::set("inputs", $post);
@@ -99,13 +91,6 @@ class Cadastro extends ControllerMain
 
         if (Validator::make($post, $this->model->validationRulesPj)) {
             Session::set("formTipo", "PJ");
-            return Redirect::page("cadastro");
-        }
-
-        $erroValidacao = $this->model->validatePjData($post);
-        if ($erroValidacao) {
-            Session::set("msgError", $erroValidacao);
-            Session::set("inputs", $post);
             return Redirect::page("cadastro");
         }
 
