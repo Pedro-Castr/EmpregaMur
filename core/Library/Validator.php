@@ -2,7 +2,7 @@
 
 namespace Core\Library;
 
-class Validator 
+class Validator
 {
     public static function make(array $data, array $rules)
     {
@@ -25,7 +25,6 @@ class Validator
                                 if (($data[$ruleKey] == "") || (empty($data[$ruleKey]))) {
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve ser preenchido.";
                                 }
-                    
                                 break;
 
                             case 'email' :
@@ -33,7 +32,6 @@ class Validator
                                 if (!filter_var($data[$ruleKey], FILTER_VALIDATE_EMAIL)){
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> não é válido.";
                                 }
-
                                 break;
 
                             case 'float' :
@@ -41,7 +39,6 @@ class Validator
                                 if (!filter_var($data[$ruleKey], FILTER_VALIDATE_FLOAT)){
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter número decimal.";
                                 }
-
                                 break;
 
                             case 'int' :
@@ -49,31 +46,27 @@ class Validator
                                 if (!filter_var($data[$ruleKey], FILTER_VALIDATE_INT)){
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter número inteiro.";
                                 }
-
                                 break;
 
-                            case "min" :                    
-                                
+                            case "min" :
+
                                 if (strlen(strip_tags($data[$ruleKey])) < $items[ 1 ] ){
-                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> dever conter um mínimo " . $items[ 1 ] . " caracteres.";
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> dever conter no mínimo " . $items[ 1 ] . " caracteres.";
                                 }
-
                                 break;
-                            
+
                             case 'max' :
-                    
-                                if (strlen(strip_tags($data[$ruleKey])) > $items[ 1 ] ){
-                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> dever conter um maximo " . $items[ 1 ] . " caracteres.";
-                                }
 
+                                if (strlen(strip_tags($data[$ruleKey])) > $items[ 1 ] ){
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> dever conter no maximo " . $items[ 1 ] . " caracteres.";
+                                }
                                 break;
-                            
+
                             case 'date' :
 
                                 if (!validateDate($data[$ruleKey], 'Y-m-d')) {
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> está com o formato incorreto, formato esperado é Y-m-d";
                                 }
-
                                 break;
 
                             case 'datetime' :
@@ -81,9 +74,16 @@ class Validator
                                 if (!validateDate($data[$ruleKey], 'Y-m-d H:i:s')) {
                                     $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> está com o formato incorreto, formato esperado é Y-m-d";
                                 }
-
                                 break;
-                                
+
+                            case 'cpf':
+                                $cpf = preg_replace('/[^0-9]/', '', $data[$ruleKey]);
+
+                                if (!ctype_digit($cpf) || strlen($cpf) != 11) {
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter exatamente 11 dígitos numéricos.";
+                                }
+                                break;
+
                             default :
                                 break;
                         }

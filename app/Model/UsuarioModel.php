@@ -19,7 +19,7 @@ class UsuarioModel extends ModelMain
         ],
         "cpf" => [
             "label" => "CPF",
-            "rules" => "required|int|min:11|max:11"
+            "rules" => "required|cpf"
         ],
         "senha_pf" => [
             "label" => "Senha",
