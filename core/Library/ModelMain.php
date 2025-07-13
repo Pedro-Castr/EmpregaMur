@@ -29,7 +29,7 @@ class ModelMain
     /**
      * getById
      *
-     * @param int $id 
+     * @param int $id
      * @return array
      */
     public function getById($id)
@@ -37,25 +37,25 @@ class ModelMain
         if ($id == 0) {
             return [];
         } else {
-            return $this->db->where("id", $id)->first();
+            return $this->db->where($this->primaryKey ?? "id", $id)->first();
         }
     }
 
     /**
      * lista
      *
-     * @param string $orderby 
+     * @param string $orderby
      * @return array
      */
     public function lista($orderby = 'descricao', $direction = "ASC")
-    {   
+    {
         return $this->db->orderBy($orderby, $direction)->findAll();
     }
 
     /**
      * insert
      *
-     * @param array $dados 
+     * @param array $dados
      * @return bool
      */
     public function insert($dados)
@@ -68,13 +68,13 @@ class ModelMain
             } else {
                 return false;
             }
-        } 
+        }
     }
 
     /**
      * update
      *
-     * @param array $dados 
+     * @param array $dados
      * @return bool
      */
     public function update($dados)
@@ -93,7 +93,7 @@ class ModelMain
     /**
      * delete
      *
-     * @param array $dados 
+     * @param array $dados
      * @return bool
      */
     public function delete($dados)

@@ -11,10 +11,10 @@ class UsuarioRecuperaSenhaModel extends ModelMain
     /**
      * getRecuperaSenhaChave - Recuperar os dados do usuário especificado em $email
      *
-     * @param string $chave 
+     * @param string $chave
      * @return array
      */
-    public function getRecuperaSenhaChave($chave) 
+    public function getRecuperaSenhaChave($chave)
     {
         return $this->db->where(["statusRegistro" => 1, "chave" => $chave])->first();
     }
@@ -22,35 +22,35 @@ class UsuarioRecuperaSenhaModel extends ModelMain
     /**
      * desativaChave - Desativa chave de acesso
      *
-     * @param mixed $id 
+     * @param mixed $id
      * @return void
      */
-    function desativaChave($id) 
+    function desativaChave($id)
     {
-        $rs = $this->db->where(["id" => $id])->update(["statusRegistro" => 2, "updated_at" => date("Y-m-d H:i:s")]);
-        
+        $rs = $this->db->where(["usuario_id" => $id])->update(["statusRegistro" => 2, "updated_at" => date("Y-m-d H:i:s")]);
+
         if ($rs > 0) {
             return true;
         } else {
             return false;
-        }      
+        }
     }
 
     /**
      * desativaChave - Desativa chave de acesso
      *
-     * @param mixed $id 
+     * @param mixed $id
      * @return void
      */
-    function desativaChaveAntigas($id) 
+    function desativaChaveAntigas($id)
     {
         $rs = $this->db->where(["id <>" => $id])->update(["statusRegistro" => 2]);
-        
+
         if ($rs > 0) {
             return true;
         } else {
             return false;
-        }      
+        }
     }
-    
+
 }

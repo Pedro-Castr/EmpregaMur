@@ -7,6 +7,7 @@ use Core\Library\ModelMain;
 class UsuarioModel extends ModelMain
 {
     protected $table = "usuario";
+    protected $primaryKey = 'usuario_id';
 
     public $validationRulesPf = [
         "nome_pf" => [

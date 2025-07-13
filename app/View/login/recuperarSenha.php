@@ -1,60 +1,54 @@
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
 
-<div class="card col-lg-4 card-background">
-    <div class="card-header">
-        <h3 class="mt-1">Recuperação de Senha</h3>
-    </div>
-    <div class="card-body">
+<div class="card col-lg-5 mx-auto shadow-sm p-4" style="margin-top: 50px; border-radius: 10px; background: #fff;">
+  <div class="card-header text-center border-0 pb-3">
+    <h2 class="fw-bold">Recuperação de Senha</h2>
+    <p class="text-muted">Olá <strong><?= htmlspecialchars($dados['nome']) ?></strong>, digite sua nova senha abaixo.</p>
+  </div>
+  <div class="card-body">
+    <form action="<?= baseUrl() ?>login/atualizaRecuperaSenha" method="POST" id="recuperaSenhaform" novalidate>
 
-        <form action="<?= baseUrl() ?>login/atualizaRecuperaSenha" method="POST" id="recuperaSenhaform" class="form-horizontal" role="form" >
+      <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($dados['id']) ?>">
+      <input type="hidden" name="usuariorecuperasenha_id" value="<?= htmlspecialchars($dados['usuariorecuperasenha_id']) ?>">
 
-            <input type="hidden" name="id" id="id" value="<?= $dados['id'] ?>">
-            <input type="hidden" name="usuariorecuperasenha_id" id="usuariorecuperasenha_id" value="<?= $dados['usuariorecuperasenha_id'] ?>">
-            <input type="hidden" name="nome" id="nome" value="<?= $dados['nome'] ?>">
+      <div class="mb-4">
+        <label for="NovaSenha" class="form-label fw-semibold">Nova Senha</label>
+        <div class="input-group has-validation">
+          <input type="password"
+                class="form-control"
+                id="NovaSenha"
+                name="NovaSenha"
+                placeholder="Digite a nova senha"
+                onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
+                required
+                aria-describedby="msgSenhaNova">
+        </div>
+        <div id="msgSenhaNova" class="form-text text-muted mt-1"></div>
+      </div>
 
-            <div class="input-group mt-3">
-                <label class="ml-1">Olá <b><?= $dados['nome'] ?></b>!</label>
-                <p>Para prosseguir com a recuperação da senha basta digitar a senha nos campos abaixo e clicar em atualizar.</p>
-            </div>
+      <div class="mb-4">
+        <label for="NovaSenha2" class="form-label fw-semibold">Confirme a Nova Senha</label>
+        <div class="input-group has-validation">
+          <input type="password"
+                class="form-control"
+                id="NovaSenha2"
+                name="NovaSenha2"
+                placeholder="Confirme a nova senha"
+                onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
+                required
+                aria-describedby="msgConfSenhaNova">
+        </div>
+        <div id="msgConfSenhaNova" class="form-text text-muted mt-1"></div>
+      </div>
 
-            <div class="control-group mt-3">
-                <span class="input-group-addon"><i class="fa fa-key"></i> Nova Senha</span>
-                <div class="controls mt-2">
-                    <input type="password" class="form-control" 
-                            id="NovaSenha" 
-                            name="NovaSenha" 
-                            required
-                            placeholder="Nova senha" 
-                            onkeyup="checa_segur_senha( 'NovaSenha', 'msgSenhaNova', 'btEnviar' );"
-                            autofocus>
-                    <div id="msgSenhaNova" class="mt-2 mb-3"></div>
-                </div>
-            </div>
+      <div class="d-grid">
+        <button type="submit" id="btEnviar" class="btn btn-primary btn-lg" disabled>Atualizar Senha</button>
+      </div>
 
-            <div class="control-group mb-3">
-                <span class="input-group-addon"><i class="fa fa-key"></i> Confirme a nova senha</span>
-                <div class="controls mt-2">
-                    <input type="password" class="form-control" 
-                            name="NovaSenha2" 
-                            id="NovaSenha2"     
-                            placeholder="Confirma nova senha" 
-                            required
-                            onkeyup="checa_segur_senha( 'NovaSenha2', 'msgSenhaNova2', 'btEnviar' );">
-                    <div id="msgSenhaNova2" class="mt-2 mb-3"></div>
-                </div>
-            </div>
+      <div class="mt-3">
+        <?= exibeAlerta() ?>
+      </div>
 
-            <div class="form-group mt-3">
-                <div class="col-xs-2 controls">
-                    <button class="btn btn-primary" id="btEnviar" disabled>Atualizar</button>
-                </div>
-
-                <div class="col-xs-10 controls">
-                    <?= exibeAlerta() ?>
-                </div>
-
-            </div>
-
-        </form>     
-    </div>        
+    </form>
+  </div>
 </div>

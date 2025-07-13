@@ -113,7 +113,7 @@ class Login extends ControllerMain
         } else {
 
             $created_at = date('Y-m-d H:i:s');
-            $chave      = sha1($user['id'] . $user['senha'] . date('YmdHis', strtotime($created_at)));
+            $chave      = sha1($user['usuario_id'] . $user['senha'] . date('YmdHis', strtotime($created_at)));
             $cLink      = baseUrl() . "login/recuperarSenha/" . $chave;
             $emailTexto = emailRecuperacaoSenha($cLink);
 
@@ -122,7 +122,7 @@ class Login extends ControllerMain
                 $_ENV['MAIL.NOME'],                         /* Nome do Remetente */
                 $emailTexto['assunto'],                     /* Assunto do e-mail */
                 $emailTexto['corpo'],                       /* Corpo do E-mail */
-                $user['email']                              /* Destinatário do E-mail */
+                $user['login']                              /* Destinatário do E-mail */
             );
 
             if ($lRetMail) {
@@ -131,11 +131,11 @@ class Login extends ControllerMain
                 $usuarioRecuperaSenhaModel = $this->loadModel("UsuarioRecuperaSenha");
 
                 // Desativando solicitações antigas
-                $usuarioRecuperaSenhaModel->desativaChaveAntigas($user["id"]);
+                $usuarioRecuperaSenhaModel->desativaChaveAntigas($user["usuario_id"]);
 
                 // Inserindo nova solicitação
                 $resIns = $usuarioRecuperaSenhaModel->db->table('usuariorecuperasenha')->insert([
-                    "usuario_id" => $user["id"],
+                    "usuario_id" => $user["usuario_id"],
                     "chave" => $chave,
                     "created_at" => $created_at
                 ]);
@@ -163,14 +163,14 @@ class Login extends ControllerMain
     public function recuperarSenha($chave)
     {
         $usuarioRecuperaSenhaModel  = $this->loadModel('UsuarioRecuperaSenha');
-        $userChave                  = $usuarioRecuperaSenhaModel->getRecuperaSenhaChave($chave);
+        $userChave = $usuarioRecuperaSenhaModel->getRecuperaSenhaChave($chave);
 
         if ($userChave) {
 
             if (date("Y-m-d H:i:s") <= date("Y-m-d H:i:s" , strtotime("+1 hours" , strtotime($userChave['created_at'])))) {
 
                 $usuarioModel = $this->loadModel('Usuario');
-                $user           = $usuarioModel->getById($userChave['usuario_id']);
+                $user = $usuarioModel->getById($userChave['usuario_id']);
 
                 if ($user) {
 
@@ -179,7 +179,7 @@ class Login extends ControllerMain
                     if ($chaveRecSenha == $userChave['chave']) {
 
                         $dbDados = [
-                            "id"    => $user['id'],
+                            "id"    => $user['usuario_id'],
                             'nome'  => $user['nome'],
                             'usuariorecuperasenha_id' => $userChave['id']
                         ];
@@ -193,7 +193,7 @@ class Login extends ControllerMain
 
                     } else {
                         // Desativa chave
-                        $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['id']);
+                        $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                         return Redirect::page("Login/esqueciASenha", [
                             "msgError" => "Link de recuperação da senha inválida."
@@ -203,7 +203,7 @@ class Login extends ControllerMain
                 } else {
 
                     // Desativa chave
-                    $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['id']);
+                    $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                     return Redirect::page("Login/esqueciASenha", [
                         "msgError" => "Usuário para o link de recuperação da senha não localizado."
@@ -214,7 +214,7 @@ class Login extends ControllerMain
             } else {
 
                 // Desativa chave
-                $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['id']);
+                $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                 return Redirect::page("Login/esqueciASenha", [
                     "msgError" => "Link de recuperação da senha expirada."
@@ -238,7 +238,7 @@ class Login extends ControllerMain
         $UsuarioModel = $this->loadModel("Usuario");
 
         $post       = $this->request->getPost();
-        $userAtual  = $UsuarioModel->getById($post["id"]);
+        $userAtual  = $UsuarioModel->getById($post["usuario_id"]);
 
         if ($userAtual) {
 
@@ -246,9 +246,9 @@ class Login extends ControllerMain
 
                 if ($UsuarioModel->db
                                 ->table("usuario")
-                                ->where(['id' => $post['id']])
+                                ->where(['usuario_id' => $post['usuario_id']])
                                 ->update([
-                                    'senha'      => password_hash(trim($post["NovaSenha"]), PASSWORD_DEFAULT)
+                                    'senha' => password_hash(trim($post["NovaSenha"]), PASSWORD_DEFAULT)
                                 ])
                     ) {
 
