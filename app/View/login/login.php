@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Toastify -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <style>
     .login-wrapper {
@@ -26,16 +24,9 @@
   </style>
 </head>
 <body>
-  <!-- Toastify -->
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="<?= baseUrl(); ?>assets/js/toastify.js"></script>
-
   <div class="login-wrapper">
     <div class="login-box">
       <h3 class="text-center mb-4">Acesse sua conta</h3>
-      <div class="col-12 mb-3">
-          <?= exibeAlerta() ?>
-      </div>
       <form action="login/signIn" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>

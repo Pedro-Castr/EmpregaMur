@@ -6,10 +6,6 @@
   <title>Recuperar Senha</title>
   <link rel="stylesheet" href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Toastify -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="<?= baseUrl() ?>assets/js/toastify.js"></script>
   <style>
     .recuperar-wrapper {
       display: flex;
@@ -32,11 +28,6 @@
   <div class="recuperar-wrapper">
     <div class="recuperar-box">
       <h3 class="mb-4 text-center">🔒 Esqueci minha senha</h3>
-
-      <div class="col-12 mb-3">
-        <?= exibeAlerta() ?>
-      </div>
-
       <form action="<?= baseUrl() ?>login/esqueciASenhaEnvio" method="POST" novalidate>
         <div class="mb-3">
           <label for="email" class="form-label">Informe seu e-mail</label>

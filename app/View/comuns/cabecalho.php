@@ -9,8 +9,15 @@
   <link href="<?= baseUrl() ?>assets/img/logo5.png" rel="icon" type="image/png">
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
+  <!-- Toastify -->
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="<?= baseUrl(); ?>assets/js/toastify.js"></script>
+  <?= exibeAlerta() ?>
+
   <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="<?= baseUrl() ?>">

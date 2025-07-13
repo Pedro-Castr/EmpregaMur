@@ -14,8 +14,6 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
   <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Toastify -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <style>
   .cadastro-wrapper {
@@ -36,16 +34,9 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
 </style>
 </head>
 <body>
-    <!-- Toastify -->
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="<?= baseUrl(); ?>assets/js/toastify.js"></script>
-
   <div class="cadastro-wrapper">
     <div class="cadastro-box">
       <h3 class="mb-4 text-center">Cadastro</h3>
-      <div class="col-12 mb-3">
-          <?= exibeAlerta() ?>
-      </div>
       <ul class="nav nav-tabs mb-3" id="cadastroTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link <?= $formTipo == 'PF' ? 'active' : '' ?>" id="pf-tab" data-bs-toggle="tab" data-bs-target="#pf-pane"
