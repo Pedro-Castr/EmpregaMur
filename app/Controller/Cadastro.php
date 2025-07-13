@@ -45,7 +45,7 @@ class Cadastro extends ControllerMain
         }
 
         if ($this->model->getUserEmail($post['email_pf'])) {
-            Session::set("msgError", "E-mail já cadastrado.");
+            Session::set("toast", ["mensagem" => "E-mail já cadastrado", "tipo" => "error"]);
             Session::set("inputs", $post);
             return Redirect::page("cadastro");
         }
@@ -58,7 +58,7 @@ class Cadastro extends ControllerMain
         $idPessoaFisica = $this->model->db->table("pessoa_fisica")->insert($dadosPf);
 
         if (!$idPessoaFisica) {
-            Session::set("msgError", "Erro ao cadastrar pessoa física.");
+            Session::set("toast", ["mensagem" => "Erro ao cadastrar pessoa física", "tipo" => "error"]);
             return Redirect::page("cadastro");
         }
 
@@ -73,11 +73,14 @@ class Cadastro extends ControllerMain
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
 
         if (!$idUsuario) {
-            Session::set("msgError", "Erro ao cadastrar usuário.");
+            Session::set("toast", ["mensagem" => "Erro ao cadastrar usuário", "tipo" => "error"]);
             return Redirect::page("cadastro");
         }
 
-        return Redirect::page("login", ["msgSucesso" => "Cadastro realizado com sucesso!"]);
+        return Redirect::page("login", [
+            "toast" => ["tipo" => "success", "mensagem" => "Cadastro realizado com sucesso"]
+        ]);
+
     }
 
         /**
@@ -95,7 +98,7 @@ class Cadastro extends ControllerMain
         }
 
         if ($this->model->getUserEmail($post['email_pj'])) {
-            Session::set("msgError", "E-mail já cadastrado.");
+            Session::set("toast", ["mensagem" => "E-mail já cadastrado", "tipo" => "error"]);
             Session::set("inputs", $post);
             return Redirect::page("cadastro");
         }
@@ -110,7 +113,7 @@ class Cadastro extends ControllerMain
         $idEstabelecimento = $this->model->db->table("estabelecimento")->insert($dadosPj);
 
         if (!$idEstabelecimento) {
-            Session::set("msgError", "Erro ao cadastrar empresa.");
+            Session::set("toast", ["mensagem" => "Erro ao cadastrar empresa", "tipo" => "error"]);
             return Redirect::page("cadastro");
         }
 
@@ -125,11 +128,13 @@ class Cadastro extends ControllerMain
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
 
         if (!$idUsuario) {
-            Session::set("msgError", "Erro ao cadastrar usuário.");
+            Session::set("toast", ["mensagem" => "Erro ao cadastrar usuário","tipo" => "error"]);
             return Redirect::page("cadastro");
         }
 
-        return Redirect::page("login", ["msgSucesso" => "Cadastro realizado com sucesso!"]);
+        return Redirect::page("login", [
+            "toast" => ["tipo" => "success", "mensagem" => "Cadastro realizado com sucesso"]
+        ]);
     }
 
 }

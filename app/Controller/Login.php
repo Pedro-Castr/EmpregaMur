@@ -109,7 +109,7 @@ class Login extends ControllerMain
         if (!$user) {
 
             return Redirect::page("Login/esqueciASenha", [
-                "msgError" => "Não foi possivel localizar o e-mail na base de dados !"
+                "toast" => ["mensagem" => "Não foi possivel localizar o e-mail na base de dados", "tipo" => "error"],
             ]);
 
         } else {
@@ -144,7 +144,7 @@ class Login extends ControllerMain
 
                 if ($resIns) {
                     return Redirect::page("login", [
-                        "msgSucesso" => "Link para recuperação da senha enviado com sucesso! Verifique seu e-mail."
+                        "toast" => ["tipo" => "success", "mensagem" => "Link para recuperação da senha enviado. Verifique seu e-mail"]
                     ]);
                 } else {
                     return Redirect::page("login/esqueciASenha");
@@ -186,8 +186,6 @@ class Login extends ControllerMain
                             'usuariorecuperasenha_id' => $userChave['id']
                         ];
 
-                        Session::destroy("msgError");
-
                         // chave válida
                         return $this->loadView("login/recuperarSenha", $dbDados);
 
@@ -198,7 +196,7 @@ class Login extends ControllerMain
                         $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                         return Redirect::page("Login/esqueciASenha", [
-                            "msgError" => "Link de recuperação da senha inválida."
+                            "toast" => ["mensagem" => "Link de recuperação da senha inválido", "tipo" => "error"],
                         ]);
                     }
 
@@ -208,7 +206,7 @@ class Login extends ControllerMain
                     $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                     return Redirect::page("Login/esqueciASenha", [
-                        "msgError" => "Usuário para o link de recuperação da senha não localizado."
+                        "toast" => ["mensagem" => "Usuário para o link de recuperação da senha não localizado", "tipo" => "error"],
                     ]);
 
                 }
@@ -219,13 +217,13 @@ class Login extends ControllerMain
                 $upd = $usuarioRecuperaSenhaModel->desativaChave($userChave['usuario_id']);
 
                 return Redirect::page("Login/esqueciASenha", [
-                    "msgError" => "Link de recuperação da senha expirada."
+                    "toast" => ["mensagem" => "Link de recuperação da senha expirada", "tipo" => "error"],
                 ]);
             }
 
         } else {
             return Redirect::page("Login/esqueciASenha", [
-                "msgError" => "Link de recuperação da senha não localizada."
+                "toast" => ["mensagem" => "Link de recuperação da senha não localizada", "tipo" => "error"],
             ]);
         }
     }
@@ -259,7 +257,6 @@ class Login extends ControllerMain
 
                     $upd = $usuarioRecuperaSenhaModel->desativaChave($post['usuariorecuperasenha_id']);
 
-                    Session::destroy("msgError");
                     return Redirect::page("Login", [
                         "msgSuccesso"    => "Senha atualizada com sucesso !"
                     ]);
@@ -269,12 +266,12 @@ class Login extends ControllerMain
                 }
 
             } else {
-                Session::set("msgError", "Nova senha e conferência da senha estão divergentes !");
+                Session::set("toast", ["mensagem" => "Nova senha e conferência da senha estão divergentes", "tipo" => "error"]);
                 return $this->loadView("login/recuperarSenha", $post);
             }
 
         } else {
-            Session::set("msgError", "Usuário inválido !");
+            Session::set("toast", ["mensagem" => "Usuário inválido", "tipo" => "error"]);
             return $this->loadView("login/recuperarSenha", $post);
         }
     }

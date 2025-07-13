@@ -44,11 +44,6 @@
       <div class="d-grid">
         <button type="submit" id="btEnviar" class="btn btn-primary btn-lg" disabled>Atualizar Senha</button>
       </div>
-
-      <div class="mt-3">
-        <?= exibeAlerta() ?>
-      </div>
-
     </form>
   </div>
 </div>

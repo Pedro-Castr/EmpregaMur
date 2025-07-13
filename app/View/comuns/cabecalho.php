@@ -28,7 +28,6 @@
   <!-- Toastify -->
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="<?= baseUrl(); ?>assets/js/toastify.js"></script>
-  <?= exibeAlerta() ?>
 
   <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container">
