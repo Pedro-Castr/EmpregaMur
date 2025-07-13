@@ -1,20 +1,19 @@
 function showToast(msg, tipo = 'info') {
-  let borderColor = '#0d6efd'; // azul para info (padrão)
-  let textColor = '#000';
+  let backgroundColor = '#739ad3';
 
   switch (tipo) {
     case 'success':
-      borderColor = '#28a745';
+      backgroundColor = '#63da7f';
       break;
     case 'error':
-      borderColor = '#dc3545';
+      backgroundColor = '#e4606d';
       break;
     case 'warning':
-      borderColor = '#ffc107';
+      backgroundColor = '#ffd761';
       break;
     case 'info':
     default:
-      borderColor = '#0d6efd';
+      backgroundColor = '#739ad3';
   }
 
   Toastify({
@@ -25,10 +24,9 @@ function showToast(msg, tipo = 'info') {
     stopOnFocus: true,
     close: true,
     style: {
-      background: '#fff',
-      color: textColor,
-      border: `2px solid ${borderColor}`,
-      boxShadow: `0 0 10px ${borderColor}`,
+      background: backgroundColor,
+      color: '#ffffff',
+      borderRadius: '8px',
     },
   }).showToast();
 }
