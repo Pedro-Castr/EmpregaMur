@@ -1,4 +1,16 @@
-<?php use Core\Library\Session; ?>
+<?php
+  use Core\Library\Session;
+
+  if (!empty($_SESSION['toast'])): ?>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toast = <?= json_encode($_SESSION['toast']) ?>;
+        showToast(toast.mensagem, toast.tipo);
+      });
+    </script>
+    <?php Session::destroy('toast'); ?>
+  <?php endif;
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">

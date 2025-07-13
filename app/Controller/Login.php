@@ -45,7 +45,7 @@ class Login extends ControllerMain
             // validar a senha
             if (!password_verify(trim($post["senha"]), trim($aUser['senha'])) ) {
                 return Redirect::page("login", [
-                    "msgError" => 'Login ou senha inválido.',
+                    "toast" => ["mensagem" => "Login ou senha inválido", "tipo" => "error"],
                     'inputs' => ["email" => $post['email']]
                 ]);
             }
@@ -57,11 +57,13 @@ class Login extends ControllerMain
             Session::set("userTipo", $aUser['tipo']);
 
             // Direcionar o usuário para página home
-            return Redirect::page("home");
+            return Redirect::page("home", [
+                "toast" => ["tipo" => "success", "mensagem" => "Usuário logado com sucesso"]
+            ]);
 
         } else {
             return Redirect::page("login", [
-                "msgError" => 'Login ou senha inválido.',
+                "toast" => ["mensagem" => "Login ou senha inválido", "tipo" => "error"],
                 'inputs' => ["email" =>$post['email']]
             ]);
         }
