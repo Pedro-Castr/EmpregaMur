@@ -219,6 +219,19 @@ CREATE TABLE postagem_reacao (
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
 );
 
+CREATE TABLE usuariorecuperasenha (
+  id INT NOT NULL AUTO_INCREMENT,
+  usuario_id INT NOT NULL,
+  chave varchar(250) NOT NULL,
+  statusRegistro int NOT NULL DEFAULT '1' COMMENT '1=Ativo;2=Inativo',
+  created_at datetime NOT NULL,
+  updated_at datetime DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY chave (chave),
+  KEY FK1_usuariorecuperacaosenha (usuario_id) USING BTREE,
+  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id),
+);
+
 /*
 Alterações feitas até agora:
 
@@ -229,4 +242,6 @@ Alterações feitas até agora:
 3. Relacionamento entre a tabela de estabelecimento com a tabela de usuario.
 
 4. Alteração do campo senha na tabela usuario para VARCHAR(255), para comportar o hash da senha criada.
+
+5. Criei a tabela usuariorecuperasenha, para salvar as alterações de senha realizadas.
 */
