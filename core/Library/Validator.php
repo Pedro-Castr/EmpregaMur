@@ -80,7 +80,23 @@ class Validator
                                 $cpf = preg_replace('/[^0-9]/', '', $data[$ruleKey]);
 
                                 if (!ctype_digit($cpf) || strlen($cpf) != 11) {
-                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter exatamente 11 dígitos numéricos.";
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter 11 dígitos.";
+                                }
+                                break;
+
+                                case 'cep':
+                                $cpf = preg_replace('/[^0-9]/', '', $data[$ruleKey]);
+
+                                if (!ctype_digit($cpf) || strlen($cpf) != 8) {
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter 8 dígitos.";
+                                }
+                                break;
+
+                                case 'telefone':
+                                $cpf = preg_replace('/[^0-9]/', '', $data[$ruleKey]);
+
+                                if (!ctype_digit($cpf) || strlen($cpf) != 11) {
+                                    $errors[$ruleKey] = "O campo <b>{$ruleValue['label']}</b> deve conter 11 dígitos.";
                                 }
                                 break;
 
