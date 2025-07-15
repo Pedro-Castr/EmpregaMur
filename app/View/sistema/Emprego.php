@@ -1,4 +1,4 @@
-<?php 
+<?php
 $aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
 $aVinculo  = ["1" => "CLT", "2" => "PJ"];
 ?>

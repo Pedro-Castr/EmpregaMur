@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
+use Core\Library\Session;
 
 class Perfil extends ControllerMain
 {
@@ -20,25 +21,20 @@ class Perfil extends ControllerMain
      */
     public function index()
     {
-        return $this->loadView("sistema\Perfil", $this->model->lista("nome"));
-    }
-
-    /**
-     * insert
-     *
-     * @return void
-     */
-    public function insert()
-    {
-        $post = $this->request->getPost();
-
-        if ($this->model->insert($post)) {
-            return Redirect::page($this->controller, [
-                "toast" => ["tipo" => "success", "mensagem" => "Registro inserido com sucesso"]
-            ]);
-        } else {
-            return Redirect::page($this->controller . "/form/insert/0");
+        // Verifica se usuário está logado
+        if (!Session::get("userId")) {
+            header("Location: " . baseUrl() . "login");
+            exit;
         }
+
+        // Pega o ID do usuário logado
+        $userId = Session::get("userId");
+
+        // Busca os dados do usuário no model pelo ID
+        $dados = $this->model->getByUserId($userId);
+
+        // Carrega a view passando os dados do usuário
+        return $this->loadView("sistema\\Perfil", $dados);
     }
 
     /**

@@ -7,23 +7,22 @@ use Core\Library\ModelMain;
 class PerfilModel extends ModelMain
 {
     protected $table = "usuario";
+    protected $primaryKey = "usuario_id";
 
     public $validationRules = [
-        "descricao"  => [
-            "label" => 'Descrição',
-            "rules" => 'required|min:3|max:50'
+        "nome"  => [
+            "label" => 'Nome',
+            "rules" => 'required|min:3|max:150'
         ],
-        "sobreaVaga"  => [
-            "label" => 'Sobre a Vaga',
-            "rules" => 'required|min:10|max:150'
-        ],
-        "modalidade"  => [
-            "label" => 'Modalidade',
-            "rules" => 'required|int'
-        ],
-        "vinculo"  => [
-            "label" => 'Vínculo',
-            "rules" => 'required|int'
+        "login"  => [
+            "label" => 'Email',
+            "rules" => 'required|min:10|max:50'
         ]
     ];
+
+    public function getByUserId($userId)
+    {
+        return $this->db->where('usuario_id', $userId)->first();
+    }
 }
+
