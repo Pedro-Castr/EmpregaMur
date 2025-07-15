@@ -56,7 +56,7 @@
     <div class="mb-5">
       <h4 class="text-primary mb-3">Cadastrar Informações</h4>
       <div class="d-flex flex-wrap gap-2">
-        <a href="#" class="btn btn-outline-secondary">Cadastrar Currículo</a>
+        <a href="<?= baseUrl() ?>curriculo/form/insert/0" class="btn btn-outline-secondary">Cadastrar Currículo</a>
         <a href="#" class="btn btn-outline-secondary">Cadastrar Escolaridade</a>
         <!-- Experiência já cadastrada, botão oculto -->
         <a href="#" class="btn btn-outline-secondary">Cadastrar Qualificação</a>
