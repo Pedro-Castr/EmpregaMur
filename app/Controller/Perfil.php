@@ -5,6 +5,8 @@ namespace App\Controller;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
+use App\Model\CurriculoModel;
+use App\Model\CidadeModel;
 
 class Perfil extends ControllerMain
 {
@@ -30,10 +32,31 @@ class Perfil extends ControllerMain
         // Pega o ID do usuário logado
         $userId = Session::get("userId");
 
-        // Busca os dados do usuário no model pelo ID
-        $dados = $this->model->getByUserId($userId);
+        // Busca os dados do usuário
+        $dadosUsuario = $this->model->getByUserId($userId);
 
-        // Carrega a view passando os dados do usuário
+        // Carrega os dados do curriculo
+        $curriculoModel = new CurriculoModel();
+        $pessoaFisicaId = Session::get("pessoa_fisica_id");
+
+        // Busca os dados do currículo relacionados a esse usuário
+        $dadosCurriculo = $curriculoModel->getByPessoaFisicaId($pessoaFisicaId);
+
+        // Carrega os dados da cidade
+        $cidadeModel = new CidadeModel();
+
+        $cidadeId = $dadosCurriculo['cidade_id'];
+        $cidade = $cidadeModel->getById($cidadeId);
+
+        // Junta os dados em um array para a view
+        $dados = [
+            'usuario' => $dadosUsuario,
+            'curriculo' => $dadosCurriculo,
+            'cidade' => $cidade
+        ];
+
+
+        // Carrega a view passando os dados
         return $this->loadView("sistema\\Perfil", $dados);
     }
 
