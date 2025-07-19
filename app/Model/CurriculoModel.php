@@ -10,33 +10,37 @@ class CurriculoModel extends ModelMain
     protected $primaryKey = "curriculum_id";
 
     public $validationRules = [
-        "logradouro"  => [
+        "logradouro" => [
             "label" => 'Logradouro',
             "rules" => 'required|min:3|max:60'
         ],
-        "numero"  => [
+        "numero" => [
             "label" => 'Número',
             "rules" => 'max:10'
         ],
-        "complemento"  => [
+        "complemento" => [
             "label" => 'Complemento',
             "rules" => 'max:20'
         ],
-        "bairro"  => [
+        "bairro" => [
             "label" => 'Bairro',
             "rules" => 'required|min:3|max:50'
         ],
-        "cep"  => [
+        "cep" => [
             "label" => 'CEP',
             "rules" => 'required|int|cep'
         ],
-        "celular"  => [
+        "celular" => [
             "label" => 'Celular',
             "rules" => 'required|int|telefone'
         ],
-        "dataNascimento"  => [
+        "dataNascimento" => [
             "label" => 'Nascimento',
             "rules" => 'required|date'
+        ],
+        "email" => [
+            "label" => 'Email',
+            "rules" => 'required|min:10|max:50'
         ]
     ];
 

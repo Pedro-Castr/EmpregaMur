@@ -5,9 +5,14 @@ namespace App\Controller;
 use App\Model\CidadeModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
+use Core\Library\Session;
+use Core\Library\Validator;
+use Core\Library\Files;
 
 class Curriculo extends ControllerMain
 {
+    protected $files;
+
     public function __construct()
     {
         $this->auxiliarconstruct();
@@ -45,10 +50,29 @@ class Curriculo extends ControllerMain
     {
         $post = $this->request->getPost();
 
-        if ($this->model->insert($post)) {
-            return Redirect::page($this->controller, ["msgSucesso" => "Registro inserido com sucesso."]);
-        } else {
+        if (Validator::make($post, $this->model->validationRules)) {
             return Redirect::page($this->controller . "/form/insert/0");
+        } else {
+
+            if (!empty($_FILES['foto']['name'])) {
+                $nomeRetornado = $this->files->upload($_FILES, 'foto');
+
+                // se for boolean, significa que o upload falhou
+                if (is_bool($nomeRetornado)) {
+                    Session::set('inputs', $post);
+                    return Redirect::page($this->controller . "/form/insert/" . $post['id']);
+                } else {
+                    $post['foto'] = $nomeRetornado[0];
+                }
+            } else {
+                $post['foto'] = $post['nomeImagem'];
+            }
+
+            if ($this->model->insert($post)) {
+                return Redirect::page($this->controller, ["msgSucesso" => "Registro inserido com sucesso."]);
+            } else {
+                return Redirect::page($this->controller . "/form/insert/0");
+            }
         }
     }
 
