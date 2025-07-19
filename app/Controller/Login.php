@@ -55,6 +55,7 @@ class Login extends ControllerMain
             Session::set("userNome" , $aUser['nome']);
             Session::set("userEmail", $aUser['login']);
             Session::set("userTipo", $aUser['tipo']);
+            Session::set("pessoa_fisica_id" , $aUser['pessoa_fisica_id']);
 
             // Direcionar o usuário para página home
             return Redirect::page("home", [
