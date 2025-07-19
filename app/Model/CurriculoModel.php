@@ -55,4 +55,9 @@ class CurriculoModel extends ModelMain
     {
         return $this->db->select("curriculum.*, cidade.cidade, cidade.uf")->join("cidade", "cidade.cidade_id = curriculum.cidade_id")->orderBy("cidade.cidade")->findAll();
     }
+
+    public function getByPessoaFisicaId($pessoaFisicaId)
+    {
+        return $this->db->where('pessoa_fisica_id', $pessoaFisicaId)->first();
+    }
 }
