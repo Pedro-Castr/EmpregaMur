@@ -1,6 +1,6 @@
 <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center bg-light p-4">
   <div class="w-100" style="max-width: 800px;">
-    <?php if (count($dados['curriculo']) < 0): ?>
+    <?php if (empty($dados['curriculo'])): ?>
       <div class="card border-0 rounded-4 p-4 text-center bg-light">
         <div class="card-body">
           <h5 class="card-title mb-3">Currículo não encontrado</h5>
@@ -18,12 +18,25 @@
         <div class="row g-4 align-items-center">
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
-            <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid">
+            <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3 border">
           </div>
 
           <!-- Dados pessoais -->
           <div class="col-md-9">
-            <h4 class="fs-3 mb-1"><?= $dados['usuario']['nome'] ?></h4>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+              <h4 class="fs-3 mb-3 mb-md-0"><?= $dados['usuario']['nome'] ?></h4>
+
+              <!-- Botões -->
+              <div>
+                <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
+                  <i class="bi bi-pencil-fill me-1"></i> Editar
+                </a>
+                <a href="#" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+                  <i class="bi bi-trash-fill me-1"></i> Excluir
+                </a>
+              </div>
+            </div>
+
             <hr>
             <div class="row">
               <div class="col-md-12">
@@ -34,12 +47,13 @@
             </div>
           </div>
 
+          <!-- Apresentação Pessoal -->
           <div class="mt-4">
-            <div class="px-2 bg-light fs-5">
+            <div class="p-3 rounded-3 bg-white border text-muted">
+              <h5 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill me-2"></i>Apresentação Pessoal</h5>
               <p class="mb-0"><?= $dados['curriculo']['apresentacaoPessoal'] ?></p>
             </div>
           </div>
-
         </div>
       </div>
 

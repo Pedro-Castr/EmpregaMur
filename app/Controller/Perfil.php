@@ -7,6 +7,7 @@ use Core\Library\Redirect;
 use Core\Library\Session;
 use App\Model\CurriculoModel;
 use App\Model\CidadeModel;
+use Core\Library\Validator;
 
 class Perfil extends ControllerMain
 {
@@ -35,29 +36,36 @@ class Perfil extends ControllerMain
         // Busca os dados do usuário
         $dadosUsuario = $this->model->getByUserId($userId);
 
-        // Carrega os dados do curriculo
+        // Instancia o model do currículo
         $curriculoModel = new CurriculoModel();
         $pessoaFisicaId = Session::get("pessoa_fisica_id");
 
-        // Busca os dados do currículo relacionados a esse usuário
+        // Busca o currículo (pode vir null)
         $dadosCurriculo = $curriculoModel->getByPessoaFisicaId($pessoaFisicaId);
 
-        // Carrega os dados da cidade
-        $cidadeModel = new CidadeModel();
+        // Inicializa $cidade como null
+        $cidade = null;
 
-        $cidadeId = $dadosCurriculo['cidade_id'];
-        $cidade = $cidadeModel->getById($cidadeId);
+        // Só tenta buscar a cidade se o currículo existir e tiver cidade_id
+        if (!empty($dadosCurriculo) && isset($dadosCurriculo['cidade_id'])) {
+            $cidadeModel = new CidadeModel();
+            $cidade = $cidadeModel->getById($dadosCurriculo['cidade_id']);
+        }
 
-        // Junta os dados em um array para a view
+        // Prepara os dados para a view
         $dados = [
             'usuario' => $dadosUsuario,
             'curriculo' => $dadosCurriculo,
             'cidade' => $cidade
         ];
 
-
-        // Carrega a view passando os dados
+        // Carrega a view
         return $this->loadView("sistema\\Perfil", $dados);
+    }
+
+    public function form($action, $id)
+    {
+        return $this->loadView("sistema/formPerfil", $this->model->getById($id));
     }
 
     /**
@@ -69,30 +77,49 @@ class Perfil extends ControllerMain
     {
         $post = $this->request->getPost();
 
-        if ($this->model->update($post)) {
-            return Redirect::page($this->controller, [
-                "toast" => ["tipo" => "success", "mensagem" => "Registro alterado com sucesso"]
-            ]);
+        // Verifica se o usuário quer alterar a senha
+        if (!empty($post['novaSenha']) || !empty($post['confirmaNovaSenha'])) {
+            $aUser = $this->model->getEmailByUsuarioId($post['usuario_id']);
+
+            // valida a senha atual
+            if (empty(trim($post['senhaAtual']))) {
+                return Redirect::page($this->controller . "/form/update/" . $post['usuario_id'], [
+                    "toast" => ["mensagem" => "Informe sua senha atual", "tipo" => "error"],
+                ]);
+            }
+
+            if (!password_verify(trim($post["senhaAtual"]), trim($aUser['senha']))) {
+                return Redirect::page($this->controller . "/form/update/" . $post['usuario_id'], [
+                    "toast" => ["mensagem" => "Senha atual inválida", "tipo" => "error"],
+                ]);
+            }
+
+            if ($post['novaSenha'] !== $post['confirmaNovaSenha']) {
+                return Redirect::page($this->controller . "/form/update/" . $post['usuario_id'], [
+                    "toast" => ["mensagem" => "As novas senhas não coincidem", "tipo" => "error"],
+                ]);
+            }
+
+            // Atualiza nome e nova senha
+            $dadosAtualizados = [
+                'usuario_id' => $post['usuario_id'],
+                'nome' => $post['nome'],
+                'senha' => password_hash(trim($post['novaSenha']), PASSWORD_DEFAULT)
+            ];
         } else {
-            return Redirect::page($this->controller . "/form/update/" . $post['id']);
+            // Atualiza apenas o nome
+            $dadosAtualizados = [
+                'usuario_id' => $post['usuario_id'],
+                'nome' => $post['nome']
+            ];
         }
-    }
 
-    /**
-     * delete
-     *
-     * @return void
-     */
-    public function delete()
-    {
-        $post = $this->request->getPost();
-
-        if ($this->model->delete($post)) {
+        if ($this->model->update($dadosAtualizados)) {
             return Redirect::page($this->controller, [
-                "toast" => ["tipo" => "success", "mensagem" => "Registro excluído com sucesso"]
+                "toast" => ["tipo" => "success", "mensagem" => "Dados alterados com sucesso"]
             ]);
         } else {
-            return Redirect::page($this->controller);
+            return Redirect::page($this->controller . "/form/update/" . $post['usuario_id']);
         }
     }
 }

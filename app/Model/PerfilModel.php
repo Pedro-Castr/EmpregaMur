@@ -13,10 +13,6 @@ class PerfilModel extends ModelMain
         "nome"  => [
             "label" => 'Nome',
             "rules" => 'required|min:3|max:150'
-        ],
-        "login"  => [
-            "label" => 'Email',
-            "rules" => 'required|min:10|max:50'
         ]
     ];
 
@@ -24,5 +20,9 @@ class PerfilModel extends ModelMain
     {
         return $this->db->where('usuario_id', $userId)->first();
     }
-}
 
+    public function getEmailByUsuarioId($usuarioId)
+    {
+        return $this->db->where('usuario_id', $usuarioId)->first();
+    }
+}
