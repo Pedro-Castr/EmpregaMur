@@ -46,6 +46,6 @@
     </div>
 
     <a href="<?= baseUrl() . $request->getController(); ?>" class="btn btn-secondary">Voltar</a>
-    <button type="submit" id="salvarAlteracoes" class="btn btn-primary" disabled>Salvar Alterações</button>
+    <button type="submit" id="salvarAlteracoes" class="btn btn-primary">Salvar Alterações</button>
   </form>
 </div>
