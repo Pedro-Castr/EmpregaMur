@@ -232,6 +232,22 @@ CREATE TABLE usuariorecuperasenha (
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id),
 );
 
+DELIMITER $$
+
+CREATE TRIGGER atualizaNomePessoaFisica
+AFTER UPDATE ON usuario
+FOR EACH ROW
+BEGIN
+    -- Verifica se o nome foi alterado e se existe uma pessoa_fisica vinculada
+    IF NEW.nome <> OLD.nome AND NEW.pessoa_fisica_id IS NOT NULL THEN
+        UPDATE pessoa_fisica
+        SET nome = NEW.nome
+        WHERE pessoa_fisica_id = NEW.pessoa_fisica_id;
+    END IF;
+END$$
+
+DELIMITER ;
+
 /*
 Alterações feitas até agora:
 
@@ -244,4 +260,6 @@ Alterações feitas até agora:
 4. Alteração do campo senha na tabela usuario para VARCHAR(255), para comportar o hash da senha criada.
 
 5. Criei a tabela usuariorecuperasenha, para salvar as alterações de senha realizadas.
+
+6. Criei uma trigger para atualizar o nome na tabela pessoa_fisica sempre que o nome for atualizado na tabela de usuario.
 */
