@@ -55,7 +55,12 @@ class Login extends ControllerMain
             Session::set("userNome" , $aUser['nome']);
             Session::set("userEmail", $aUser['login']);
             Session::set("userTipo", $aUser['tipo']);
-            Session::set("pessoa_fisica_id" , $aUser['pessoa_fisica_id']);
+            if ($aUser['tipo'] == "PJ") {
+                Session::set("estabelecimento_id" , $aUser['estabelecimento_id']);
+            } else {
+                Session::set("pessoa_fisica_id" , $aUser['pessoa_fisica_id']);
+            }
+
 
             // Direcionar o usuário para página home
             return Redirect::page("home", [
@@ -81,6 +86,8 @@ class Login extends ControllerMain
         Session::destroy('userNome');
         Session::destroy('userEmail');
         Session::destroy('userTipo');
+        Session::destroy('estabelecimento_id');
+        Session::destroy('pessoa_fisica_id');
 
         return Redirect::Page("home");
     }
