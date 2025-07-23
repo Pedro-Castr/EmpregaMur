@@ -83,7 +83,7 @@ CREATE TABLE curriculum (
   INDEX idx_cidade (cidade_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
   FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id),
-  FOREIGN KEY (pessoa_fisica_id) REFERENCES pessoa_fisica (pessoa_fisica_id)
+  FOREIGN KEY (pessoa_fisica_id) REFERENCES pessoa_fisica (pessoa_fisica_id) ON DELETE CASCADE
 );
 
 CREATE TABLE escolaridade (
@@ -262,4 +262,6 @@ Alterações feitas até agora:
 5. Criei a tabela usuariorecuperasenha, para salvar as alterações de senha realizadas.
 
 6. Criei uma trigger para atualizar o nome na tabela pessoa_fisica sempre que o nome for atualizado na tabela de usuario.
+
+7. Adicionei ON DELETE CASCADE na tabela curriculum.
 */
