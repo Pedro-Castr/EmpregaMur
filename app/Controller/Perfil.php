@@ -7,7 +7,8 @@ use Core\Library\Redirect;
 use Core\Library\Session;
 use App\Model\CurriculoModel;
 use App\Model\CidadeModel;
-use Core\Library\Validator;
+use App\Model\PessoaFisicaMode;
+use App\Model\PessoaFisicaModel;
 
 class Perfil extends ControllerMain
 {
@@ -120,6 +121,30 @@ class Perfil extends ControllerMain
             ]);
         } else {
             return Redirect::page($this->controller . "/form/update/" . $post['usuario_id']);
+        }
+    }
+
+    /**
+     * delete
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $post = $this->request->getPost();
+
+        $pessoaFisicaModel = new PessoaFisicaModel();
+        $pessoaFisicaId = Session::get('pessoa_fisica_id');
+
+        if ($this->model->delete($post)) {
+            $pessoaFisicaModel->delete(['pessoa_fisica_id' => $pessoaFisicaId]);
+
+            // Chama o método signOut do controller Login
+            $loginController = new \App\Controller\Login();
+            return $loginController->signOut();
+
+        } else {
+            return Redirect::page($this->controller);
         }
     }
 }

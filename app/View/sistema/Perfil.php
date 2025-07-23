@@ -18,7 +18,7 @@
         <div class="row g-4 align-items-center">
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
-            <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3 border">
+            <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3">
           </div>
 
           <!-- Dados pessoais -->
@@ -26,12 +26,12 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
               <h4 class="fs-3 mb-3 mb-md-0"><?= $dados['usuario']['nome'] ?></h4>
 
-              <!-- Botões -->
+              <!-- Botões perfil -->
               <div>
-                <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
+                <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
                   <i class="bi bi-pencil-fill me-1"></i> Editar
                 </a>
-                <a href="#" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+                <a href="<?= baseUrl() ?>Perfil/form/delete/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
                   <i class="bi bi-trash-fill me-1"></i> Excluir
                 </a>
               </div>
@@ -49,11 +49,25 @@
 
           <!-- Apresentação Pessoal -->
           <div class="mt-4">
-            <div class="p-3 rounded-3 bg-white border text-muted">
+            <div class="p-3">
               <h5 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill me-2"></i>Apresentação Pessoal</h5>
               <p class="mb-0"><?= $dados['curriculo']['apresentacaoPessoal'] ?></p>
             </div>
           </div>
+
+          <!-- Botões currículo -->
+          <div class="col-12 mt-3">
+            <a href="#" class="btn btn-sm btn-outline-success m-2">
+              <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
+            </a>
+            <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
+              <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
+            </a>
+            <a href="#" class="btn btn-sm btn-outline-danger m-2">
+              <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
+            </a>
+          </div>
+
         </div>
       </div>
 

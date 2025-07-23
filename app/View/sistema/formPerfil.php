@@ -1,6 +1,9 @@
 <?php
   use Core\Library\Request;
   $request = new Request();
+
+  use Core\Library\Session;
+  $usuarioId = Session::get('userId');
 ?>
 
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
@@ -14,6 +17,8 @@
     <?php if (in_array($this->request->getAction(), ['update'])): ?>
       <input type="hidden" name="usuario_id" id="usuario_id" value="<?= setValor("usuario_id") ?>">
     <?php endif; ?>
+
+    <input type="hidden" name="usuario_id" value="<?= $usuarioId ?>">
 
     <div class="mb-3">
       <label for="nome" class="form-label">Nome</label>
