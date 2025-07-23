@@ -31,7 +31,8 @@
                 <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
                   <i class="bi bi-pencil-fill me-1"></i> Editar
                 </a>
-                <a href="<?= baseUrl() ?>Perfil/form/delete/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+                <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
+                class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
                   <i class="bi bi-trash-fill me-1"></i> Excluir
                 </a>
               </div>
