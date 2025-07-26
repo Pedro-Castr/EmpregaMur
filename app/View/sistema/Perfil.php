@@ -31,7 +31,11 @@
         <div class="row g-4 align-items-center">
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
-            <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3">
+            <?php if (!empty($dados['curriculo']['foto'])): ?>
+              <img src="<?= baseUrl() . 'foto.php?id=' . $dados['curriculo']['curriculum_id'] ?>" alt="Foto de perfil" class="img-fluid rounded-3">
+            <?php else: ?>
+              <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3">
+            <?php endif; ?>
           </div>
 
           <!-- Dados pessoais -->
@@ -62,12 +66,14 @@
           </div>
 
           <!-- Apresentação Pessoal -->
-          <div class="mt-4">
-            <div class="p-3">
-              <h5 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill me-2"></i>Apresentação Pessoal</h5>
-              <p class="mb-0"><?= $dados['curriculo']['apresentacaoPessoal'] ?></p>
+          <?php if (!empty($dados['curriculo']['apresentacaoPessoal'])): ?>
+            <div class="mt-4">
+              <div class="p-3">
+                <h5 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill me-2"></i>Apresentação Pessoal</h5>
+                <p class="mb-0"><?= $dados['curriculo']['apresentacaoPessoal'] ?></p>
+              </div>
             </div>
-          </div>
+          <?php endif; ?>
 
           <!-- Botões currículo -->
           <div class="col-12 mt-3">
