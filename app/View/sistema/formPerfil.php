@@ -1,8 +1,8 @@
 <?php
   use Core\Library\Request;
-  $request = new Request();
-
   use Core\Library\Session;
+
+  $request = new Request();
   $usuarioId = Session::get('userId');
 ?>
 

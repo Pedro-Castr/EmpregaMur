@@ -1,6 +1,9 @@
 <?php
   use Core\Library\Session;
+  use Core\Library\Request;
+
   $pessoaFisicaId = Session::get('pessoa_fisica_id');
+  $request = new Request();
 ?>
 
 <div class="container py-3">
@@ -11,25 +14,21 @@
     <?= exibeAlerta() ?>
 
     <?php if (in_array($this->request->getAction(), ['update'])): ?>
-      <input type="hidden" name="id" id="id" value="<?= setValor("id") ?>">
+      <input type="hidden" name="curriculum_id" id="curriculum_id" value="<?= setValor("curriculum_id") ?>">
     <?php endif; ?>
 
     <input type="hidden" name="pessoa_fisica_id" value="<?= $pessoaFisicaId ?>">
 
     <div class="row">
-      <?php if (in_array($this->request->getAction(), ['insert', 'update'])): ?>
-        <div class="mb-3 col-12">
-          <label for="foto" class="form-label">Foto de Perfil</label>
-          <input type="file" class="form-control" id="foto" name="foto" value="<?= setValor('foto') ?>">
-          <?= setMsgFilderError('foto') ?>
-        </div>
-      <?php endif; ?>
+      <div class="mb-3 col-12">
+        <label for="foto" class="form-label">Foto de Perfil</label>
+        <input type="file" class="form-control" id="foto" name="foto">
+      </div>
 
-      <?php if (trim(setValor("foto")) != ""): ?>
+      <?php if (!empty($dados['data']['curriculum_id'])): ?>
         <div class="mb-3 col-12">
           <h5>Imagem</h5>
-          <img src="<?= baseUrl() . 'imagem.php?file=uf/' . setValor("foto") ?>" class="img-thumbnail" height="120" width="120">
-          <input type="hidden" name="nomeFoto" id="nomeFoto" value="<?= setValor("foto") ?>">
+          <img src="<?= baseUrl() . 'foto.php?id=' . $dados['data']['curriculum_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
       <?php endif; ?>
     </div>
@@ -118,6 +117,7 @@
       <?= setMsgFilderError("apresentacaoPessoal") ?>
     </div>
 
+    <a href="<?= baseUrl() . 'Perfil' ?>" class="btn btn-secondary">Voltar</a>
     <button type="submit" class="btn btn-success">Enviar</button>
 
   </form>

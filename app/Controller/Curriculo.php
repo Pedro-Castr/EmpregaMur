@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Model\CidadeModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
-use Core\Library\Session;
 use Core\Library\Validator;
-use Core\Library\Files;
 
 class Curriculo extends ControllerMain
 {
@@ -17,16 +15,6 @@ class Curriculo extends ControllerMain
     {
         $this->auxiliarconstruct();
         $this->loadHelper('formHelper');
-    }
-
-    /**
-     * index
-     *
-     * @return void
-     */
-    public function index()
-    {
-        return $this->loadView("sistema\Perfil", $this->model->listaCidade());
     }
 
     public function form($action, $id)
@@ -53,23 +41,20 @@ class Curriculo extends ControllerMain
         if (Validator::make($post, $this->model->validationRules)) {
             return Redirect::page($this->controller . "/form/insert/0");
         } else {
+            // Verifica se uma imagem foi enviada
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                $fotoTmp = $_FILES['foto']['tmp_name'];
+                $fotoBinaria = file_get_contents($fotoTmp); // lê como binário
 
-            if (!empty($_FILES['foto']['name'])) {
-                $nomeRetornado = $this->files->upload($_FILES, 'foto');
-
-                // se for boolean, significa que o upload falhou
-                if (is_bool($nomeRetornado)) {
-                    Session::set('inputs', $post);
-                    return Redirect::page($this->controller . "/form/insert/" . $post['id']);
-                } else {
-                    $post['foto'] = $nomeRetornado[0];
-                }
+                $post['foto'] = $fotoBinaria;
             } else {
-                $post['foto'] = $post['nomeImagem'];
+                $post['foto'] = null;
             }
 
             if ($this->model->insert($post)) {
-                return Redirect::page($this->controller, ["msgSucesso" => "Registro inserido com sucesso."]);
+                return Redirect::page("perfil", [
+                    "toast" => ["tipo" => "success", "mensagem" => "Currículo cadastrado com sucesso"]
+                ]);
             } else {
                 return Redirect::page($this->controller . "/form/insert/0");
             }
@@ -84,11 +69,33 @@ class Curriculo extends ControllerMain
     public function update()
     {
         $post = $this->request->getPost();
+        $files = $_FILES;
 
-        if ($this->model->update($post)) {
-            return Redirect::page($this->controller, ["msgSucesso" => "Registro alterado com sucesso."]);
+        // Se enviou um arquivo novo
+        if (isset($files['foto']) && $files['foto']['error'] === UPLOAD_ERR_OK) {
+
+            if (in_array($files['foto']['type'], FILE_ALLOWEDTYPES)) {
+                // Ler o conteúdo binário da imagem
+                $imagemBinaria = file_get_contents($files['foto']['tmp_name']);
+                // Adicionar ao $post para atualizar no banco
+                $post['foto'] = $imagemBinaria;
+            } else {
+                return Redirect::page($this->controller . "/form/update/" . $post['curriculum_id'], [
+                    "toast" => ["tipo" => "error", "mensagem" => "Tipo de arquivo inválido para imagem"]
+                ]);
+            }
         } else {
-            return Redirect::page($this->controller . "/form/update/" . $post['id']);
+            // Se não enviou arquivo novo, remover o índice 'foto' do post para não alterar
+            unset($post['foto']);
+        }
+
+        // Agora atualiza com o $post (com ou sem campo 'foto' novo)
+        if ($this->model->update($post)) {
+            return Redirect::page("perfil", [
+                "toast" => ["tipo" => "success", "mensagem" => "Currículo alterado com sucesso"]
+            ]);
+        } else {
+            return Redirect::page($this->controller . "/form/update/" . $post['curriculum_id']);
         }
     }
 
@@ -102,7 +109,9 @@ class Curriculo extends ControllerMain
         $post = $this->request->getPost();
 
         if ($this->model->delete($post)) {
-            return Redirect::page($this->controller, ["msgSucesso" => "Registro Excluído com sucesso."]);
+            return Redirect::page("perfil", [
+                    "toast" => ["tipo" => "success", "mensagem" => "Currículo excluído com sucesso"]
+                ]);
         } else {
             return Redirect::page($this->controller);
         }

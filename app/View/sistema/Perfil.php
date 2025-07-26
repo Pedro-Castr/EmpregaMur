@@ -3,13 +3,26 @@
     <?php if (empty($dados['curriculo'])): ?>
       <div class="card border-0 rounded-4 p-4 text-center bg-light">
         <div class="card-body">
-          <h5 class="card-title mb-3">Currículo não encontrado</h5>
+          <h5 class="card-title mb-3">Currículo não encontrado!</h5>
           <p class="card-text text-muted mb-4">
             Você ainda não cadastrou seu currículo no sistema. Com um currículo ativo, suas chances de ser chamado para uma vaga aumentam!
           </p>
-          <a href="<?= baseUrl() ?>curriculo/form/insert/0" class="btn btn-primary btn-lg rounded-pill">
+
+          <!-- Botão Cadastrar Currículo -->
+          <a href="<?= baseUrl() ?>curriculo/form/insert/0" class="btn btn-success btn-lg rounded-pill mb-3">
             Cadastrar Currículo
           </a>
+
+          <!-- Botões Editar e Excluir -->
+          <div class="mt-5">
+            <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-outline-primary me-2 mb-2 mb-md-0">
+              <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
+            </a>
+            <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
+            class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+              <i class="bi bi-trash-fill me-1"></i> Excluir Conta
+            </a>
+          </div>
         </div>
       </div>
     <?php else: ?>
@@ -64,7 +77,8 @@
             <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
               <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
             </a>
-            <a href="#" class="btn btn-sm btn-outline-danger m-2">
+            <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
+            class="btn btn-sm btn-outline-danger m-2">
               <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
             </a>
           </div>
