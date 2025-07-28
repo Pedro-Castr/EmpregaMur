@@ -94,7 +94,7 @@ CREATE TABLE escolaridade (
 
 CREATE TABLE curriculum_escolaridade (
   curriculum_escolaridade_id INT NOT NULL AUTO_INCREMENT,
-  curriculum_curriculum_id INT NOT NULL,
+  curriculum_id INT NOT NULL,
   inicioMes INT NOT NULL,
   inicioAno INT NOT NULL,
   fimMes INT NOT NULL,
