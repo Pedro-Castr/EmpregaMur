@@ -7,7 +7,6 @@ use Core\Library\Redirect;
 use Core\Library\Session;
 use App\Model\CurriculoModel;
 use App\Model\CidadeModel;
-use App\Model\PessoaFisicaMode;
 use App\Model\PessoaFisicaModel;
 
 class Perfil extends ControllerMain
