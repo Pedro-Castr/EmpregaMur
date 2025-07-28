@@ -49,3 +49,16 @@ INSERT INTO vaga (cargo_id, descricao, sobreaVaga, modalidade, vinculo, dtInicio
 (3, 'Técnico de Suporte', 'Prestar suporte técnico a usuários internos, instalar e configurar equipamentos e redes.', 1, 1, '2025-06-15', '2025-07-15', 3, 1),
 (4, 'Estagiário de Marketing', 'Auxílio na criação de campanhas, postagens em redes sociais e monitoramento de resultados.', 3, 1, '2025-06-20', '2025-09-20', 4, 1),
 (5, 'Analista de Sistemas', 'Análise e desenvolvimento de sistemas conforme as demandas de negócio, documentação e testes.', 3, 1, '2025-06-18', '2025-08-18', 5, 1);
+
+/* Insert na tabela de escolaridade */
+INSERT INTO escolaridade (descricao) VALUES
+('Ensino Fundamental Incompleto'),
+('Ensino Fundamental Completo'),
+('Ensino Médio Incompleto'),
+('Ensino Médio Completo'),
+('Ensino Técnico'),
+('Ensino Superior Incompleto'),
+('Ensino Superior Completo'),
+('Pós-graduação'),
+('Mestrado'),
+('Doutorado');
