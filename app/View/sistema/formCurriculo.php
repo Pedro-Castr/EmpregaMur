@@ -11,7 +11,6 @@
   <p class="text-muted text-center">Preencha as informações abaixo para criar seu currículo e aumentar suas chances de conquistar uma nova oportunidade profissional.</p>
 
   <form method="POST" action="<?= $this->request->formAction() ?>" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
-    <?= exibeAlerta() ?>
 
     <?php if (in_array($this->request->getAction(), ['update'])): ?>
       <input type="hidden" name="curriculum_id" id="curriculum_id" value="<?= setValor("curriculum_id") ?>">
