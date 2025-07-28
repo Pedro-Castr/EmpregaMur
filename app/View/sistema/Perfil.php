@@ -94,6 +94,16 @@
 
       <hr class="my-4">
 
+      <div class="container my-4">
+        <a href="<?= baseUrl() ?>escolaridade/form/insert/0" class="btn btn-success m-2">
+          <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
+        </a>
+
+        <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-success m-2">
+          <i class="bi bi-plus-lg"></i> Cadastrar Experiências
+        </a>
+      </div>
+
       <!-- Escolaridade -->
       <div class="mb-4">
         <h4 class="text-primary mb-3">Escolaridade</h4>
