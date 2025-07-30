@@ -3,17 +3,6 @@ $aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
 $aVinculo  = ["1" => "CLT", "2" => "PJ"];
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Vagas de Emprego</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link href="<?= baseUrl() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="<?= baseUrl() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
 <?php if (count($dados) > 0): ?>
   <div class="container py-5">
     <h1 class="mb-4 text-center">Vagas de Emprego</h1>
@@ -51,5 +40,3 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ"];
     <?php endif; ?>
     </div>
   </div>
-</body>
-</html>

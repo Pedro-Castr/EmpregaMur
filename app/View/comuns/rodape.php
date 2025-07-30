@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EmpregaMur</title>
-</head>
-<body>
   <footer class="bg-dark text-light py-4 mt-5">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-      <div class="mb-3 mb-md-0">
-        <img src="<?= baseUrl() ?>assets/img/logo1.png" alt="Logo" height="80vh">
-        <p class="mb-0 small">© 2025 EmpregaMur. Todos os direitos reservados.</p>
-      </div>
-
       <nav>
         <ul class="nav">
           <li class="nav-item"><a href="home.html" class="nav-link px-2 text-light">Home</a></li>
@@ -22,6 +9,8 @@
       </nav>
     </div>
   </footer>
+
+  <!-- Bootstrap JS (com Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
