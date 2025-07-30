@@ -30,6 +30,10 @@
             class="btn btn-outline-danger me-2 mb-2 mb-md-0">
               <i class="bi bi-trash-fill me-1"></i> Excluir Conta
             </a>
+
+            <a href="<?= baseUrl() ?>Login/signOut" class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+              <i class="bi bi-box-arrow-right"></i> Sair
+            </a>
           </div>
         </div>
       </div>
@@ -59,6 +63,9 @@
                 <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
                 class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
                   <i class="bi bi-trash-fill me-1"></i> Excluir
+                </a>
+                <a href="<?= baseUrl() ?>Login/signOut" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+                  <i class="bi bi-box-arrow-right"></i> Sair
                 </a>
               </div>
             </div>
@@ -162,14 +169,6 @@
           <p class="mb-1 text-muted">SoftCorp</p>
           <small class="text-muted">Mar/2022 - Dez/2022</small>
         </div>
-      </div>
-
-      <hr class="my-4">
-
-      <!-- Ações da Conta -->
-      <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-outline-primary">Editar Conta</a>
-        <a href="<?= baseUrl() ?>Login/signOut" class="btn btn-danger">Sair</a>
       </div>
     <?php endif; ?>
   </div>
