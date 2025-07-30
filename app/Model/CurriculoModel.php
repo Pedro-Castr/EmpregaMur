@@ -41,6 +41,10 @@ class CurriculoModel extends ModelMain
         "email" => [
             "label" => 'Email',
             "rules" => 'required|min:10|max:50'
+        ],
+        "cidade_id" => [
+            "label" => 'Cidade',
+            "rules" => 'required'
         ]
     ];
 
