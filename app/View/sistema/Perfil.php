@@ -1,3 +1,11 @@
+<?php
+  $meses = [
+    1 => 'Jan', 2 => 'Fev', 3 => 'Mar', 4 => 'Abr',
+    5 => 'Mai', 6 => 'Jun', 7 => 'Jul', 8 => 'Ago',
+    9 => 'Set', 10 => 'Out', 11 => 'Nov', 12 => 'Dez'
+  ];
+?>
+
 <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center bg-light p-4">
   <div class="w-100" style="max-width: 800px;">
     <?php if (empty($dados['curriculo'])): ?>
@@ -105,21 +113,37 @@
       </div>
 
       <!-- Escolaridade -->
-      <div class="mb-4">
-        <h4 class="text-primary mb-3">Escolaridade</h4>
-
-        <div class="card p-3 shadow-sm rounded-4 mb-3">
-          <h5 class="mb-1">Ensino Médio</h5>
-          <p class="mb-1 text-muted">Escola São Paulo</p>
-          <small class="text-muted">Jan/2010 - Dez/2018</small>
+      <?php if (!empty($dados['escolaridades'])): ?>
+        <div class="mb-4">
+          <h4 class="text-primary mb-4">Escolaridades</h4>
+          <?php foreach ($dados['escolaridades'] as $escolaridade): ?>
+            <div class="card shadow-sm border-0 rounded-4 mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between flex-column flex-md-row">
+                  <div>
+                    <h5 class="card-title mb-1"><?= $escolaridade['nome_escolaridade'] ?></h5>
+                    <p class="text-muted mb-1"><?= $escolaridade['instituicao'] ?></p>
+                    <small class="text-muted">
+                      <?= $meses[(int)$escolaridade['inicioMes']] ?>/<?= $escolaridade['inicioAno'] ?> –
+                      <?= $meses[(int)$escolaridade['fimMes']] ?>/<?= $escolaridade['fimAno'] ?>
+                    </small>
+                  </div>
+                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                    <a href="<?= baseUrl() ?>Escolaridade/form/update/<?= $escolaridade['curriculum_escolaridade_id'] ?>" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </a>
+                    <a href="javascript:void(0);"
+                    onclick="confirmarExclusao('<?= baseUrl() ?>Escolaridade/delete', { curriculum_escolaridade_id: <?= $escolaridade['curriculum_escolaridade_id'] ?> })"
+                    class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div>
-
-        <div class="card p-3 shadow-sm rounded-4">
-          <h5 class="mb-1">Ensino Superior</h5>
-          <p class="mb-1 text-muted">Fasm</p>
-          <small class="text-muted">Mar/2020 - Cursando</small>
-        </div>
-      </div>
+      <?php endif; ?>
 
       <hr class="my-4">
 

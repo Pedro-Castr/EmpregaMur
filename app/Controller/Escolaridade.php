@@ -49,13 +49,13 @@ class Escolaridade extends ControllerMain
         $post = $this->request->getPost();
 
         if (Validator::make($post, $this->model->validationRules)) {
-            Session::set('inputs', $post); // salva se deu erro de validação
+            Session::set('inputs', $post);
             return Redirect::page($this->controller . "/form/insert/0");
         } else {
             // Verifica se a data de fim é maior que a de início
             if ($post['inicioAno'] > $post['fimAno'] ||
                 ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])) {
-                Session::set('inputs', $post); // salva se deu erro na lógica de data
+                Session::set('inputs', $post);
                 return Redirect::page($this->controller . "/form/insert/0", [
                     "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
                 ]);
@@ -66,7 +66,7 @@ class Escolaridade extends ControllerMain
                     "toast" => ["tipo" => "success", "mensagem" => "Escolaridade cadastrada com sucesso"]
                 ]);
             } else {
-                Session::set('inputs', $post); // salva se deu erro ao inserir
+                Session::set('inputs', $post);
                 return Redirect::page($this->controller . "/form/insert/0", [
                     "toast" => ["tipo" => "error", "mensagem" => "Erro ao cadastrar escolaridade"]
                 ]);
@@ -83,12 +83,26 @@ class Escolaridade extends ControllerMain
     {
         $post = $this->request->getPost();
 
-        if ($this->model->update($post)) {
-            return Redirect::page("perfil", [
-                "toast" => ["tipo" => "success", "mensagem" => "Escolaridade alterada com sucesso"]
-            ]);
+        if (Validator::make($post, $this->model->validationRules)) {
+            Session::set('inputs', $post);
+            return Redirect::page($this->controller . "/form/insert/0");
         } else {
-            return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
+            // Verifica se a data de fim é maior que a de início
+            if ($post['inicioAno'] > $post['fimAno'] ||
+                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])) {
+                Session::set('inputs', $post);
+                return Redirect::page($this->controller . "/form/insert/0", [
+                    "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
+                ]);
+            }
+
+            if ($this->model->update($post)) {
+                return Redirect::page("perfil", [
+                    "toast" => ["tipo" => "success", "mensagem" => "Escolaridade alterada com sucesso"]
+                ]);
+            } else {
+                return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
+            }
         }
     }
 

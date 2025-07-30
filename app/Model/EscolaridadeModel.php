@@ -57,4 +57,10 @@ class EscolaridadeModel extends ModelMain
         ->join("escolaridade", "escolaridade.escolaridade_id = curriculum_escolaridade.escolaridade_id")
         ->orderBy("escolaridade.descricao")->findAll();
     }
+
+    public function getByCurriculumId($curriculumId)
+    {
+        return $this->db->where('curriculum_id', $curriculumId)->findAll();
+    }
+
 }

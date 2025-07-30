@@ -8,6 +8,8 @@ use Core\Library\Session;
 use App\Model\CurriculoModel;
 use App\Model\CidadeModel;
 use App\Model\PessoaFisicaModel;
+use App\Model\EscolaridadeModel;
+use App\Model\NivelEscolaridadeModel;
 
 class Perfil extends ControllerMain
 {
@@ -30,7 +32,6 @@ class Perfil extends ControllerMain
             exit;
         }
 
-        // Pega o ID do usuário logado
         $userId = Session::get("userId");
 
         // Busca os dados do usuário
@@ -40,28 +41,43 @@ class Perfil extends ControllerMain
         $curriculoModel = new CurriculoModel();
         $pessoaFisicaId = Session::get("pessoa_fisica_id");
 
-        // Busca o currículo (pode vir null)
         $dadosCurriculo = $curriculoModel->getByPessoaFisicaId($pessoaFisicaId);
 
-        // Inicializa $cidade como null
         $cidade = null;
-
-        // Só tenta buscar a cidade se o currículo existir e tiver cidade_id
         if (!empty($dadosCurriculo) && isset($dadosCurriculo['cidade_id'])) {
             $cidadeModel = new CidadeModel();
             $cidade = $cidadeModel->getById($dadosCurriculo['cidade_id']);
+        }
+
+        // Buscar escolaridades relacionadas ao currículo
+        $nivelEscolaridadeModel = new NivelEscolaridadeModel();
+        $escolaridadeModel = new EscolaridadeModel();
+
+        $listaEscolaridades = [];
+
+        if (!empty($dadosCurriculo)) {
+            $escolaridades = $escolaridadeModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+
+            foreach ($escolaridades as $escolaridade) {
+                $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
+                // Adiciona o nome da escolaridade no array original
+                $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
+
+                $listaEscolaridades[] = $escolaridade;
+            }
         }
 
         // Prepara os dados para a view
         $dados = [
             'usuario' => $dadosUsuario,
             'curriculo' => $dadosCurriculo,
-            'cidade' => $cidade
+            'cidade' => $cidade,
+            'escolaridades' => $listaEscolaridades
         ];
 
-        // Carrega a view
         return $this->loadView("sistema\\Perfil", $dados);
     }
+
 
     public function form($action, $id)
     {
