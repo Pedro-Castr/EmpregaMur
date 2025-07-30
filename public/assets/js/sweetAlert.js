@@ -34,3 +34,18 @@ function confirmarExclusao(url, data = {}) {
     }
   });
 }
+
+function confirmarLogout(url) {
+  Swal.fire({
+    title: 'Deseja sair do sistema?',
+    text: 'Você será desconectado da sua conta.',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sim, sair',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = url;
+    }
+  });
+}

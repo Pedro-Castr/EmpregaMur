@@ -31,7 +31,7 @@
               <i class="bi bi-trash-fill me-1"></i> Excluir Conta
             </a>
 
-            <a href="<?= baseUrl() ?>Login/signOut" class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+            <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-outline-danger me-2 mb-2 mb-md-0">
               <i class="bi bi-box-arrow-right"></i> Sair
             </a>
           </div>
@@ -64,7 +64,7 @@
                 class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
                   <i class="bi bi-trash-fill me-1"></i> Excluir
                 </a>
-                <a href="<?= baseUrl() ?>Login/signOut" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+                <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
                   <i class="bi bi-box-arrow-right"></i> Sair
                 </a>
               </div>
