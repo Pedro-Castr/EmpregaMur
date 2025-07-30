@@ -70,3 +70,27 @@ function aplicarMascaraCelular(input) {
 window.aplicarMascaraCPF = aplicarMascaraCPF;
 window.aplicarMascaraCEP = aplicarMascaraCEP;
 window.aplicarMascaraCelular = aplicarMascaraCelular;
+
+// Função para formatar o número de exibição na página perfil
+function formatarCelular(celular) {
+  celular = celular.replace(/\D/g, '');
+  if (celular.length === 11) {
+    return celular.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  } else if (celular.length === 10) {
+    return celular.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  }
+  return celular;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const telEl = document.getElementById('celular-exibicao');
+  if (telEl) {
+    const textoOriginal = telEl.innerText;
+    const match = textoOriginal.match(/\d{10,11}/); // extrai número
+    if (match) {
+      const numero = match[0];
+      const numeroFormatado = formatarCelular(numero);
+      telEl.innerHTML = `<strong>Telefone:</strong> ${numeroFormatado}`;
+    }
+  }
+});

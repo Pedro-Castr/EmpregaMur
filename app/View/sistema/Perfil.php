@@ -6,6 +6,8 @@
   ];
 ?>
 
+<script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
+
 <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center bg-light p-4">
   <div class="w-100" style="max-width: 800px;">
     <?php if (empty($dados['curriculo'])): ?>
@@ -74,7 +76,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="mb-1"><strong>Email:</strong> <?= $dados['curriculo']['email'] ?></p>
-                <p class="mb-1"><strong>Telefone:</strong> <?= $dados['curriculo']['celular'] ?></p>
+                <p class="mb-1" id="celular-exibicao"><strong>Telefone:</strong> <?= $dados['curriculo']['celular'] ?></p>
                 <p class="mb-1"><strong>Cidade:</strong> <?= $dados['cidade']['cidade'] ?>/<?= $dados['cidade']['uf'] ?></p>
               </div>
             </div>
@@ -116,6 +118,10 @@
 
         <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-success m-2">
           <i class="bi bi-plus-lg"></i> Cadastrar Experiências
+        </a>
+
+        <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-success m-2">
+          <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
         </a>
       </div>
 
