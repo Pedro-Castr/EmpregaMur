@@ -7,6 +7,12 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
 ?>
 
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
+<script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    aplicarMascaraCPF(document.getElementById('cpf'));
+  });
+</script>
 
 <div class="cadastro-wrapper">
   <div class="cadastro-box">
@@ -37,7 +43,7 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
             <?= setMsgFilderError('nome_pf') ?>
           </div>
           <div class="mb-3">
-            <label for="email-pf" class="form-label">E-mail</label>
+            <label for="email-pf" class="form-label">Email</label>
             <input type="email" class="form-control" id="email-pf" name="email_pf" value="<?= setValor('email_pf') ?>" />
             <?= setMsgFilderError('email_pf') ?>
           </div>

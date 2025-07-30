@@ -6,6 +6,14 @@
   $request = new Request();
 ?>
 
+<script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    aplicarMascaraCEP(document.getElementById('cep'));
+    aplicarMascaraCelular(document.getElementById('celular'));
+  });
+</script>
+
 <div class="container py-3">
   <h2 class="my-3 text-center">Cadastre seu Currículo</h2>
   <p class="text-muted text-center">Preencha as informações abaixo para criar seu currículo e aumentar suas chances de conquistar uma nova oportunidade profissional.</p>
@@ -41,7 +49,7 @@
 
       <div class="col-md-2 mb-3">
         <label for="celular" class="form-label">Celular</label>
-        <input type="text" class="form-control" id="celular" name="celular" placeholder="(99) 99999-9999" value="<?= setValor("celular") ?>">
+        <input type="text" class="form-control" id="celular" name="celular" value="<?= setValor("celular") ?>">
         <?= setMsgFilderError("celular") ?>
       </div>
 
@@ -79,7 +87,7 @@
 
       <div class="col-md-6 mb-3">
         <label for="cep" class="form-label">CEP</label>
-        <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" value="<?= setValor("cep") ?>">
+        <input type="text" class="form-control" id="cep" name="cep" value="<?= setValor("cep") ?>">
         <?= setMsgFilderError("cep") ?>
       </div>
     </div>
