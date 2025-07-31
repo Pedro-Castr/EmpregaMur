@@ -56,7 +56,7 @@ CREATE TABLE telefone (
   estabelecimento_id INT DEFAULT NULL,
   usuario_id INT DEFAULT NULL,
   numero CHAR(11) NOT NULL,
-  tipo ENUM('m', 'f') NOT NULL COMMENT 'M: móvel F: fixo',
+  tipo ENUM('m', 'f') NOT NULL COMMENT 'M - Móvel, F - Fixo',
   PRIMARY KEY (telefone_id),
   INDEX idx_estabelecimento (estabelecimento_id),
   INDEX idx_usuario (usuario_id),
@@ -75,11 +75,11 @@ CREATE TABLE curriculum (
   cidade_id INT NOT NULL,
   celular VARCHAR(11) NOT NULL,
   dataNascimento DATE NOT NULL,
-  sexo CHAR(1) NOT NULL,
+  sexo CHAR(1) NOT NULL COMMENT 'M - Masculino, F - Feminino',
   foto LONGBLOB,
   email VARCHAR(120) NOT NULL,
   apresentacaoPessoal TEXT,
-  PRIMARY KEY (curriculum_id),
+  PRIMARY KEY (curriculum_id) ON DELETE CASCADE,
   INDEX idx_cidade (cidade_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
   FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id),
@@ -105,10 +105,10 @@ CREATE TABLE curriculum_escolaridade (
   escolaridade_id INT NOT NULL,
   PRIMARY KEY (curriculum_escolaridade_id),
   INDEX idx_cidade (cidade_id),
-  INDEX idx_curriculum (curriculum_curriculum_id),
+  INDEX idx_curriculum (curriculum_id),
   INDEX idx_escolaridade (escolaridade_id),
   FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id),
-  FOREIGN KEY (curriculum_curriculum_id) REFERENCES curriculum (curriculum_id),
+  FOREIGN KEY (curriculum_id) REFERENCES curriculum (curriculum_id) ON DELETE CASCADE,
   FOREIGN KEY (escolaridade_id) REFERENCES escolaridade (escolaridade_id)
 );
 
@@ -132,7 +132,7 @@ CREATE TABLE curriculum_experiencia (
   PRIMARY KEY (curriculum_experiencia_id),
   INDEX idx_curriculum (curriculum_id),
   INDEX idx_cargo (cargo_id),
-  FOREIGN KEY (curriculum_id) REFERENCES curriculum (curriculum_id),
+  FOREIGN KEY (curriculum_id) REFERENCES curriculum (curriculum_id) ON DELETE CASCADE,
   FOREIGN KEY (cargo_id) REFERENCES cargo (cargo_id)
 );
 
@@ -146,7 +146,7 @@ CREATE TABLE curriculum_qualificacao (
   estabelecimento VARCHAR(60) NOT NULL,
   PRIMARY KEY (curriculum_qualificacao_id),
   INDEX idx_curriculum (curriculum_id),
-  FOREIGN KEY (curriculum_id) REFERENCES curriculum (curriculum_id)
+  FOREIGN KEY (curriculum_id) REFERENCES curriculum (curriculum_id) ON DELETE CASCADE
 );
 
 CREATE TABLE vaga (
@@ -168,10 +168,11 @@ CREATE TABLE vaga (
 );
 
 CREATE TABLE vaga_curriculum (
+  vaga_curriculum_id INT AUTO_INCREMENT,
   vaga_id INT NOT NULL,
   curriculum_id INT NOT NULL,
   dateCandidatura DATETIME NOT NULL,
-  PRIMARY KEY (vaga_id, curriculum_id),
+  PRIMARY KEY (vaga_curriculum_id),
   INDEX idx_curriculum (curriculum_id),
   INDEX idx_vaga (vaga_id),
   FOREIGN KEY (vaga_id) REFERENCES vaga (vaga_id),
@@ -181,7 +182,7 @@ CREATE TABLE vaga_curriculum (
 CREATE TABLE termodeuso (
   id INT NOT NULL AUTO_INCREMENT,
   textoTermo LONGTEXT NOT NULL,
-  statusRegistro INT NOT NULL DEFAULT 1,
+  statusRegistro INT NOT NULL DEFAULT 1 COMMENT '1 - Ativo, 2 - Inativo',
   rascunho INT DEFAULT 1,
   usuario_id INT NOT NULL,
   PRIMARY KEY (id),
@@ -195,7 +196,6 @@ CREATE TABLE termodeusoaceite (
   PRIMARY KEY (termodeuso_id, usuario_id),
   INDEX idx_usuario (usuario_id),
   INDEX idx_termodeuso (termodeuso_id),
-  FOREIGN KEY (termodeuso_id) REFERENCES termodeuso (usuario_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
 );
 
@@ -206,7 +206,7 @@ CREATE TABLE postagem (
   imagem_url VARCHAR(255),
   data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (postagem_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
+  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE
 );
 
 CREATE TABLE postagem_reacao (
@@ -223,13 +223,13 @@ CREATE TABLE usuariorecuperasenha (
   id INT NOT NULL AUTO_INCREMENT,
   usuario_id INT NOT NULL,
   chave varchar(250) NOT NULL,
-  statusRegistro int NOT NULL DEFAULT '1' COMMENT '1=Ativo;2=Inativo',
+  statusRegistro int NOT NULL DEFAULT '1' COMMENT '1 - Ativo, 2 - Inativo',
   created_at datetime NOT NULL,
   updated_at datetime DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY chave (chave),
   KEY FK1_usuariorecuperacaosenha (usuario_id) USING BTREE,
-  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE
 );
 
 DELIMITER $$
