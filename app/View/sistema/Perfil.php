@@ -112,15 +112,15 @@
       <hr class="my-4">
 
       <div class="container my-4">
-        <a href="<?= baseUrl() ?>escolaridade/form/insert/0" class="btn btn-success m-2">
+        <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-success m-2">
           <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
         </a>
 
-        <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-success m-2">
+        <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-success m-2">
           <i class="bi bi-plus-lg"></i> Cadastrar Experiências
         </a>
 
-        <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-success m-2">
+        <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-success m-2">
           <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
         </a>
       </div>
@@ -158,24 +158,45 @@
         </div>
       <?php endif; ?>
 
+      <!-- Experiências -->
+      <?php if (!empty($dados['experiencias'])): ?>
+        <div class="mb-4">
+          <h4 class="text-primary mb-4">Expêriencias</h4>
+          <?php foreach ($dados['experiencias'] as $experiencias): ?>
+            <div class="card shadow-sm border-0 rounded-4 mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between flex-column flex-md-row">
+                  <div>
+                    <h5 class="card-title mb-1"><?= $experiencias['nome_cargo'] ?></h5>
+                    <p class="text-muted mb-1"><?= $experiencias['estabelecimento'] ?></p>
+                    <small class="text-muted">
+                      <?= $meses[(int)$experiencias['inicioMes']] ?>/<?= $experiencias['inicioAno'] ?> –
+                      <?php if (!empty($experiencias['fimMes']) && !empty($experiencias['fimAno'])): ?>
+                        <?= $meses[(int)$experiencias['fimMes']] ?>/<?= $experiencias['fimAno'] ?>
+                      <?php else: ?>
+                        Atual
+                      <?php endif; ?>
+                    </small>
+                  </div>
+                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                    <a href="<?= baseUrl() ?>Experiencias/form/update/<?= $experiencias['curriculum_experiencia_id'] ?>" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </a>
+                    <a href="javascript:void(0);"
+                    onclick="confirmarExclusao('<?= baseUrl() ?>Experiencias/delete', { curriculum_experiencia_id: <?= $experiencias['curriculum_experiencia_id'] ?> })"
+                    class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
       <hr class="my-4">
 
-      <!-- Experiências -->
-      <div class="mb-4">
-        <h4 class="text-primary mb-3">Experiências</h4>
-
-        <div class="card p-3 shadow-sm rounded-4 mb-3">
-          <h5 class="mb-1">Desenvolvedor PHP</h5>
-          <p class="mb-1 text-muted">Tech Solutions</p>
-          <small class="text-muted">Jan/2023 - Atual</small>
-        </div>
-
-        <div class="card p-3 shadow-sm rounded-4">
-          <h5 class="mb-1">Estagiário em TI</h5>
-          <p class="mb-1 text-muted">SoftCorp</p>
-          <small class="text-muted">Mar/2022 - Dez/2022</small>
-        </div>
-      </div>
     <?php endif; ?>
   </div>
 </div>

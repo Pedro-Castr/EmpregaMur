@@ -10,6 +10,8 @@ use App\Model\CidadeModel;
 use App\Model\PessoaFisicaModel;
 use App\Model\EscolaridadeModel;
 use App\Model\NivelEscolaridadeModel;
+use App\Model\EXperienciasModel;
+use App\Model\CargoModel;
 
 class Perfil extends ControllerMain
 {
@@ -26,18 +28,14 @@ class Perfil extends ControllerMain
      */
     public function index()
     {
-        // Verifica se usuário está logado
         if (!Session::get("userId")) {
             header("Location: " . baseUrl() . "login");
             exit;
         }
 
         $userId = Session::get("userId");
-
-        // Busca os dados do usuário
         $dadosUsuario = $this->model->getByUserId($userId);
 
-        // Instancia o model do currículo
         $curriculoModel = new CurriculoModel();
         $pessoaFisicaId = Session::get("pessoa_fisica_id");
 
@@ -49,35 +47,48 @@ class Perfil extends ControllerMain
             $cidade = $cidadeModel->getById($dadosCurriculo['cidade_id']);
         }
 
-        // Buscar escolaridades relacionadas ao currículo
+        // Escolaridades
         $nivelEscolaridadeModel = new NivelEscolaridadeModel();
         $escolaridadeModel = new EscolaridadeModel();
 
         $listaEscolaridades = [];
-
         if (!empty($dadosCurriculo)) {
             $escolaridades = $escolaridadeModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
 
             foreach ($escolaridades as $escolaridade) {
                 $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
-                // Adiciona o nome da escolaridade no array original
                 $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
 
                 $listaEscolaridades[] = $escolaridade;
             }
         }
 
-        // Prepara os dados para a view
+        // Experiências
+        $experienciaModel = new ExperienciasModel();
+        $cargoModel = new CargoModel();
+
+        $listaExperiencias = [];
+        if (!empty($dadosCurriculo)) {
+            $experiencias = $experienciaModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+
+            foreach ($experiencias as $experiencia) {
+                $cargo = $cargoModel->getById($experiencia['cargo_id']);
+                $experiencia['nome_cargo'] = $cargo['descricao'] ?? 'Não informado';
+
+                $listaExperiencias[] = $experiencia;
+            }
+        }
+
         $dados = [
             'usuario' => $dadosUsuario,
             'curriculo' => $dadosCurriculo,
             'cidade' => $cidade,
-            'escolaridades' => $listaEscolaridades
+            'escolaridades' => $listaEscolaridades,
+            'experiencias' => $listaExperiencias
         ];
 
         return $this->loadView("sistema\\Perfil", $dados);
     }
-
 
     public function form($action, $id)
     {
