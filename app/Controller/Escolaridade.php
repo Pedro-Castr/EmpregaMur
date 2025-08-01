@@ -85,13 +85,13 @@ class Escolaridade extends ControllerMain
 
         if (Validator::make($post, $this->model->validationRules)) {
             Session::set('inputs', $post);
-            return Redirect::page($this->controller . "/form/insert/0");
+            return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
         } else {
             // Verifica se a data de fim é maior que a de início
             if ($post['inicioAno'] > $post['fimAno'] ||
                 ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])) {
                 Session::set('inputs', $post);
-                return Redirect::page($this->controller . "/form/insert/0", [
+                return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id'], [
                     "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
                 ]);
             }

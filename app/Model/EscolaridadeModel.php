@@ -44,13 +44,6 @@ class EscolaridadeModel extends ModelMain
         ]
     ];
 
-
-    /**
-     * lista
-     *
-     * @param string $orderby
-     * @return array
-     */
     public function listaEscolaridade()
     {
         return $this->db->select("curriculum_escolaridade.*, escolaridade.descricao")
