@@ -41,7 +41,7 @@
       </div>
     <?php else: ?>
 
-      <div class="card border-0 rounded-4 p-4 bg-light">
+      <div class="card border-0 rounded-4 p-2 bg-light">
         <div class="row g-4 align-items-center">
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
@@ -56,23 +56,10 @@
           <div class="col-md-9">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
               <h4 class="fs-3 mb-3 mb-md-0"><?= $dados['usuario']['nome'] ?></h4>
-
-              <!-- Botões perfil -->
-              <div>
-                <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
-                  <i class="bi bi-pencil-fill me-1"></i> Editar
-                </a>
-                <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-                class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
-                  <i class="bi bi-trash-fill me-1"></i> Excluir
-                </a>
-                <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
-                  <i class="bi bi-box-arrow-right"></i> Sair
-                </a>
-              </div>
             </div>
 
             <hr>
+
             <div class="row">
               <div class="col-md-12">
                 <p class="mb-1"><strong>Email:</strong> <?= $dados['curriculo']['email'] ?></p>
@@ -84,46 +71,17 @@
 
           <!-- Apresentação Pessoal -->
           <?php if (!empty($dados['curriculo']['apresentacaoPessoal'])): ?>
-            <div class="mt-4">
+            <div class="mt-2">
               <div class="p-3">
                 <h5 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill me-2"></i>Apresentação Pessoal</h5>
                 <p class="mb-0"><?= $dados['curriculo']['apresentacaoPessoal'] ?></p>
               </div>
             </div>
           <?php endif; ?>
-
-          <!-- Botões currículo -->
-          <div class="col-12 mt-3">
-            <a href="#" class="btn btn-sm btn-outline-success m-2">
-              <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
-            </a>
-            <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
-              <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
-            </a>
-            <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
-            class="btn btn-sm btn-outline-danger m-2">
-              <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
-            </a>
-          </div>
-
         </div>
       </div>
 
       <hr class="my-4">
-
-      <div class="container my-4">
-        <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-success m-2">
-          <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
-        </a>
-
-        <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-success m-2">
-          <i class="bi bi-plus-lg"></i> Cadastrar Experiências
-        </a>
-
-        <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-success m-2">
-          <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
-        </a>
-      </div>
 
       <!-- Escolaridade -->
       <?php if (!empty($dados['escolaridades'])): ?>
@@ -194,6 +152,58 @@
           <?php endforeach; ?>
         </div>
       <?php endif; ?>
+
+      <div class="row g-4 my-4 align-items-center">
+        <h2 class="text-center my-2">Configurações da Conta</h2>
+
+        <div class="container my-4">
+          <h5>Cadastre novas conquistas</h5>
+
+          <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-success m-2">
+            <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
+          </a>
+
+          <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-success m-2">
+            <i class="bi bi-plus-lg"></i> Cadastrar Experiências
+          </a>
+
+          <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-success m-2">
+            <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
+          </a>
+        </div>
+
+        <hr>
+
+        <div class="col-12 my-4">
+          <h5>Edite seu currículo</h5>
+          <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
+            <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
+          </a>
+          <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
+          class="btn btn-sm btn-outline-danger m-2">
+            <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-success m-2">
+            <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
+          </a>
+        </div>
+
+        <hr>
+
+        <div>
+          <h5>Edite seu perfil</h5>
+          <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
+            <i class="bi bi-pencil-fill me-1"></i> Editar
+          </a>
+          <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
+          class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+            <i class="bi bi-trash-fill me-1"></i> Excluir
+          </a>
+          <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </a>
+        </div>
+      </div>
 
     <?php endif; ?>
   </div>
