@@ -154,27 +154,27 @@
       <?php endif; ?>
 
       <div class="row g-4 my-4 align-items-center">
-        <h2 class="text-center my-2">Configurações da Conta</h2>
+        <h2 class="text-center my-4">Configurações da Conta</h2>
 
-        <div class="container my-4">
+        <div class="container my-2">
           <h5>Cadastre novas conquistas</h5>
 
-          <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-success m-2">
+          <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-outline-success m-2">
             <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
           </a>
 
-          <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-success m-2">
+          <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-outline-success m-2">
             <i class="bi bi-plus-lg"></i> Cadastrar Experiências
           </a>
 
-          <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-success m-2">
+          <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-outline-success m-2">
             <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
           </a>
         </div>
 
         <hr>
 
-        <div class="col-12 my-4">
+        <div class="col-12 my-2">
           <h5>Edite seu currículo</h5>
           <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
             <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
@@ -190,16 +190,16 @@
 
         <hr>
 
-        <div>
+        <div class="col-12">
           <h5>Edite seu perfil</h5>
-          <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary me-2 mb-2 mb-md-0">
-            <i class="bi bi-pencil-fill me-1"></i> Editar
+          <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
+            <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
           </a>
           <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-          class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
-            <i class="bi bi-trash-fill me-1"></i> Excluir
+          class="btn btn-sm btn-outline-danger m-2">
+            <i class="bi bi-trash-fill me-1"></i> Excluir Perfil
           </a>
-          <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-danger me-2 mb-2 mb-md-0">
+          <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-dark m-2">
             <i class="bi bi-box-arrow-right"></i> Sair
           </a>
         </div>
