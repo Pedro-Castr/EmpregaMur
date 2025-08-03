@@ -12,6 +12,7 @@ use App\Model\EscolaridadeModel;
 use App\Model\NivelEscolaridadeModel;
 use App\Model\EXperienciasModel;
 use App\Model\CargoModel;
+use App\Model\QualificacaoModel;
 
 class Perfil extends ControllerMain
 {
@@ -79,12 +80,25 @@ class Perfil extends ControllerMain
             }
         }
 
+        // Qualificações
+        $QualificacoesModel = new QualificacaoModel();
+
+        $listaQualificacoes = [];
+        if (!empty($dadosCurriculo)) {
+            $qualificacoes = $QualificacoesModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+
+            foreach ($qualificacoes as $qualificacao) {
+                $listaQualificacoes[] = $qualificacao;
+            }
+        }
+
         $dados = [
             'usuario' => $dadosUsuario,
             'curriculo' => $dadosCurriculo,
             'cidade' => $cidade,
             'escolaridades' => $listaEscolaridades,
-            'experiencias' => $listaExperiencias
+            'experiencias' => $listaExperiencias,
+            'qualificacoes' => $listaQualificacoes
         ];
 
         return $this->loadView("sistema\\Perfil", $dados);

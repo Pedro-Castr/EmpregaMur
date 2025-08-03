@@ -153,6 +153,38 @@
         </div>
       <?php endif; ?>
 
+      <!-- Escolaridade -->
+      <?php if (!empty($dados['qualificacoes'])): ?>
+        <div class="mb-4">
+          <h4 class="text-primary mb-4">Qualificações</h4>
+          <?php foreach ($dados['qualificacoes'] as $qualificacao): ?>
+            <div class="card shadow-sm border-0 rounded-4 mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between flex-column flex-md-row">
+                  <div>
+                    <h5 class="card-title mb-1"><?= $qualificacao['descricao'] ?></h5>
+                    <p class="text-muted mb-1"><?= $qualificacao['estabelecimento'] ?></p>
+                    <small class="text-muted">
+                      <?= $meses[(int)$qualificacao['mes']] ?>/<?= $qualificacao['ano'] ?>
+                    </small>
+                  </div>
+                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                    <a href="<?= baseUrl() ?>Qualificacao/form/update/<?= $qualificacao['curriculum_qualificacao_id'] ?>" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </a>
+                    <a href="javascript:void(0);"
+                    onclick="confirmarExclusao('<?= baseUrl() ?>Qualificacao/delete', { curriculum_qualificacao_id: <?= $qualificacao['curriculum_qualificacao_id'] ?> })"
+                    class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
       <div class="row g-4 my-4 align-items-center">
         <h2 class="text-center my-4">Configurações da Conta</h2>
 
@@ -167,7 +199,7 @@
             <i class="bi bi-plus-lg"></i> Cadastrar Experiências
           </a>
 
-          <a href="<?= baseUrl() ?>Qualificacoes/form/insert/0" class="btn btn-outline-success m-2">
+          <a href="<?= baseUrl() ?>Qualificacao/form/insert/0" class="btn btn-outline-success m-2">
             <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
           </a>
         </div>
