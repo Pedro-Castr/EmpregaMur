@@ -1,12 +1,12 @@
-  <footer class="bg-dark text-light py-4 mt-5">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-      <nav>
-        <ul class="nav">
-          <li class="nav-item"><a href="home.html" class="nav-link px-2 text-light">Home</a></li>
-          <li class="nav-item"><a href="empregos.html" class="nav-link px-2 text-light">Empregos</a></li>
-          <li class="nav-item"><a href="perfil.html" class="nav-link px-2 text-light">Perfil</a></li>
-        </ul>
-      </nav>
+  <footer class="bg-dark text-white mt-5 py-4">
+    <div class="container text-center">
+      <div class="mb-3">
+        <a href="https://github.com/Pedro-Castr" target="_blank" class="text-white me-3"><i class="bi bi-github"></i></a>
+        <a href="https://www.instagram.com/pedrocastr7/" target="_blank" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/pedro-castr/" target="_blank" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <p class="mb-0">&copy; <?= date('Y') ?> EmpregaMur. Todos os direitos reservados.</p>
+      <p class="mb-0 small">Desenvolvido por Pedro Castro</p>
     </div>
   </footer>
 
