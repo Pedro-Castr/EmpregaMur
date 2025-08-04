@@ -8,6 +8,7 @@ CREATE TABLE estabelecimento (
   latitude CHAR(12) NOT NULL,
   longitude CHAR(12) NOT NULL,
   email VARCHAR(150) DEFAULT NULL,
+  foto LONGBLOB,
   PRIMARY KEY (estabelecimento_id),
   FULLTEXT INDEX ft_busca (nome)
 );
@@ -264,4 +265,6 @@ Alterações feitas até agora:
 6. Criei uma trigger para atualizar o nome na tabela pessoa_fisica sempre que o nome for atualizado na tabela de usuario.
 
 7. Adicionei ON DELETE CASCADE na tabela curriculum.
+
+8. Adicionei o campo foto na tabela de estabelecimento.
 */
