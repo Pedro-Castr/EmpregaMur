@@ -61,7 +61,7 @@
       </ul>
     </div>
     <?php if (!Session::get("userId")): ?>
-      <a href="<?= baseUrl() ?>Login" class="btn btn-primary ms-2">Faça login</a>
+      <a href="<?= baseUrl() ?>Cadastro" class="btn btn-success ms-2">Cadastre-se</a>
     <?php endif; ?>
   </div>
 </header>
