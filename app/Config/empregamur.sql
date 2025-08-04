@@ -267,6 +267,15 @@ BEGIN
     END IF;
 END$$
 
+CREATE TRIGGER atualizaFotoPerfilUsuarioEstabelecimento
+AFTER UPDATE ON estabelecimento
+FOR EACH ROW
+BEGIN
+	UPDATE usuario
+	SET foto_perfil = NEW.foto
+	WHERE estabelecimento_id = NEW.estabelecimento_id;
+END$$
+
 DELIMITER ;
 
 /*
