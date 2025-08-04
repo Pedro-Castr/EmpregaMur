@@ -247,6 +247,26 @@ BEGIN
     END IF;
 END$$
 
+CREATE TRIGGER atualizaFotoPerfilUsuario
+AFTER INSERT ON curriculum
+FOR EACH ROW
+BEGIN
+    UPDATE usuario
+    SET foto_perfil = NEW.foto
+    WHERE pessoa_fisica_id = NEW.pessoa_fisica_id;
+END$$
+
+CREATE TRIGGER atualizaFotoPerfilUsuarioUpdate
+AFTER UPDATE ON curriculum
+FOR EACH ROW
+BEGIN
+    IF NEW.foto <> OLD.foto THEN
+        UPDATE usuario
+        SET foto_perfil = NEW.foto
+        WHERE pessoa_fisica_id = NEW.pessoa_fisica_id;
+    END IF;
+END$$
+
 DELIMITER ;
 
 /*
