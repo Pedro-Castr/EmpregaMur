@@ -33,7 +33,7 @@
               <i class="bi bi-trash-fill me-1"></i> Excluir Conta
             </a>
 
-            <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+            <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-outline-dark me-2 mb-2 mb-md-0">
               <i class="bi bi-box-arrow-right"></i> Sair
             </a>
           </div>
@@ -46,7 +46,7 @@
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
             <?php if (!empty($dados['curriculo']['foto'])): ?>
-              <img src="<?= baseUrl() . 'foto.php?id=' . $dados['curriculo']['curriculum_id'] ?>" alt="Foto de perfil" class="img-fluid rounded-3">
+              <img src="<?= baseUrl() . 'fotoPF.php?id=' . $dados['curriculo']['curriculum_id'] ?>" alt="Foto de perfil" class="img-fluid rounded-3">
             <?php else: ?>
               <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Foto de perfil" class="img-fluid rounded-3">
             <?php endif; ?>
@@ -153,7 +153,7 @@
         </div>
       <?php endif; ?>
 
-      <!-- Escolaridade -->
+      <!-- Qualificações -->
       <?php if (!empty($dados['qualificacoes'])): ?>
         <div class="mb-4">
           <h4 class="text-primary mb-4">Qualificações</h4>
@@ -236,7 +236,6 @@
           </a>
         </div>
       </div>
-
     <?php endif; ?>
   </div>
 </div>

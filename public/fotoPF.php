@@ -27,7 +27,7 @@ $db = new Database(
     $_ENV['DB_PASSWORD'] ?? ''
 );
 
-$db->table('curriculum');  // tabela correta
+$db->table('curriculum');
 
 try {
     // Consulta a imagem pelo curriculum_id
@@ -39,7 +39,7 @@ try {
         exit;
     }
 
-    // Envia cabeçalho correto para imagem (exemplo PNG, ajustar se precisar)
+    // Envia cabeçalho correto para imagem
     header("Content-Type: image/png");
     echo $resultado['foto'];
 

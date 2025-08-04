@@ -13,6 +13,7 @@ use App\Model\NivelEscolaridadeModel;
 use App\Model\EXperienciasModel;
 use App\Model\CargoModel;
 use App\Model\QualificacaoModel;
+use App\Model\EstabelecimentoModel;
 
 class Perfil extends ControllerMain
 {
@@ -34,79 +35,100 @@ class Perfil extends ControllerMain
             exit;
         }
 
-        $userId = Session::get("userId");
-        $dadosUsuario = $this->model->getByUserId($userId);
+        If (Session::get('userTipo') == 'PF') {
+            $userId = Session::get("userId");
+            $dadosUsuario = $this->model->getByUserId($userId);
 
-        $curriculoModel = new CurriculoModel();
-        $pessoaFisicaId = Session::get("pessoa_fisica_id");
+            $curriculoModel = new CurriculoModel();
+            $pessoaFisicaId = Session::get("pessoa_fisica_id");
 
-        $dadosCurriculo = $curriculoModel->getByPessoaFisicaId($pessoaFisicaId);
+            $dadosCurriculo = $curriculoModel->getByPessoaFisicaId($pessoaFisicaId);
 
-        $cidade = null;
-        if (!empty($dadosCurriculo) && isset($dadosCurriculo['cidade_id'])) {
-            $cidadeModel = new CidadeModel();
-            $cidade = $cidadeModel->getById($dadosCurriculo['cidade_id']);
-        }
-
-        // Escolaridades
-        $nivelEscolaridadeModel = new NivelEscolaridadeModel();
-        $escolaridadeModel = new EscolaridadeModel();
-
-        $listaEscolaridades = [];
-        if (!empty($dadosCurriculo)) {
-            $escolaridades = $escolaridadeModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
-
-            foreach ($escolaridades as $escolaridade) {
-                $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
-                $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
-
-                $listaEscolaridades[] = $escolaridade;
+            $cidade = null;
+            if (!empty($dadosCurriculo) && isset($dadosCurriculo['cidade_id'])) {
+                $cidadeModel = new CidadeModel();
+                $cidade = $cidadeModel->getById($dadosCurriculo['cidade_id']);
             }
-        }
 
-        // Experiências
-        $experienciaModel = new ExperienciasModel();
-        $cargoModel = new CargoModel();
+            // Escolaridades
+            $nivelEscolaridadeModel = new NivelEscolaridadeModel();
+            $escolaridadeModel = new EscolaridadeModel();
 
-        $listaExperiencias = [];
-        if (!empty($dadosCurriculo)) {
-            $experiencias = $experienciaModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+            $listaEscolaridades = [];
+            if (!empty($dadosCurriculo)) {
+                $escolaridades = $escolaridadeModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
 
-            foreach ($experiencias as $experiencia) {
-                $cargo = $cargoModel->getById($experiencia['cargo_id']);
-                $experiencia['nome_cargo'] = $cargo['descricao'] ?? 'Não informado';
+                foreach ($escolaridades as $escolaridade) {
+                    $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
+                    $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
 
-                $listaExperiencias[] = $experiencia;
+                    $listaEscolaridades[] = $escolaridade;
+                }
             }
-        }
 
-        // Qualificações
-        $QualificacoesModel = new QualificacaoModel();
+            // Experiências
+            $experienciaModel = new ExperienciasModel();
+            $cargoModel = new CargoModel();
 
-        $listaQualificacoes = [];
-        if (!empty($dadosCurriculo)) {
-            $qualificacoes = $QualificacoesModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+            $listaExperiencias = [];
+            if (!empty($dadosCurriculo)) {
+                $experiencias = $experienciaModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
 
-            foreach ($qualificacoes as $qualificacao) {
-                $listaQualificacoes[] = $qualificacao;
+                foreach ($experiencias as $experiencia) {
+                    $cargo = $cargoModel->getById($experiencia['cargo_id']);
+                    $experiencia['nome_cargo'] = $cargo['descricao'] ?? 'Não informado';
+
+                    $listaExperiencias[] = $experiencia;
+                }
             }
+
+            // Qualificações
+            $QualificacoesModel = new QualificacaoModel();
+
+            $listaQualificacoes = [];
+            if (!empty($dadosCurriculo)) {
+                $qualificacoes = $QualificacoesModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
+
+                foreach ($qualificacoes as $qualificacao) {
+                    $listaQualificacoes[] = $qualificacao;
+                }
+            }
+
+            $dados = [
+                'usuario' => $dadosUsuario,
+                'curriculo' => $dadosCurriculo,
+                'cidade' => $cidade,
+                'escolaridades' => $listaEscolaridades,
+                'experiencias' => $listaExperiencias,
+                'qualificacoes' => $listaQualificacoes
+            ];
+
+            return $this->loadView("sistema\\Perfil-PF", $dados);
+        } else if (Session::get('userTipo') == 'PJ') {
+            $userId = Session::get("userId");
+            $dadosUsuario = $this->model->getByUserId($userId);
+
+            $EstabelecimentoModel = new EstabelecimentoModel();
+            $estabelecimentoId = Session::get("estabelecimento_id");
+
+            $dadosEstabelecimento = $EstabelecimentoModel->getByEstabelecimentoId($estabelecimentoId);
+
+            $dados = [
+                'usuario' => $dadosUsuario,
+                'estabelecimento' => $dadosEstabelecimento
+            ];
+
+            return $this->loadView("sistema\\Perfil-PJ", $dados);
         }
-
-        $dados = [
-            'usuario' => $dadosUsuario,
-            'curriculo' => $dadosCurriculo,
-            'cidade' => $cidade,
-            'escolaridades' => $listaEscolaridades,
-            'experiencias' => $listaExperiencias,
-            'qualificacoes' => $listaQualificacoes
-        ];
-
-        return $this->loadView("sistema\\Perfil", $dados);
     }
 
     public function form($action, $id)
     {
-        return $this->loadView("sistema/formPerfil", $this->model->getById($id));
+        if (Session::get('userTipo') == 'PF') {
+            return $this->loadView("sistema/formPerfil-PF", $this->model->getById($id));
+        } else if (Session::get('userTipo') == 'PJ') {
+            return $this->loadView("sistema/formPerfil-PJ", $this->model->getById($id));
+        }
     }
 
     /**
