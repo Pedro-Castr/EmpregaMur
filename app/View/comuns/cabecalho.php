@@ -50,7 +50,7 @@
           <a class="nav-link active" href="<?= baseUrl()?>">🏠 Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?= baseUrl() ?>Emprego">💼 Empregos</a>
+          <a class="nav-link active" href="<?= baseUrl() ?>Vagas">💼 Vagas</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">🔔 Notificações</a>

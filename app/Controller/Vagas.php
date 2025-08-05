@@ -5,7 +5,7 @@ namespace App\Controller;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 
-class Emprego extends ControllerMain
+class Vagas extends ControllerMain
 {
     public function __construct()
     {
@@ -20,7 +20,12 @@ class Emprego extends ControllerMain
      */
     public function index()
     {
-        return $this->loadView("sistema\Emprego", $this->model->lista("descricao"));
+        return $this->loadView("sistema\Vagas", $this->model->lista("descricao"));
+    }
+
+        public function form($action, $id)
+    {
+        return $this->loadView("sistema/formVagas", $this->model->getById($id));
     }
 
     /**

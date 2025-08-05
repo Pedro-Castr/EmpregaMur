@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Core\Library\ModelMain;
 
-class EmpregoModel extends ModelMain
+class VagasModel extends ModelMain
 {
     protected $table = "vaga";
 
