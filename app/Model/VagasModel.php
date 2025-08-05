@@ -9,21 +9,29 @@ class VagasModel extends ModelMain
     protected $table = "vaga";
 
     public $validationRules = [
-        "descricao"  => [
-            "label" => 'Descrição',
-            "rules" => 'required|min:3|max:50'
+        "dtFim"  => [
+            "label" => 'Data Final',
+            "rules" => 'required|date'
         ],
-        "sobreaVaga"  => [
-            "label" => 'Sobre a Vaga',
-            "rules" => 'required|min:10|max:150'
+        "dtInicio"  => [
+            "label" => 'Data de Início',
+            "rules" => 'required|date'
         ],
         "modalidade"  => [
             "label" => 'Modalidade',
-            "rules" => 'required|int'
+            "rules" => 'required'
         ],
         "vinculo"  => [
             "label" => 'Vínculo',
-            "rules" => 'required|int'
+            "rules" => 'required'
+        ],
+        "sobreaVaga"  => [
+            "label" => 'Sobre a vaga',
+            "rules" => 'required'
+        ],
+        "cargo_id"  => [
+            "label" => 'Cargo',
+            "rules" => 'required'
         ]
     ];
 }

@@ -49,6 +49,13 @@
         <h2 class="text-center my-4">Configurações da Conta</h2>
 
         <div class="col-12">
+          <h5>Gerencie suas vagas</h5>
+          <a href="<?= baseUrl() ?>Vagas/form/insert/0" class="btn btn-success m-2">
+            <i class="bi bi-plus-lg"></i> Criar Vaga
+          </a>
+        </div>
+
+        <div class="col-12">
           <h5>Edite seu perfil</h5>
           <a href="<?= baseUrl() ?>Estabelecimento/form/update/<?= $dados['usuario']['estabelecimento_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
             <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
