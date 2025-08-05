@@ -35,7 +35,7 @@
       <?php if (!empty($dados['data']['curriculum_id'])): ?>
         <div class="mb-3 col-12">
           <h5>Imagem</h5>
-          <img src="<?= baseUrl() . 'foto.php?id=' . $dados['data']['curriculum_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+          <img src="<?= baseUrl() . 'fotoPF.php?id=' . $dados['data']['curriculum_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
       <?php endif; ?>
     </div>

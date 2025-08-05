@@ -17,10 +17,10 @@
         <input type="file" class="form-control" id="foto" name="foto">
       </div>
 
-      <?php if (!empty($dados['data']['curriculum_id'])): ?>
+      <?php if (!empty($dados['data']['estabelecimento_id'])): ?>
         <div class="mb-3 col-12">
           <h5>Imagem</h5>
-          <img src="<?= baseUrl() . 'foto.php?id=' . $dados['data']['curriculum_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+          <img src="<?= baseUrl() . 'fotoPJ.php?id=' . $dados['data']['estabelecimento_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
       <?php endif; ?>
     </div>
