@@ -4,8 +4,12 @@
 ?>
 
 <div class="container py-3">
-  <h2 class="my-3 text-center">Cadastre sua Qualificação</h2>
-  <p class="text-muted text-center">Adicione cursos e certificações que complementam sua formação e destacam suas habilidades no mercado de trabalho.</p>
+  <?php if (in_array($this->request->getAction(), ['insert'])): ?>
+    <h2 class="my-3 text-center">Cadastre sua Qualificação</h2>
+    <p class="text-muted text-center">Adicione cursos e certificações que complementam sua formação e destacam suas habilidades no mercado de trabalho.</p>
+  <?php else: ?>
+    <h2 class="my-3 text-center">Atualize sua Qualificação</h2>
+  <?php endif; ?>
 
   <form method="POST" action="<?= $this->request->formAction() ?>" class="bg-white p-4 rounded shadow-sm">
 

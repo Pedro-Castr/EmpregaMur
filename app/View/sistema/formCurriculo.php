@@ -15,8 +15,12 @@
 </script>
 
 <div class="container py-3">
-  <h2 class="my-3 text-center">Cadastre seu Currículo</h2>
-  <p class="text-muted text-center">Preencha as informações abaixo para criar seu currículo e aumentar suas chances de conquistar uma nova oportunidade profissional.</p>
+  <?php if (in_array($this->request->getAction(), ['insert'])): ?>
+    <h2 class="my-3 text-center">Cadastre seu Currículo</h2>
+    <p class="text-muted text-center">Preencha as informações abaixo para criar seu currículo e aumentar suas chances de conquistar uma nova oportunidade profissional.</p>
+  <?php else: ?>
+    <h2 class="my-3 text-center">Atualize seu Currículo</h2>
+  <?php endif; ?>
 
   <form method="POST" action="<?= $this->request->formAction() ?>" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
 

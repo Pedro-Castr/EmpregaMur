@@ -9,8 +9,12 @@
 ?>
 
 <div class="container py-3">
-  <h2 class="my-3 text-center">Cadastre suas Experiências</h2>
-  <p class="text-muted text-center">Compartilhe sua trajetória profissional e mostre às empresas onde você já atuou, suas conquistas e como pode contribuir com novos desafios.</p>
+  <?php if (in_array($this->request->getAction(), ['insert'])): ?>
+    <h2 class="my-3 text-center">Cadastre suas Experiências</h2>
+    <p class="text-muted text-center">Compartilhe sua trajetória profissional e mostre às empresas onde você já atuou, suas conquistas e como pode contribuir com novos desafios.</p>
+  <?php else: ?>
+    <h2 class="my-3 text-center">Atualize sua Experiência</h2>
+  <?php endif; ?>
 
   <form method="POST" action="<?= $this->request->formAction() ?>" class="bg-white p-4 rounded shadow-sm">
 

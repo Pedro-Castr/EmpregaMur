@@ -4,8 +4,12 @@
 ?>
 
 <div class="container py-3">
-  <h2 class="my-3 text-center">Cadastre uma Vaga de Emprego</h2>
-  <p class="text-muted text-center">Informe os detalhes da vaga para atrair candidatos qualificados e encontrar o profissional ideal para sua empresa.</p>
+  <?php if (in_array($this->request->getAction(), ['insert'])): ?>
+    <h2 class="my-3 text-center">Cadastre uma Vaga de Emprego</h2>
+    <p class="text-muted text-center">Informe os detalhes da vaga para atrair candidatos qualificados e encontrar o profissional ideal para sua empresa.</p>
+  <?php else: ?>
+    <h2 class="my-3 text-center">Atualize sua Vaga de Emprego</h2>
+  <?php endif; ?>
 
   <form method="POST" action="<?= $this->request->formAction() ?>" class="bg-white p-4 rounded shadow-sm">
 
