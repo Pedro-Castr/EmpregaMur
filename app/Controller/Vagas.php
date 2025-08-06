@@ -56,20 +56,19 @@ public function insert()
     $dtInicio = new \DateTime($post['dtInicio']);
     $dtFim = new \DateTime($post['dtFim']);
 
-    // início não pode ser antes de hoje
-    if ($dtInicio < $hoje) {
-        Session::set('inputs', $post);
-        return Redirect::page($this->controller . "/form/insert/0", [
-            "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser uma data futura"]
-        ]);
-    }
-
-    // fim não pode ser antes do início
     if ($dtFim <= $dtInicio) {
         Session::set('inputs', $post);
         return Redirect::page($this->controller . "/form/insert/0", [
-            "toast" => ["tipo" => "error", "mensagem" => "A data de fim deve ser posterior à data de início"]
+            "toast" => ["tipo" => "error", "mensagem" => "A data final deve ser posterior à data de início"]
         ]);
+    }
+
+    if ($dtInicio <= $hoje && $dtFim >= $hoje) {
+        $post['statusVaga'] = 2; // Seta statusVaga como ativa
+    } else if ($dtInicio > $hoje && $dtFim > $hoje) {
+        $post['statusVaga'] = 1; // Seta statusVaga como pendente
+    } else {
+        $post['statusVaga'] = 3; // Seta statusVaga como fechada
     }
 
     // Puxa o nome do cargo para preencher o campo descricao
@@ -82,8 +81,6 @@ public function insert()
         }
     }
 
-    // Seta statusVaga como pendente
-    $post['statusVaga'] = 1;
     if ($this->model->insert($post)) {
         return Redirect::page('perfil', [
             "toast" => ["tipo" => "success", "mensagem" => "Vaga cadastrada com sucesso"]
@@ -105,12 +102,41 @@ public function insert()
     {
         $post = $this->request->getPost();
 
+        $hoje = new \DateTime('today');
+        $dtInicio = new \DateTime($post['dtInicio']);
+        $dtFim = new \DateTime($post['dtFim']);
+
+        if ($dtFim <= $dtInicio) {
+            Session::set('inputs', $post);
+            return Redirect::page($this->controller . "/form/update/" . $post['vaga_id'], [
+                "toast" => ["tipo" => "error", "mensagem" => "A data final deve ser posterior à data de início"]
+            ]);
+        }
+
+        if ($dtInicio <= $hoje && $dtFim >= $hoje) {
+            $post['statusVaga'] = 2; // Seta statusVaga como ativa
+        } else if ($dtInicio > $hoje && $dtFim > $hoje) {
+            $post['statusVaga'] = 1; // Seta statusVaga como pendente
+        } else {
+            $post['statusVaga'] = 3; // Seta statusVaga como fechada
+        }
+
+        // Puxa o nome do cargo para preencher o campo descricao
+        if (!empty($post['cargo_id'])) {
+            $cargoModel = new CargoModel();
+            $cargo = $cargoModel->getById($post['cargo_id']);
+
+            if (!empty($cargo) && isset($cargo['descricao'])) {
+                $post['descricao'] = $cargo['descricao'];
+            }
+        }
+
         if ($this->model->update($post)) {
-            return Redirect::page($this->controller, [
-                "toast" => ["tipo" => "success", "mensagem" => "Registro alterado com sucesso"]
+            return Redirect::page('perfil', [
+                "toast" => ["tipo" => "success", "mensagem" => "Vaga alterada com sucesso"]
             ]);
         } else {
-            return Redirect::page($this->controller . "/form/update/" . $post['id']);
+            return Redirect::page($this->controller . "/form/update/" . $post['vaga_id']);
         }
     }
 

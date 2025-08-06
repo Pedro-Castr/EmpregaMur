@@ -14,6 +14,7 @@ use App\Model\EXperienciasModel;
 use App\Model\CargoModel;
 use App\Model\QualificacaoModel;
 use App\Model\EstabelecimentoModel;
+use App\Model\VagasModel;
 
 class Perfil extends ControllerMain
 {
@@ -113,9 +114,16 @@ class Perfil extends ControllerMain
 
             $dadosEstabelecimento = $EstabelecimentoModel->getByEstabelecimentoId($estabelecimentoId);
 
+            // Buscar vagas do estabelecimento
+            $vagaModel = new VagasModel();
+            $cargoModel = new CargoModel();
+
+            $vagas = $vagaModel->getByEstabelecimentoId($estabelecimentoId);
+
             $dados = [
                 'usuario' => $dadosUsuario,
-                'estabelecimento' => $dadosEstabelecimento
+                'estabelecimento' => $dadosEstabelecimento,
+                'vagas' => $vagas
             ];
 
             return $this->loadView("sistema\\Perfil-PJ", $dados);

@@ -7,6 +7,7 @@ use Core\Library\ModelMain;
 class VagasModel extends ModelMain
 {
     protected $table = "vaga";
+    protected $primaryKey = "vaga_id";
 
     public $validationRules = [
         "dtFim"  => [
@@ -34,4 +35,9 @@ class VagasModel extends ModelMain
             "rules" => 'required'
         ]
     ];
+
+    public function getByEstabelecimentoId($estabelecimentoId)
+    {
+        return $this->db->where('estabelecimento_id', $estabelecimentoId)->findAll();
+    }
 }
