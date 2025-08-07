@@ -1,17 +1,17 @@
 <?php
 $aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
-$aVinculo  = ["1" => "CLT", "2" => "PJ"];
+$aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
 ?>
 
-<?php if (count($dados) > 0): ?>
+<?php if (count($dados['vagas']) > 0): ?>
   <div class="container py-5">
     <h1 class="mb-4 text-center">Vagas de Emprego</h1>
     <p class="text-center text-muted mb-4">Encontre oportunidades que combinam com o seu perfil profissional</p>
 
     <div class="row g-4">
       <!-- Card de Vaga -->
-      <?php foreach ($dados as $value): ?>
-        <div class="col-md-6 col-lg-4">
+      <?php foreach ($dados['vagas'] as $value): ?>
+        <div class="col-md-6 col-lg-6">
           <div class="card vaga-card h-100">
             <div class="card-body">
               <h5 class="card-title"><?= $value['descricao'] ?></h5>

@@ -40,4 +40,12 @@ class VagasModel extends ModelMain
     {
         return $this->db->where('estabelecimento_id', $estabelecimentoId)->findAll();
     }
+
+    public function listaVagasAbertas($orderby = 'dtInicio', $direction = 'ASC')
+    {
+        return $this->db
+                    ->where('statusVaga', 2)
+                    ->orderBy($orderby, $direction)
+                    ->prepareSelect();
+    }
 }

@@ -23,7 +23,9 @@ class Vagas extends ControllerMain
      */
     public function index()
     {
-        return $this->loadView("sistema/Vagas", $this->model->lista("descricao"));
+        $vagasAbertas = $this->model->listaVagasAbertas();
+
+        return $this->loadView("sistema/Vagas", ['vagas' => $vagasAbertas]);
     }
 
     public function form($action, $id)
@@ -150,8 +152,8 @@ public function insert()
         $post = $this->request->getPost();
 
         if ($this->model->delete($post)) {
-            return Redirect::page($this->controller, [
-                "toast" => ["tipo" => "success", "mensagem" => "Registro excluído com sucesso"]
+            return Redirect::page('perfil', [
+                "toast" => ["tipo" => "success", "mensagem" => "Vaga excluída com sucesso"]
             ]);
         } else {
             return Redirect::page($this->controller);
