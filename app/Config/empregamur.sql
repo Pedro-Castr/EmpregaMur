@@ -1,4 +1,4 @@
-CREATE DATABASE empregamur;
+CREATE DATABASE IF NOT EXISTS empregamur;
 USE empregamur;
 
 CREATE TABLE estabelecimento (
@@ -276,7 +276,33 @@ BEGIN
 	WHERE estabelecimento_id = NEW.estabelecimento_id;
 END$$
 
+CREATE PROCEDURE AtualizaStatusVagas()
+BEGIN
+  -- Atualiza vagas para "ABERTA" (statusVaga = 2)
+  UPDATE vagas
+  SET statusVaga = 2
+  WHERE CURDATE() BETWEEN dtInicio AND dtFim;
+
+  -- Atualiza vagas para "FECHADA" (statusVaga = 3)
+  UPDATE vagas
+  SET statusVaga = 3
+  WHERE dtFim < CURDATE();
+
+  -- Atualiza vagas para "PENDENTE" (statusVaga = 1)
+  UPDATE vagas
+  SET statusVaga = 1
+  WHERE dtInicio > CURDATE();
+END$$
+
 DELIMITER ;
+
+SET GLOBAL event_scheduler = ON;
+
+CREATE EVENT IF NOT EXISTS evento_atualiza_status_vagas
+ON SCHEDULE EVERY 1 DAY
+STARTS CONCAT(CURDATE(), ' 00:00:00')
+DO
+  CALL AtualizaStatusVagas();
 
 /*
 Alterações feitas até agora:
@@ -296,4 +322,6 @@ Alterações feitas até agora:
 7. Adicionei ON DELETE CASCADE na tabela curriculum.
 
 8. Adicionei o campo foto na tabela de estabelecimento.
+
+9. Adiconei uma procedure para atualizar o statusVaga, e um evento para chamar essa procedure periodicamente.
 */
