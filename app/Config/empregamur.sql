@@ -247,6 +247,18 @@ BEGIN
     END IF;
 END$$
 
+CREATE TRIGGER atualizaNomeEstabelecimento
+AFTER UPDATE ON estabelecimento
+FOR EACH ROW
+BEGIN
+    -- Verifica se o nome foi alterado e se existe um estabelecimento_id vinculado
+    IF NEW.nome <> OLD.nome AND NEW.estabelecimento_id IS NOT NULL THEN
+        UPDATE usuario
+        SET nome = NEW.nome
+        WHERE estabelecimento_id = NEW.estabelecimento_id;
+    END IF;
+END$$
+
 CREATE TRIGGER atualizaFotoPerfilUsuario
 AFTER INSERT ON curriculum
 FOR EACH ROW
@@ -319,9 +331,11 @@ Alterações feitas até agora:
 
 6. Criei uma trigger para atualizar o nome na tabela pessoa_fisica sempre que o nome for atualizado na tabela de usuario.
 
-7. Adicionei ON DELETE CASCADE na tabela curriculum.
+7. Criei uma trigger para atualizar o nome na usuario sempre que o nome for atualizado na tabela de estabelecimento.
 
-8. Adicionei o campo foto na tabela de estabelecimento.
+8. Adicionei ON DELETE CASCADE na tabela curriculum.
 
-9. Adiconei uma procedure para atualizar o statusVaga, e um evento para chamar essa procedure periodicamente.
+9. Adicionei o campo foto na tabela de estabelecimento.
+
+10. Adiconei uma procedure para atualizar o statusVaga, e um evento para chamar essa procedure periodicamente.
 */
