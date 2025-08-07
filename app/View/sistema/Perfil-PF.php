@@ -63,7 +63,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="mb-1"><strong>Email:</strong> <?= $dados['curriculo']['email'] ?></p>
-                <p class="mb-1" id="celular-exibicao"><strong>Telefone:</strong> <?= $dados['curriculo']['celular'] ?></p>
+                <strong>Telefone:</strong> <span id="celular-exibicao"><?= $dados['curriculo']['celular'] ?></span>
                 <p class="mb-1"><strong>Cidade:</strong> <?= $dados['cidade']['cidade'] ?>/<?= $dados['cidade']['uf'] ?></p>
               </div>
             </div>
@@ -215,7 +215,7 @@
           class="btn btn-sm btn-outline-danger m-2">
             <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
           </a>
-          <a href="#" class="btn btn-sm btn-outline-success m-2">
+          <a href="<?= baseUrl() ?>Curriculo/view/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
             <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
           </a>
         </div>
