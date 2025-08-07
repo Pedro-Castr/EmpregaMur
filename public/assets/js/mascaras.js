@@ -83,6 +83,7 @@ function formatarCelular(celular) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Formatar celular
   const telEl = document.getElementById('celular-exibicao');
   if (telEl) {
     const textoOriginal = telEl.innerText;
@@ -90,7 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (match) {
       const numero = match[0];
       const numeroFormatado = formatarCelular(numero);
-      telEl.innerHTML = `<strong>Telefone:</strong> ${numeroFormatado}`;
+      telEl.innerHTML = numeroFormatado;
+    }
+  }
+
+  // Formatar CEP
+  const cepEl = document.getElementById('cep-exibicao');
+  if (cepEl) {
+    const textoOriginalCep = cepEl.innerText;
+    const matchCep = textoOriginalCep.match(/\d{8}/); // extrai CEP
+    if (matchCep) {
+      const cep = matchCep[0];
+      const cepFormatado = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+      cepEl.innerHTML = cepFormatado;
     }
   }
 });
