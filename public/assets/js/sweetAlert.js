@@ -49,3 +49,19 @@ function confirmarLogout(url) {
     }
   });
 }
+
+function confirmarCandidatura(vagaId, curriculumId) {
+  Swal.fire({
+    title: 'Confirmar candidatura?',
+    text: 'Deseja realmente se candidatar a essa vaga?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sim, candidatar',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redireciona para o método candidatar no controller
+      window.location.href = `${baseUrl}Vagas/candidatar/${vagaId}/${curriculumId}`;
+    }
+  });
+}

@@ -12,6 +12,10 @@
   <?php endif;
 ?>
 
+<script>
+  const baseUrl = "<?= baseUrl() ?>";
+</script>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

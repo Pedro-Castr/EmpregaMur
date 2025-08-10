@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\CargoModel;
 use App\Model\EstabelecimentoModel;
+use App\Model\CandidaturaModel;
+use App\Model\CurriculoModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
@@ -21,27 +23,38 @@ class Vagas extends ControllerMain
      *
      * @return void
      */
-    public function index()
-    {
-        $vagasAbertas = $this->model->listaVagasAbertas();
+public function index()
+{
+    $vagasAbertas = $this->model->listaVagasAbertas();
 
-        $estabelecimentoModel = new EstabelecimentoModel();
-        $listaEstabelecimentos = [];
+    $estabelecimentoModel = new EstabelecimentoModel();
+    $curriculumModel = new CurriculoModel();
 
-        foreach ($vagasAbertas as $vaga) {
-            // Pega o ID do estabelecimento diretamente da vaga
-            $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
+    // Pegando o ID do usuário logado (ajuste o nome conforme sua sessão)
+    $pessoaFisicaId = Session::get('pessoa_fisica_id');
 
-            $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
-            $listaEstabelecimentos[] = $vaga;
-        }
+    // Buscando curriculum_id do usuário logado
+    $curriculum = $curriculumModel->getByPessoaFisicaId($pessoaFisicaId);
+    $curriculumId = $curriculum['curriculum_id'] ?? null;
 
-        $dados = [
-            'vagas' => $listaEstabelecimentos
-        ];
+    $listaEstabelecimentos = [];
 
-        return $this->loadView("sistema\\Vagas", $dados);
+    foreach ($vagasAbertas as $vaga) {
+        // Pega o ID do estabelecimento diretamente da vaga
+        $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
+
+        $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
+        $listaEstabelecimentos[] = $vaga;
     }
+
+    $dados = [
+        'vagas' => $listaEstabelecimentos,
+        'curriculum_id' => $curriculumId
+    ];
+
+    return $this->loadView("sistema\\Vagas", $dados);
+}
+
 
 
     public function form($action, $id)
@@ -170,6 +183,27 @@ public function insert()
         if ($this->model->delete($post)) {
             return Redirect::page('perfil', [
                 "toast" => ["tipo" => "success", "mensagem" => "Vaga excluída com sucesso"]
+            ]);
+        } else {
+            return Redirect::page($this->controller);
+        }
+    }
+
+    public function candidatar($vaga_id, $curriculum_id)
+    {
+        $CandidaturaModel = new CandidaturaModel();
+
+        // Preenche os dados
+        $data = [
+            'vaga_id'        => $vaga_id,
+            'curriculum_id'  => $curriculum_id,
+            'dateCandidatura'=> date('Y-m-d H:i:s')
+        ];
+
+        // Insere
+        if ($CandidaturaModel->insert($data)) {
+            return Redirect::page('vaga', [
+                "toast" => ["tipo" => "success", "mensagem" => "Candidatura enviada com sucesso"]
             ]);
         } else {
             return Redirect::page($this->controller);

@@ -25,7 +25,11 @@
             </div>
             <?php if ($tipo == 'PF'): ?>
               <div class="card-footer bg-transparent text-end">
-                <a href="#" class="btn btn-sm btn-outline-success">Candidatar a Vaga</a>
+                <button
+                  class="btn btn-sm btn-outline-success"
+                  onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
+                  Candidatar a Vaga
+                </button>
               </div>
             <?php endif; ?>
           </div>
