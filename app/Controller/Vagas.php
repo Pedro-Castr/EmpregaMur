@@ -25,7 +25,23 @@ class Vagas extends ControllerMain
     {
         $vagasAbertas = $this->model->listaVagasAbertas();
 
-        return $this->loadView("sistema/Vagas", ['vagas' => $vagasAbertas]);
+        $estabelecimentoModel = new EstabelecimentoModel();
+        $estabelecimentoId = Session::get("estabelecimento_id");
+
+        $listaEstabelecimentos = [];
+
+        foreach ($vagasAbertas as $estabelecimento) {
+            $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($estabelecimentoId);
+            $estabelecimento['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
+
+            $listaEstabelecimentos[] = $estabelecimento;
+        }
+
+        $dados = [
+                'vagas' => $listaEstabelecimentos
+            ];
+
+        return $this->loadView("sistema\\Vagas", $dados);
     }
 
     public function form($action, $id)
