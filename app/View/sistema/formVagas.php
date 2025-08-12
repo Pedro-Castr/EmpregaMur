@@ -77,7 +77,12 @@
       <?= setMsgFilderError("sobreaVaga") ?>
     </div>
 
-    <a href="<?= baseUrl() ?>Vagas/view/<?= $dados['data']['vaga_id'] ?>" class="btn btn-secondary">Voltar</a>
+    <?php if (in_array($this->request->getAction(), ['update'])): ?>
+      <a href="<?= baseUrl() ?>Vagas/view/<?= $dados['data']['vaga_id'] ?>" class="btn btn-secondary">Voltar</a>
+    <?php else: ?>
+      <a href="<?= baseUrl() ?>Perfil" class="btn btn-secondary">Voltar</a>
+    <?php endif; ?>
+
     <button type="submit" class="btn btn-success">Enviar</button>
 
   </form>

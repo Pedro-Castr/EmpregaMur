@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Model\CidadeModel;
-use App\Model\PerfilModel;
 use App\Model\EscolaridadeModel;
 use App\Model\NivelEscolaridadeModel;
 use App\Model\EXperienciasModel;
 use App\Model\CargoModel;
 use App\Model\QualificacaoModel;
-use Core\Library\Session;
+use App\Model\PessoaFisicaModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Validator;
@@ -38,33 +37,30 @@ class Curriculo extends ControllerMain
 
     public function view($id)
     {
-        // Dados do usuário
-        $PerfilModel = new PerfilModel();
-        $userId = Session::get("userId");
-        $dadosUsuario = $PerfilModel->getByUserId($userId);
+        // Currículo
+        $curriculo = $this->model->getById($id);
 
         // Cidade
         $CidadeModel = new CidadeModel();
-        $curriculo = $this->model->getById($id);
         $cidade = $CidadeModel->getById($curriculo['cidade_id']);
 
-        $pessoaFisicaId = Session::get("pessoa_fisica_id");
-        $dadosCurriculo = $this->model->getByPessoaFisicaId($pessoaFisicaId);
+        $PessoaFisicaModel = new PessoaFisicaModel();
+        $pessoa = $PessoaFisicaModel->getById($curriculo['pessoa_fisica_id']);
+
+        $dadosUsuario = [
+            'nome'  => $pessoa['nome'] ?? 'Não informado',
+        ];
 
         // Escolaridades
         $nivelEscolaridadeModel = new NivelEscolaridadeModel();
         $escolaridadeModel = new EscolaridadeModel();
 
         $listaEscolaridades = [];
-        if (!empty($dadosCurriculo)) {
-            $escolaridades = $escolaridadeModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
-
-            foreach ($escolaridades as $escolaridade) {
-                $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
-                $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
-
-                $listaEscolaridades[] = $escolaridade;
-            }
+        $escolaridades = $escolaridadeModel->getByCurriculumId($curriculo['curriculum_id']);
+        foreach ($escolaridades as $escolaridade) {
+            $detalheEscolaridade = $nivelEscolaridadeModel->getById($escolaridade['escolaridade_id']);
+            $escolaridade['nome_escolaridade'] = $detalheEscolaridade['descricao'] ?? 'Não informado';
+            $listaEscolaridades[] = $escolaridade;
         }
 
         // Experiências
@@ -72,28 +68,16 @@ class Curriculo extends ControllerMain
         $cargoModel = new CargoModel();
 
         $listaExperiencias = [];
-        if (!empty($dadosCurriculo)) {
-            $experiencias = $experienciaModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
-
-            foreach ($experiencias as $experiencia) {
-                $cargo = $cargoModel->getById($experiencia['cargo_id']);
-                $experiencia['nome_cargo'] = $cargo['descricao'] ?? 'Não informado';
-
-                $listaExperiencias[] = $experiencia;
-            }
+        $experiencias = $experienciaModel->getByCurriculumId($curriculo['curriculum_id']);
+        foreach ($experiencias as $experiencia) {
+            $cargo = $cargoModel->getById($experiencia['cargo_id']);
+            $experiencia['nome_cargo'] = $cargo['descricao'] ?? 'Não informado';
+            $listaExperiencias[] = $experiencia;
         }
 
         // Qualificações
         $QualificacoesModel = new QualificacaoModel();
-
-        $listaQualificacoes = [];
-        if (!empty($dadosCurriculo)) {
-            $qualificacoes = $QualificacoesModel->getByCurriculumId($dadosCurriculo['curriculum_id']);
-
-            foreach ($qualificacoes as $qualificacao) {
-                $listaQualificacoes[] = $qualificacao;
-            }
-        }
+        $listaQualificacoes = $QualificacoesModel->getByCurriculumId($curriculo['curriculum_id']);
 
         $dados = [
             'curriculo' => $curriculo,
