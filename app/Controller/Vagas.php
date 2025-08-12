@@ -6,6 +6,7 @@ use App\Model\CargoModel;
 use App\Model\EstabelecimentoModel;
 use App\Model\CandidaturaModel;
 use App\Model\CurriculoModel;
+use App\Model\UsuarioModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
@@ -23,39 +24,53 @@ class Vagas extends ControllerMain
      *
      * @return void
      */
-public function index()
-{
-    $vagasAbertas = $this->model->listaVagasAbertas();
+    public function index()
+    {
+        $vagasAbertas = $this->model->listaVagasAbertas();
 
-    $estabelecimentoModel = new EstabelecimentoModel();
-    $curriculumModel = new CurriculoModel();
+        $estabelecimentoModel = new EstabelecimentoModel();
+        $curriculumModel = new CurriculoModel();
 
-    // Pegando o ID do usuário logado (ajuste o nome conforme sua sessão)
-    $pessoaFisicaId = Session::get('pessoa_fisica_id');
+        // Pegando o ID do usuário logado
+        $pessoaFisicaId = Session::get('pessoa_fisica_id');
 
-    // Buscando curriculum_id do usuário logado
-    $curriculum = $curriculumModel->getByPessoaFisicaId($pessoaFisicaId);
-    $curriculumId = $curriculum['curriculum_id'] ?? null;
+        // Buscando curriculum_id do usuário logado
+        $curriculum = $curriculumModel->getByPessoaFisicaId($pessoaFisicaId);
+        $curriculumId = $curriculum['curriculum_id'] ?? null;
 
-    $listaEstabelecimentos = [];
+        $listaEstabelecimentos = [];
 
-    foreach ($vagasAbertas as $vaga) {
-        // Pega o ID do estabelecimento diretamente da vaga
-        $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
+        foreach ($vagasAbertas as $vaga) {
+            // Pega o ID do estabelecimento diretamente da vaga
+            $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
 
-        $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
-        $listaEstabelecimentos[] = $vaga;
+            $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
+            $listaEstabelecimentos[] = $vaga;
+        }
+
+        $dados = [
+            'vagas' => $listaEstabelecimentos,
+            'curriculum_id' => $curriculumId
+        ];
+
+        return $this->loadView("sistema\\Vagas", $dados);
     }
 
-    $dados = [
-        'vagas' => $listaEstabelecimentos,
-        'curriculum_id' => $curriculumId
-    ];
+    public function view($id)
+    {
+        // Pega os dados da vaga
+        $vaga = $this->model->getVagaById($id);
 
-    return $this->loadView("sistema\\Vagas", $dados);
-}
+        $candidaturaModel = new CandidaturaModel();
+        $candidatos = $candidaturaModel->getCandidatosComUsuario($id);
 
+        $dados = [
+            'vaga' => $vaga[0],
+            'candidatos' => $candidatos
+        ];
 
+        return $this->loadView("sistema\\viewVagas", $dados);
+    }
 
     public function form($action, $id)
     {
@@ -74,55 +89,57 @@ public function index()
         return $this->loadView("sistema/formVagas", $dados);
     }
 
+
+
     /**
      * insert
      *
      * @return void
      */
-public function insert()
-{
-    $post = $this->request->getPost();
+    public function insert()
+    {
+        $post = $this->request->getPost();
 
-    $hoje = new \DateTime('today');
-    $dtInicio = new \DateTime($post['dtInicio']);
-    $dtFim = new \DateTime($post['dtFim']);
+        $hoje = new \DateTime('today');
+        $dtInicio = new \DateTime($post['dtInicio']);
+        $dtFim = new \DateTime($post['dtFim']);
 
-    if ($dtFim <= $dtInicio) {
-        Session::set('inputs', $post);
-        return Redirect::page($this->controller . "/form/insert/0", [
-            "toast" => ["tipo" => "error", "mensagem" => "A data final deve ser posterior à data de início"]
-        ]);
-    }
+        if ($dtFim <= $dtInicio) {
+            Session::set('inputs', $post);
+            return Redirect::page($this->controller . "/form/insert/0", [
+                "toast" => ["tipo" => "error", "mensagem" => "A data final deve ser posterior à data de início"]
+            ]);
+        }
 
-    if ($dtInicio <= $hoje && $dtFim >= $hoje) {
-        $post['statusVaga'] = 2; // Seta statusVaga como ativa
-    } else if ($dtInicio > $hoje && $dtFim > $hoje) {
-        $post['statusVaga'] = 1; // Seta statusVaga como pendente
-    } else {
-        $post['statusVaga'] = 3; // Seta statusVaga como fechada
-    }
+        if ($dtInicio <= $hoje && $dtFim >= $hoje) {
+            $post['statusVaga'] = 2; // Seta statusVaga como ativa
+        } else if ($dtInicio > $hoje && $dtFim > $hoje) {
+            $post['statusVaga'] = 1; // Seta statusVaga como pendente
+        } else {
+            $post['statusVaga'] = 3; // Seta statusVaga como fechada
+        }
 
-    // Puxa o nome do cargo para preencher o campo descricao
-    if (!empty($post['cargo_id'])) {
-        $cargoModel = new CargoModel();
-        $cargo = $cargoModel->getById($post['cargo_id']);
+        // Puxa o nome do cargo para preencher o campo descricao
+        if (!empty($post['cargo_id'])) {
+            $cargoModel = new CargoModel();
+            $cargo = $cargoModel->getById($post['cargo_id']);
 
-        if (!empty($cargo) && isset($cargo['descricao'])) {
-            $post['descricao'] = $cargo['descricao'];
+            if (!empty($cargo) && isset($cargo['descricao'])) {
+                $post['descricao'] = $cargo['descricao'];
+            }
+        }
+
+        if ($this->model->insert($post)) {
+            return Redirect::page('perfil', [
+                "toast" => ["tipo" => "success", "mensagem" => "Vaga cadastrada com sucesso"]
+            ]);
+        } else {
+            Session::set('inputs', $post);
+            return Redirect::page($this->controller . "/form/insert/0", [
+                "toast" => ["tipo" => "error", "mensagem" => "Erro ao inserir vaga"]
+            ]);
         }
     }
-
-    if ($this->model->insert($post)) {
-        return Redirect::page('perfil', [
-            "toast" => ["tipo" => "success", "mensagem" => "Vaga cadastrada com sucesso"]
-        ]);
-    } else {
-        Session::set('inputs', $post);
-        return Redirect::page($this->controller . "/form/insert/0", [
-            "toast" => ["tipo" => "error", "mensagem" => "Erro ao inserir vaga"]
-        ]);
-    }
-}
 
     /**
      * update
@@ -163,7 +180,7 @@ public function insert()
         }
 
         if ($this->model->update($post)) {
-            return Redirect::page('perfil', [
+            return Redirect::page($this->controller . "/view/" . $post['vaga_id'], [
                 "toast" => ["tipo" => "success", "mensagem" => "Vaga alterada com sucesso"]
             ]);
         } else {

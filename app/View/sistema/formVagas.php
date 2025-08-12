@@ -77,7 +77,7 @@
       <?= setMsgFilderError("sobreaVaga") ?>
     </div>
 
-    <a href="<?= baseUrl() . 'Perfil' ?>" class="btn btn-secondary">Voltar</a>
+    <a href="<?= baseUrl() ?>Vagas/view/<?= $dados['data']['vaga_id'] ?>" class="btn btn-secondary">Voltar</a>
     <button type="submit" class="btn btn-success">Enviar</button>
 
   </form>

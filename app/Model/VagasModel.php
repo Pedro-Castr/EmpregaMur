@@ -41,6 +41,11 @@ class VagasModel extends ModelMain
         return $this->db->where('estabelecimento_id', $estabelecimentoId)->findAll();
     }
 
+    public function getVagaById($vagaId)
+    {
+        return $this->db->where('vaga_id', $vagaId)->prepareSelect();
+    }
+
     public function listaVagasAbertas($orderby = 'dtInicio', $direction = 'ASC')
     {
         return $this->db

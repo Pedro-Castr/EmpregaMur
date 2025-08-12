@@ -1,6 +1,6 @@
 <?php
   $aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
-  $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágiario"];
+  $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
 
   $vagasPendentes = [];
   $vagasAbertas = [];
@@ -93,19 +93,13 @@
                         <p class="card-title mb-1">
                           <?= $aModalidade[$vaga['modalidade']] ?> - <?= $aVinculo[$vaga['vinculo']] ?>
                         </p>
-                        <p class="text-muted mb-1"><?= $vaga['sobreaVaga'] ?></p>
                         <small class="text-muted">
                           <?= date('d/m/Y', strtotime($vaga['dtInicio'])) ?> - <?= date('d/m/Y', strtotime($vaga['dtFim'])) ?>
                         </small>
                       </div>
                       <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                        <a href="<?= baseUrl() ?>Vagas/form/update/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-primary" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-pencil-fill me-1"></i> Editar
-                        </a>
-                        <a href="javascript:void(0);"
-                        onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
-                        class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        <a href="<?= baseUrl() ?>Vagas/view/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-success" style="min-width:70px; white-space: nowrap;">
+                          <i class="bi bi-gear-fill me-1"></i> Gerenciar
                         </a>
                       </div>
                     </div>
