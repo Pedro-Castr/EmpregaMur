@@ -83,13 +83,31 @@
 
       <h4 class="mb-3 mb-md-0">Candidatos inscritos:</h4>
       <div class="container my-4">
-        <ul class="list-group mb-3">
+        <ul class="list-group list-group-flush">
           <?php foreach ($dados['candidatos'] as $candidato): ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span><?= $candidato['nome'] ?></span>
-              <small class="text-muted">
-                <?= date('d/m/Y H:i', strtotime($candidato['dateCandidatura'])) ?>
-              </small>
+
+              <!-- Foto, nome e data -->
+              <div class="d-flex align-items-center">
+                <?php if (!empty($candidato['foto'])): ?>
+                  <img src="<?= baseUrl() . 'fotoPF.php?id=' . $candidato['curriculum_id'] ?>" alt="Foto de perfil" class="rounded-circle me-3"
+                    style="width: 50px; height: 50px; object-fit: cover;">
+                <?php else: ?>
+                  <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Sem foto" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <?php endif; ?>
+
+                <div>
+                  <strong><?= $candidato['nome'] ?></strong><br>
+                  <small class="text-muted">
+                    <?= date('d/m/Y H:i', strtotime($candidato['dateCandidatura'])) ?>
+                  </small>
+                </div>
+              </div>
+
+              <!-- Botão Ver Currículo -->
+              <a href="<?= baseUrl() ?>Curriculo/view/<?= $candidato['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
+                <i class="bi bi-eye-fill me-1"></i> Ver Currículo
+              </a>
             </li>
           <?php endforeach; ?>
         </ul>
