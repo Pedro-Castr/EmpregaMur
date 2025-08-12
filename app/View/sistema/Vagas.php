@@ -25,11 +25,15 @@
             </div>
             <?php if ($tipo == 'PF'): ?>
               <div class="card-footer bg-transparent text-end">
-                <button
-                  class="btn btn-sm btn-outline-success"
-                  onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
-                  Candidatar a Vaga
-                </button>
+                <?php if ($value['candidatado']): ?>
+                  <button class="btn btn-sm btn-success" disabled>
+                    Já Candidatado
+                  </button>
+                <?php else: ?>
+                  <button class="btn btn-sm btn-outline-success" onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
+                    Candidatar a Vaga
+                  </button>
+                <?php endif; ?>
               </div>
             <?php endif; ?>
           </div>

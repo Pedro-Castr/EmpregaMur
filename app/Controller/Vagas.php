@@ -6,7 +6,6 @@ use App\Model\CargoModel;
 use App\Model\EstabelecimentoModel;
 use App\Model\CandidaturaModel;
 use App\Model\CurriculoModel;
-use App\Model\UsuarioModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
@@ -30,6 +29,7 @@ class Vagas extends ControllerMain
 
         $estabelecimentoModel = new EstabelecimentoModel();
         $curriculumModel = new CurriculoModel();
+        $candidaturaModel = new CandidaturaModel();
 
         // Pegando o ID do usuário logado
         $pessoaFisicaId = Session::get('pessoa_fisica_id');
@@ -41,10 +41,16 @@ class Vagas extends ControllerMain
         $listaEstabelecimentos = [];
 
         foreach ($vagasAbertas as $vaga) {
-            // Pega o ID do estabelecimento diretamente da vaga
             $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
-
             $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
+
+            // Verifica se o candidato já se inscreveu na vaga
+            $vaga['candidatado'] = false; // padrão
+
+            if ($curriculumId) {
+                $vaga['candidatado'] = $candidaturaModel->jaCandidatado($curriculumId, $vaga['vaga_id']);
+            }
+
             $listaEstabelecimentos[] = $vaga;
         }
 
@@ -58,7 +64,6 @@ class Vagas extends ControllerMain
 
     public function view($id)
     {
-        // Pega os dados da vaga
         $vaga = $this->model->getVagaById($id);
 
         $candidaturaModel = new CandidaturaModel();

@@ -17,4 +17,12 @@ class CandidaturaModel extends ModelMain
             ->where('vaga_curriculum.vaga_id', $vagaId)
             ->findAll();
     }
+
+    public function jaCandidatado($curriculumId, $vagaId)
+    {
+        return $this->db
+            ->where('curriculum_id', $curriculumId)
+            ->where('vaga_id', $vagaId)
+            ->first() ? true : false;
+    }
 }
