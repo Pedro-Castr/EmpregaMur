@@ -11,6 +11,20 @@
     <h1 class="mb-4 text-center">Vagas de Emprego</h1>
     <p class="text-center text-muted mb-4">Encontre oportunidades que combinam com o seu perfil profissional</p>
 
+    <form action="<?= baseUrl() ?>Vagas" method="post" class="mb-3">
+      <div class="input-group w-75 mx-auto">
+        <input type="text" name="pesquisa" placeholder="Buscar vagas..." value="<?= htmlspecialchars($pesquisa ?? '') ?>" class="form-control"/>
+
+        <button type="submit" class="btn btn-primary btn-sm px-3">
+          <i class="bi bi-search"></i>
+        </button>
+
+        <a href="<?= baseUrl() ?>Vagas" class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center px-3">
+          <i class="bi bi-x-lg me-1"></i>
+        </a>
+      </div>
+    </form>
+
     <div class="row g-4">
       <!-- Card de Vaga -->
       <?php foreach ($dados['vagas'] as $value): ?>
@@ -42,7 +56,17 @@
 
     <?php else: ?>
       <div class="container py-5">
-        <div class="text-center p-5 border rounded bg-light">
+        <form action="<?= baseUrl() ?>Vagas" method="post" class="mb-3">
+          <div class="input-group w-75 mx-auto">
+            <input type="text" name="pesquisa" placeholder="Buscar vagas..." value="<?= htmlspecialchars($pesquisa ?? '') ?>" class="form-control"/>
+
+            <button type="submit" class="btn btn-primary btn-sm">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="text-center p-5">
           <h3 class="mt-3">Nenhuma vaga disponível no momento</h3>
           <p class="text-muted">Estamos atualizando nossas oportunidades. Volte em breve para conferir novas vagas.</p>
           <a href="<?= baseUrl() ?>" class="btn btn-primary mt-3">

@@ -25,7 +25,9 @@ class Vagas extends ControllerMain
      */
     public function index()
     {
-        $vagasAbertas = $this->model->listaVagasAbertas();
+        $post = $this->request->getPost();
+        $pesquisa = $post['pesquisa'] ?? null;
+        $vagasAbertas = $this->filtrarVagas($pesquisa);
 
         $estabelecimentoModel = new EstabelecimentoModel();
         $curriculumModel = new CurriculoModel();
@@ -56,7 +58,8 @@ class Vagas extends ControllerMain
 
         $dados = [
             'vagas' => $listaEstabelecimentos,
-            'curriculum_id' => $curriculumId
+            'curriculum_id' => $curriculumId,
+            'pesquisa' => $pesquisa
         ];
 
         return $this->loadView("sistema\\Vagas", $dados);
@@ -230,5 +233,14 @@ class Vagas extends ControllerMain
         } else {
             return Redirect::page($this->controller);
         }
+    }
+
+    public function filtrarVagas($pesquisa = null)
+    {
+        if ($pesquisa) {
+            return $this->model->listaVagasAbertas('dtInicio', 'ASC', $pesquisa);
+        }
+
+        return $this->model->listaVagasAbertas();
     }
 }

@@ -46,11 +46,15 @@ class VagasModel extends ModelMain
         return $this->db->where('vaga_id', $vagaId)->prepareSelect();
     }
 
-    public function listaVagasAbertas($orderby = 'dtInicio', $direction = 'ASC')
+    public function listaVagasAbertas($orderby = 'dtInicio', $direction = 'ASC', $pesquisa = null)
     {
-        return $this->db
-                    ->where('statusVaga', 2)
-                    ->orderBy($orderby, $direction)
-                    ->prepareSelect();
+        $query = $this->db->where('statusVaga', 2);
+
+        if (!empty($pesquisa)) {
+            $query->whereLike('descricao', $pesquisa);
+        }
+
+        return $query->orderBy($orderby, $direction)->prepareSelect();
     }
+
 }
