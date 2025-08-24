@@ -26,7 +26,16 @@ class Vagas extends ControllerMain
     public function index()
     {
         $post = $this->request->getPost();
+
         $pesquisa = $post['pesquisa'] ?? null;
+        $filtros = [
+            'vinculo'    => $post['vinculo'] ?? [],
+            'modalidade' => $post['modalidade'] ?? []
+        ];
+
+        $filtros['vinculo'] = array_map('intval', $filtros['vinculo'] ?? []);
+        $filtros['modalidade'] = array_map('intval', $filtros['modalidade'] ?? []);
+
         $vagasAbertas = $this->filtrarVagas($pesquisa);
 
         $estabelecimentoModel = new EstabelecimentoModel();
@@ -59,7 +68,8 @@ class Vagas extends ControllerMain
         $dados = [
             'vagas' => $listaEstabelecimentos,
             'curriculum_id' => $curriculumId,
-            'pesquisa' => $pesquisa
+            'pesquisa' => $pesquisa,
+            'filtros' => $filtros
         ];
 
         return $this->loadView("sistema\\Vagas", $dados);
@@ -222,7 +232,7 @@ class Vagas extends ControllerMain
         $data = [
             'vaga_id'        => $vaga_id,
             'curriculum_id'  => $curriculum_id,
-            'dateCandidatura'=> date('Y-m-d H:i:s')
+            'dateCandidatura' => date('Y-m-d H:i:s')
         ];
 
         // Insere
@@ -237,10 +247,14 @@ class Vagas extends ControllerMain
 
     public function filtrarVagas($pesquisa = null)
     {
-        if ($pesquisa) {
-            return $this->model->listaVagasAbertas('dtInicio', 'ASC', $pesquisa);
-        }
+        $post = $this->request->getPost();
 
-        return $this->model->listaVagasAbertas();
+        $pesquisa = $post['pesquisa'] ?? null;
+        $filtros = [
+            'vinculo'    => $post['vinculo'] ?? [],
+            'modalidade' => $post['modalidade'] ?? []
+        ];
+
+        return $this->model->listaVagasFiltradas($pesquisa, $filtros);
     }
 }

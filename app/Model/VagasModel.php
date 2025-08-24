@@ -46,7 +46,7 @@ class VagasModel extends ModelMain
         return $this->db->where('vaga_id', $vagaId)->prepareSelect();
     }
 
-    public function listaVagasAbertas($orderby = 'dtInicio', $direction = 'ASC', $pesquisa = null)
+    public function listaVagasFiltradas($pesquisa = null, $filtros = [])
     {
         $query = $this->db->where('statusVaga', 2);
 
@@ -54,7 +54,14 @@ class VagasModel extends ModelMain
             $query->whereLike('descricao', $pesquisa);
         }
 
-        return $query->orderBy($orderby, $direction)->prepareSelect();
-    }
+        if (!empty($filtros['vinculo'])) {
+            $query->whereIn('vinculo', $filtros['vinculo']);
+        }
 
+        if (!empty($filtros['modalidade'])) {
+            $query->whereIn('modalidade', $filtros['modalidade']);
+        }
+
+        return $query->orderBy('dtInicio', 'ASC')->prepareSelect();
+    }
 }
