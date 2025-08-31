@@ -11,7 +11,7 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
 <?php if (count($dados['vagas']) > 0): ?>
   <form action="<?= baseUrl() ?>Vagas" method="post">
     <div class="container-fluid py-5 px-lg-5">
-      <h1 class="mb-4 text-center">Vagas de Emprego</h1>
+      <h1 class="mb-1 text-center">Vagas de Emprego</h1>
       <p class="text-center text-muted mb-4">Encontre oportunidades que combinam com o seu perfil profissional</p>
 
       <!-- Barra de busca -->
