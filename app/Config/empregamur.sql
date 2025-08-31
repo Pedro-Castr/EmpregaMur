@@ -39,12 +39,12 @@ CREATE TABLE pessoa_fisica (
 
 CREATE TABLE usuario (
   usuario_id INT NOT NULL AUTO_INCREMENT,
-  pessoa_fisica_id INT NOT NULL,
-  estabelecimento_id INT NOT NULL,
+  pessoa_fisica_id INT,
+  estabelecimento_id INT,
   nome VARCHAR(150) NOT NULL,
   login VARCHAR(50) DEFAULT NULL,
   senha VARCHAR(50) DEFAULT NULL,
-  tipo CHAR(2) NOT NULL,
+  tipo CHAR(2) NOT NULL COOMENT 'PF - Pessoa Física, PJ - Pessoa Jurídica, AD - Administrador',
   foto_perfil LONGBLOB DEFAULT NULL,
   PRIMARY KEY (usuario_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
@@ -181,10 +181,10 @@ CREATE TABLE vaga_curriculum (
 );
 
 CREATE TABLE termodeuso (
-  id INT NOT NULL AUTO_INCREMENT,
+  termodeuso_id INT NOT NULL AUTO_INCREMENT,
   textoTermo LONGTEXT NOT NULL,
   statusRegistro INT NOT NULL DEFAULT 1 COMMENT '1 - Ativo, 2 - Inativo',
-  rascunho INT DEFAULT 1,
+  rascunho INT DEFAULT 1 COMMENT '1 - Rascunho, 2 - Definitivo',
   usuario_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
@@ -197,7 +197,8 @@ CREATE TABLE termodeusoaceite (
   PRIMARY KEY (termodeuso_id, usuario_id),
   INDEX idx_usuario (usuario_id),
   INDEX idx_termodeuso (termodeuso_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
+  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id),
+  FOREIGN KEY (termodeuso_id) REFERENCES termodeuso (termodeuso_id)
 );
 
 CREATE TABLE postagem (
