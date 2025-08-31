@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\UsuarioModel;
+use App\Model\TermoUsoModel;
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
 use Core\Library\Session;
@@ -50,6 +51,15 @@ class Cadastro extends ControllerMain
             return Redirect::page("cadastro");
         }
 
+        if (!isset($post['termoUso-pf'])) {
+            Session::set("toast", [
+                "mensagem" => "Você deve aceitar os Termos de Uso para continuar.",
+                "tipo" => "error"
+            ]);
+            Session::set("inputs", $post);
+            return Redirect::page("cadastro");
+        }
+
         // Primeiro: inserir na tabela pessoa_fisica
         $dadosPf = [
             "nome" => $post['nome_pf'],
@@ -77,13 +87,23 @@ class Cadastro extends ControllerMain
             return Redirect::page("cadastro");
         }
 
+        // Terceiro: registra a aceitação do termo
+        $TermodeusoModel = new TermoUsoModel();
+        $TermodeusoId = $TermodeusoModel->getTermodeuso_id();
+
+        $dadosTermo = [
+            "termodeuso_id" => $TermodeusoId,
+            "usuario_id" => $idUsuario,
+            "dataHoraAceite" => date("Y-m-d H:i:s")
+        ];
+        $idTermo = $this->model->db->table("termodeusoaceite")->insert($dadosTermo);
+
         return Redirect::page("login", [
             "toast" => ["tipo" => "success", "mensagem" => "Cadastro realizado com sucesso"]
         ]);
-
     }
 
-        /**
+    /**
      * singUpPj
      *
      * @return void
@@ -100,6 +120,17 @@ class Cadastro extends ControllerMain
         if ($this->model->getUserEmail($post['email_pj'])) {
             Session::set("toast", ["mensagem" => "E-mail já cadastrado", "tipo" => "error"]);
             Session::set("inputs", $post);
+            Session::set("formTipo", "PJ");
+            return Redirect::page("cadastro");
+        }
+
+        if (!isset($post['termoUso-pj'])) {
+            Session::set("toast", [
+                "mensagem" => "Você deve aceitar os Termos de Uso para continuar.",
+                "tipo" => "error"
+            ]);
+            Session::set("inputs", $post);
+            Session::set("formTipo", "PJ");
             return Redirect::page("cadastro");
         }
 
@@ -128,13 +159,23 @@ class Cadastro extends ControllerMain
         $idUsuario = $this->model->db->table("usuario")->insert($dadosUsuario);
 
         if (!$idUsuario) {
-            Session::set("toast", ["mensagem" => "Erro ao cadastrar usuário","tipo" => "error"]);
+            Session::set("toast", ["mensagem" => "Erro ao cadastrar usuário", "tipo" => "error"]);
             return Redirect::page("cadastro");
         }
+
+        // Terceiro: registra a aceitação do termo
+        $TermodeusoModel = new TermoUsoModel();
+        $TermodeusoId = $TermodeusoModel->getTermodeuso_id();
+
+        $dadosTermo = [
+            "termodeuso_id" => $TermodeusoId,
+            "usuario_id" => $idUsuario,
+            "dataHoraAceite" => date("Y-m-d H:i:s")
+        ];
+        $idTermo = $this->model->db->table("termodeusoaceite")->insert($dadosTermo);
 
         return Redirect::page("login", [
             "toast" => ["tipo" => "success", "mensagem" => "Cadastro realizado com sucesso"]
         ]);
     }
-
 }

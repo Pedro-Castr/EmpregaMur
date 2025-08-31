@@ -1,5 +1,7 @@
 <?php
+
 use Core\Library\Session;
+
 $formTipo = Session::getDestroy("formTipo");
 if (!in_array($formTipo, ['PF', 'PJ'])) {
   $formTipo = 'PF';
@@ -20,15 +22,13 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
     <ul class="nav nav-tabs mb-3" id="cadastroTabs" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link <?= $formTipo == 'PF' ? 'active' : '' ?>" id="pf-tab" data-bs-toggle="tab" data-bs-target="#pf-pane"
-        type="button" role="tab" aria-controls="pf-pane" aria-selected="true"
-        >
+          type="button" role="tab" aria-controls="pf-pane" aria-selected="true">
           Pessoa Física
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link <?= $formTipo == 'PJ' ? 'active' : '' ?>" id="pj-tab" data-bs-toggle="tab" data-bs-target="#pj-pane"
-        type="button" role="tab" aria-controls="pj-pane" aria-selected="false"
-        >
+          type="button" role="tab" aria-controls="pj-pane" aria-selected="false">
           Empresa
         </button>
       </li>
@@ -55,15 +55,22 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
           <div class="mb-3">
             <label for="senha-pf" class="form-label">Senha</label>
             <input type="password" class="form-control" id="senha-pf" name="senha_pf"
-            onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha-pf', 'msgConfSenha-pf', 'btnCadastrarPf');" />
+              onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha-pf', 'msgConfSenha-pf', 'btnCadastrarPf');" />
             <small id="msgSenha-pf" class="mt-3"></small>
           </div>
           <div class="mb-3">
             <label for="confirma-senha-pf" class="form-label">Confirmar Senha</label>
             <input type="password" class="form-control" id="confirma-senha-pf" name="confirmar_senha_pf"
-            onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha-pf', 'msgConfSenha-pf', 'btnCadastrarPf');" />
+              onkeyup="checa_segur_senha('senha-pf', 'confirma-senha-pf', 'msgSenha-pf', 'msgConfSenha-pf', 'btnCadastrarPf');" />
             <small id="msgConfSenha-pf" class="mt-3"></small>
           </div>
+
+          <!-- Termos de Uso -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="termoUso-pf" id="termoUso-pf" name="termoUso-pf">
+            <label class="form-check-label" for="termoUso-pf">Confirmo que li e aceito os <a href="<?= baseUrl() ?>TermoUso">Termos de Uso</a>.</label>
+          </div>
+
           <button type="submit" id="btnCadastrarPf" class="btn btn-success w-100" disabled>Cadastrar</button>
           <div class="text-center mt-3">
             <small>Já tem uma conta? <a href="<?= baseUrl() ?>login">Faça login</a></small>
@@ -99,15 +106,22 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
           <div class="mb-3">
             <label for="senha-pj" class="form-label">Senha</label>
             <input type="password" class="form-control" id="senha-pj" name="senha_pj"
-            onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha-pj', 'msgConfSenha-pj', 'btnCadastrarPj');" />
+              onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha-pj', 'msgConfSenha-pj', 'btnCadastrarPj');" />
             <small id="msgSenha-pj" class="mt-3"></small>
           </div>
           <div class="mb-3">
             <label for="confirma-senha-pj" class="form-label">Confirmar Senha</label>
             <input type="password" class="form-control" id="confirma-senha-pj" name="confirmar_senha_pj"
-            onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha-pj', 'msgConfSenha-pj', 'btnCadastrarPj');" />
+              onkeyup="checa_segur_senha('senha-pj', 'confirma-senha-pj', 'msgSenha-pj', 'msgConfSenha-pj', 'btnCadastrarPj');" />
             <small id="msgConfSenha-pj" class="mt-3"></small>
           </div>
+
+          <!-- Termos de Uso -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="termoUso-pj" id="termoUso-pj" name="termoUso-pj">
+            <label class="form-check-label" for="termoUso-pj">Confirmo que li e aceito os <a href="<?= baseUrl() ?>TermoUso">Termos de Uso</a>.</label>
+          </div>
+
           <button type="submit" id="btnCadastrarPj" class="btn btn-success w-100" disabled>Cadastrar</button>
           <div class="text-center mt-3">
             <small>Já tem uma conta? <a href="<?= baseUrl() ?>login">Faça login</a></small>
