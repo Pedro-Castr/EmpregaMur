@@ -1,27 +1,22 @@
 <?php
-// app\controller\Home.php
 
 namespace App\Controller;
 
 use Core\Library\ControllerMain;
+use App\Model\PostagemModel;
 
 class Home extends ControllerMain
 {
     public function index()
     {
-        $this->loadView("home");
-    }
+        $PostagemModel = new PostagemModel();
 
-    public function sobre($action = null)
-    {
-        echo "Página sobre nós. AÇÃO: {$action}";
-    }
+        $post = $this->request->getPost();
 
-    public function detalhes($action = null, $id = null, ...$params)
-    {
-        echo "Detalhes: <br />";
-        echo "<br />Ação: " . $action;
-        echo "<br />ID: " . $id;
-        echo "<br />PARÂMETROS: " . implode(", ", $params);
+        $dados = [
+            'postagem' => $PostagemModel->getPostagens(),
+        ];
+
+        return $this->loadView("Home", $dados);
     }
 }
