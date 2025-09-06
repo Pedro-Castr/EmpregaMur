@@ -204,21 +204,11 @@ CREATE TABLE termodeusoaceite (
 CREATE TABLE postagem (
   postagem_id INT NOT NULL AUTO_INCREMENT,
   usuario_id INT NOT NULL,
-  texto TEXT NOT NULL,
-  imagem_url VARCHAR(255),
+  comentario TEXT NOT NULL,
+  imagem LONGBLOB,
   data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (postagem_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE
-);
-
-CREATE TABLE postagem_reacao (
-  postagem_id INT NOT NULL,
-  usuario_id INT NOT NULL,
-  reacao_tipo ENUM('curtir', 'amei', 'haha', 'estrela') NOT NULL,
-  data_reacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (postagem_id, usuario_id),
-  FOREIGN KEY (postagem_id) REFERENCES postagem (postagem_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
 );
 
 CREATE TABLE usuariorecuperasenha (
@@ -320,7 +310,7 @@ DO
 /*
 Alterações feitas até agora:
 
-1. Criação das tabelas postagem e psotagem_reacao, para guardar informações do feed.
+1. Criação da tabela de postagem, para guardar informações do feed.
 
 2. Adição dos campos foto_perfil e nome na tabela de usuario.
 
