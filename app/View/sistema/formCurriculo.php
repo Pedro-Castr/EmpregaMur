@@ -1,9 +1,10 @@
 <?php
-  use Core\Library\Session;
-  use Core\Library\Request;
 
-  $pessoaFisicaId = Session::get('pessoa_fisica_id');
-  $request = new Request();
+use Core\Library\Session;
+use Core\Library\Request;
+
+$pessoaFisicaId = Session::get('pessoa_fisica_id');
+$request = new Request();
 ?>
 
 <script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
