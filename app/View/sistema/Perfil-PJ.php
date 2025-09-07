@@ -259,25 +259,3 @@ if (!empty($dados['vagas'])) {
     <?php endif; ?>
   </div>
 </div>
-
-<style>
-  .feed-container {
-    max-width: 600px;
-    margin: auto;
-  }
-
-  .post img.perfil {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-  }
-
-  .post .imagem-post {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: block;
-    margin: 0 auto 1rem auto;
-  }
-</style>

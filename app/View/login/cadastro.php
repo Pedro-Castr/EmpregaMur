@@ -131,21 +131,3 @@ if (!in_array($formTipo, ['PF', 'PJ'])) {
     </div>
   </div>
 </div>
-
-<style>
-  .cadastro-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1rem;
-  }
-
-  .cadastro-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-    width: 100%;
-    max-width: 500px;
-  }
-</style>

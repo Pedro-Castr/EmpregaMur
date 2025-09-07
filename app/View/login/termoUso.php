@@ -6,54 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Termos de Uso - EmpregaMur</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
-    }
-
-    .termos-container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .termos-container h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #0056b3;
-    }
-
-    .termos-container h3 {
-      margin-top: 25px;
-      font-size: 1.25rem;
-      color: #444;
-    }
-
-    .termos-container p,
-    .termos-container li {
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .last-update {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .footer-termos {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.85rem;
-      color: #888;
-    }
-  </style>
+  <link rel="stylesheet" href="<?= baseUrl() ?>assets/css/style.css">
 </head>
 
 <body>
