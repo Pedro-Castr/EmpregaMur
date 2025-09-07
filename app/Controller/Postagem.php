@@ -63,29 +63,25 @@ class Postagem extends ControllerMain
     public function update()
     {
         $post = $this->request->getPost();
+        $files = $_FILES;
 
-        if (Validator::make($post, $this->model->validationRules)) {
-            Session::set('inputs', $post);
-            return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
+        // Se enviou um arquivo novo
+        if (isset($files['imagem']) && $files['imagem']['error'] === UPLOAD_ERR_OK) {
+            // Ler o conteúdo binário da imagem
+            $imagemBinaria = file_get_contents($files['imagem']['tmp_name']);
+            // Adicionar ao $post para atualizar no banco
+            $post['imagem'] = $imagemBinaria;
         } else {
-            // Verifica se a data de fim é maior que a de início
-            if (
-                $post['inicioAno'] > $post['fimAno'] ||
-                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])
-            ) {
-                Session::set('inputs', $post);
-                return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id'], [
-                    "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
-                ]);
-            }
+            // Se não enviou arquivo novo, remove a imagem do post para não alterar
+            unset($post['imagem']);
+        }
 
-            if ($this->model->update($post)) {
-                return Redirect::page("perfil", [
-                    "toast" => ["tipo" => "success", "mensagem" => "Escolaridade alterada com sucesso"]
-                ]);
-            } else {
-                return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
-            }
+        if ($this->model->update($post)) {
+            return Redirect::page("Perfil", [
+                "toast" => ["tipo" => "success", "mensagem" => "Postagem alterada com sucesso"]
+            ]);
+        } else {
+            return Redirect::page($this->controller . "/form/update/" . $post['postagem_id']);
         }
     }
 
@@ -100,7 +96,7 @@ class Postagem extends ControllerMain
 
         if ($this->model->delete($post)) {
             return Redirect::page("perfil", [
-                "toast" => ["tipo" => "success", "mensagem" => "Escolaridade excluída com sucesso"]
+                "toast" => ["tipo" => "success", "mensagem" => "Postagem excluída com sucesso"]
             ]);
         } else {
             return Redirect::page($this->controller);

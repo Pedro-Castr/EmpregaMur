@@ -30,4 +30,15 @@ class PostagemModel extends ModelMain
             ->join('curriculum', 'usuario.pessoa_fisica_id = curriculum.pessoa_fisica_id', 'LEFT')
             ->findAll();
     }
+
+    public function getPostagensById($usuarioId)
+    {
+        return $this->db
+            ->select('postagem.postagem_id, postagem.usuario_id, postagem.comentario, postagem.imagem, postagem.data_criacao,
+                usuario.foto_perfil, usuario.nome, usuario.estabelecimento_id, usuario.pessoa_fisica_id, curriculum.curriculum_id')
+            ->join('usuario', 'postagem.usuario_id = usuario.usuario_id', 'LEFT')
+            ->join('curriculum', 'usuario.pessoa_fisica_id = curriculum.pessoa_fisica_id', 'LEFT')
+            ->where('usuario.usuario_id', $usuarioId)
+            ->findAll();
+    }
 }

@@ -15,6 +15,7 @@ use App\Model\CargoModel;
 use App\Model\QualificacaoModel;
 use App\Model\EstabelecimentoModel;
 use App\Model\VagasModel;
+use App\Model\PostagemModel;
 
 class Perfil extends ControllerMain
 {
@@ -36,7 +37,7 @@ class Perfil extends ControllerMain
             exit;
         }
 
-        If (Session::get('userTipo') == 'PF') {
+        if (Session::get('userTipo') == 'PF') {
             $userId = Session::get("userId");
             $dadosUsuario = $this->model->getByUserId($userId);
 
@@ -95,13 +96,18 @@ class Perfil extends ControllerMain
                 }
             }
 
+            // Postagens
+            $PostagemModel = new PostagemModel();
+            $postagens = $PostagemModel->getPostagensById($userId);
+
             $dados = [
                 'usuario' => $dadosUsuario,
                 'curriculo' => $dadosCurriculo,
                 'cidade' => $cidade,
                 'escolaridades' => $listaEscolaridades,
                 'experiencias' => $listaExperiencias,
-                'qualificacoes' => $listaQualificacoes
+                'qualificacoes' => $listaQualificacoes,
+                'postagens' => $postagens
             ];
 
             return $this->loadView("sistema\\Perfil-PF", $dados);
@@ -212,7 +218,6 @@ class Perfil extends ControllerMain
             // Chama o método signOut do controller Login
             $loginController = new \App\Controller\Login();
             return $loginController->signOut();
-
         } else {
             return Redirect::page($this->controller);
         }

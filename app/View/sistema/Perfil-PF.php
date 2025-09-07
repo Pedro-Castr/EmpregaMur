@@ -1,9 +1,18 @@
 <?php
-  $meses = [
-    1 => 'Jan', 2 => 'Fev', 3 => 'Mar', 4 => 'Abr',
-    5 => 'Mai', 6 => 'Jun', 7 => 'Jul', 8 => 'Ago',
-    9 => 'Set', 10 => 'Out', 11 => 'Nov', 12 => 'Dez'
-  ];
+$meses = [
+  1 => 'Jan',
+  2 => 'Fev',
+  3 => 'Mar',
+  4 => 'Abr',
+  5 => 'Mai',
+  6 => 'Jun',
+  7 => 'Jul',
+  8 => 'Ago',
+  9 => 'Set',
+  10 => 'Out',
+  11 => 'Nov',
+  12 => 'Dez'
+];
 ?>
 
 <script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
@@ -29,7 +38,7 @@
               <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
             </a>
             <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-            class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+              class="btn btn-outline-danger me-2 mb-2 mb-md-0">
               <i class="bi bi-trash-fill me-1"></i> Excluir Conta
             </a>
 
@@ -83,107 +92,172 @@
 
       <hr class="my-4">
 
-      <!-- Escolaridade -->
-      <?php if (!empty($dados['escolaridades'])): ?>
-        <div class="mb-4">
-          <h4 class="text-primary mb-4">Escolaridades</h4>
-          <?php foreach ($dados['escolaridades'] as $escolaridade): ?>
-            <div class="card shadow-sm border-0 rounded-4 mb-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-between flex-column flex-md-row">
-                  <div>
-                    <h5 class="card-title mb-1"><?= $escolaridade['nome_escolaridade'] ?></h5>
-                    <p class="text-muted mb-1"><?= $escolaridade['instituicao'] ?></p>
-                    <small class="text-muted">
-                      <?= $meses[(int)$escolaridade['inicioMes']] ?>/<?= $escolaridade['inicioAno'] ?> –
-                      <?= $meses[(int)$escolaridade['fimMes']] ?>/<?= $escolaridade['fimAno'] ?>
-                    </small>
-                  </div>
-                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                    <a href="<?= baseUrl() ?>Escolaridade/form/update/<?= $escolaridade['curriculum_escolaridade_id'] ?>" class="btn btn-sm btn-outline-primary">
-                      <i class="bi bi-pencil-fill me-1"></i> Editar
-                    </a>
-                    <a href="javascript:void(0);"
-                    onclick="confirmarExclusao('<?= baseUrl() ?>Escolaridade/delete', { curriculum_escolaridade_id: <?= $escolaridade['curriculum_escolaridade_id'] ?> })"
-                    class="btn btn-sm btn-outline-danger">
-                      <i class="bi bi-trash-fill me-1"></i> Excluir
-                    </a>
+      <!-- Controle de abas -->
+      <ul class="nav nav-tabs mb-3" id="UserTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">
+            Dados do Usuário
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="postagem-tab" data-bs-toggle="tab" data-bs-target="#postagem" type="button" role="tab" aria-controls="postagem" aria-selected="false">
+            Postagens
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="UserTabsContents">
+        <!-- Aba de dados -->
+        <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados">
+          <!-- Escolaridade -->
+          <?php if (!empty($dados['escolaridades'])): ?>
+            <div class="mb-4">
+              <h4 class="text-primary mb-4">Escolaridades</h4>
+              <?php foreach ($dados['escolaridades'] as $escolaridade): ?>
+                <div class="card shadow-sm border-0 rounded-4 mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                      <div>
+                        <h5 class="card-title mb-1"><?= $escolaridade['nome_escolaridade'] ?></h5>
+                        <p class="text-muted mb-1"><?= $escolaridade['instituicao'] ?></p>
+                        <small class="text-muted">
+                          <?= $meses[(int)$escolaridade['inicioMes']] ?>/<?= $escolaridade['inicioAno'] ?> –
+                          <?= $meses[(int)$escolaridade['fimMes']] ?>/<?= $escolaridade['fimAno'] ?>
+                        </small>
+                      </div>
+                      <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                        <a href="<?= baseUrl() ?>Escolaridade/form/update/<?= $escolaridade['curriculum_escolaridade_id'] ?>" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-pencil-fill me-1"></i> Editar
+                        </a>
+                        <a href="javascript:void(0);"
+                          onclick="confirmarExclusao('<?= baseUrl() ?>Escolaridade/delete', { curriculum_escolaridade_id: <?= $escolaridade['curriculum_escolaridade_id'] ?> })"
+                          class="btn btn-sm btn-outline-danger">
+                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <?php endforeach; ?>
             </div>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
+          <?php endif; ?>
+          <!-- Experiências -->
+          <?php if (!empty($dados['experiencias'])): ?>
+            <div class="mb-4">
+              <h4 class="text-primary mb-4">Expêriencias</h4>
+              <?php foreach ($dados['experiencias'] as $experiencias): ?>
+                <div class="card shadow-sm border-0 rounded-4 mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                      <div>
+                        <h5 class="card-title mb-1"><?= $experiencias['nome_cargo'] ?></h5>
+                        <p class="text-muted mb-1"><?= $experiencias['estabelecimento'] ?></p>
+                        <small class="text-muted">
+                          <?= $meses[(int)$experiencias['inicioMes']] ?>/<?= $experiencias['inicioAno'] ?> –
+                          <?php if (!empty($experiencias['fimMes']) && !empty($experiencias['fimAno'])): ?>
+                            <?= $meses[(int)$experiencias['fimMes']] ?>/<?= $experiencias['fimAno'] ?>
+                          <?php else: ?>
+                            Atual
+                          <?php endif; ?>
+                        </small>
+                      </div>
+                      <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                        <a href="<?= baseUrl() ?>Experiencias/form/update/<?= $experiencias['curriculum_experiencia_id'] ?>" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-pencil-fill me-1"></i> Editar
+                        </a>
+                        <a href="javascript:void(0);"
+                          onclick="confirmarExclusao('<?= baseUrl() ?>Experiencias/delete', { curriculum_experiencia_id: <?= $experiencias['curriculum_experiencia_id'] ?> })"
+                          class="btn btn-sm btn-outline-danger">
+                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+          <!-- Qualificações -->
+          <?php if (!empty($dados['qualificacoes'])): ?>
+            <div class="mb-4">
+              <h4 class="text-primary mb-4">Qualificações</h4>
+              <?php foreach ($dados['qualificacoes'] as $qualificacao): ?>
+                <div class="card shadow-sm border-0 rounded-4 mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                      <div>
+                        <h5 class="card-title mb-1"><?= $qualificacao['descricao'] ?></h5>
+                        <p class="text-muted mb-1"><?= $qualificacao['estabelecimento'] ?></p>
+                        <small class="text-muted">
+                          <?= $meses[(int)$qualificacao['mes']] ?>/<?= $qualificacao['ano'] ?>
+                        </small>
+                      </div>
+                      <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
+                        <a href="<?= baseUrl() ?>Qualificacao/form/update/<?= $qualificacao['curriculum_qualificacao_id'] ?>" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-pencil-fill me-1"></i> Editar
+                        </a>
+                        <a href="javascript:void(0);"
+                          onclick="confirmarExclusao('<?= baseUrl() ?>Qualificacao/delete', { curriculum_qualificacao_id: <?= $qualificacao['curriculum_qualificacao_id'] ?> })"
+                          class="btn btn-sm btn-outline-danger">
+                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+        </div> <!-- Fim aba de dados -->
 
-      <!-- Experiências -->
-      <?php if (!empty($dados['experiencias'])): ?>
-        <div class="mb-4">
-          <h4 class="text-primary mb-4">Expêriencias</h4>
-          <?php foreach ($dados['experiencias'] as $experiencias): ?>
-            <div class="card shadow-sm border-0 rounded-4 mb-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-between flex-column flex-md-row">
-                  <div>
-                    <h5 class="card-title mb-1"><?= $experiencias['nome_cargo'] ?></h5>
-                    <p class="text-muted mb-1"><?= $experiencias['estabelecimento'] ?></p>
-                    <small class="text-muted">
-                      <?= $meses[(int)$experiencias['inicioMes']] ?>/<?= $experiencias['inicioAno'] ?> –
-                      <?php if (!empty($experiencias['fimMes']) && !empty($experiencias['fimAno'])): ?>
-                        <?= $meses[(int)$experiencias['fimMes']] ?>/<?= $experiencias['fimAno'] ?>
+        <!-- Aba de postagens -->
+        <div class="tab-pane fade" id="postagem" role="tabpanel" aria-labelledby="postagem">
+          <div class="container my-4 feed-container">
+            <?php foreach ($dados['postagens'] as $value): ?>
+              <div class="card post mb-4 shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!-- Foto de perfil -->
+                    <div class="text-center">
+                      <?php if (!empty($value['foto_perfil'])): ?>
+                        <?php if (!empty($value['pessoa_fisica_id'])): ?>
+                          <img src="<?= baseUrl() . 'fotoPF.php?id=' . $value['curriculum_id'] ?>" class="rounded-circle perfil me-3">
+                        <?php else: ?>
+                          <img src="<?= baseUrl() . 'fotoPJ.php?id=' . $value['estabelecimento_id'] ?>" class="rounded-circle perfil me-3">
+                        <?php endif; ?>
                       <?php else: ?>
-                        Atual
+                        <img src="<?= baseUrl() ?>assets/img/default-profile.png" class="rounded-circle perfil me-3">
                       <?php endif; ?>
-                    </small>
+                    </div>
+                    <!-- Nome e data da postagem -->
+                    <div>
+                      <h6 class="mb-0"><?= $value['nome'] ?></h6>
+                      <small class="text-muted">Postado em <?= date('d/m/Y H:i', strtotime($value['data_criacao'])) ?></small>
+                    </div>
                   </div>
-                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                    <a href="<?= baseUrl() ?>Experiencias/form/update/<?= $experiencias['curriculum_experiencia_id'] ?>" class="btn btn-sm btn-outline-primary">
-                      <i class="bi bi-pencil-fill me-1"></i> Editar
-                    </a>
-                    <a href="javascript:void(0);"
-                    onclick="confirmarExclusao('<?= baseUrl() ?>Experiencias/delete', { curriculum_experiencia_id: <?= $experiencias['curriculum_experiencia_id'] ?> })"
-                    class="btn btn-sm btn-outline-danger">
-                      <i class="bi bi-trash-fill me-1"></i> Excluir
-                    </a>
-                  </div>
+                  <!-- Imagem da postagem -->
+                  <?php if (!empty($value['imagem'])): ?>
+                    <img src="<?= baseUrl() . 'post.php?id=' . $value['postagem_id'] ?>" class="img-fluid rounded imagem-post mb-3">
+                  <?php endif; ?>
+                  <!-- Comentário da postagem -->
+                  <p><?= $value['comentario'] ?></p>
+                </div>
+                <!-- Botões da postagem -->
+                <div class=" p-2 d-flex justify-content-center gap-5">
+                  <a href="<?= baseUrl() ?>Postagem/form/update/<?= $value['postagem_id'] ?>" class="btn btn-outline-primary">
+                    <i class="bi bi-pencil-fill me-1"></i> Editar
+                  </a>
+                  <a href="javascript:void(0);"
+                    onclick="confirmarExclusao('<?= baseUrl() ?>Postagem/delete', { postagem_id: <?= $value['postagem_id'] ?> })"
+                    class="btn btn-outline-danger">
+                    <i class="bi bi-trash-fill me-1"></i> Excluir
+                  </a>
                 </div>
               </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
-      <!-- Qualificações -->
-      <?php if (!empty($dados['qualificacoes'])): ?>
-        <div class="mb-4">
-          <h4 class="text-primary mb-4">Qualificações</h4>
-          <?php foreach ($dados['qualificacoes'] as $qualificacao): ?>
-            <div class="card shadow-sm border-0 rounded-4 mb-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-between flex-column flex-md-row">
-                  <div>
-                    <h5 class="card-title mb-1"><?= $qualificacao['descricao'] ?></h5>
-                    <p class="text-muted mb-1"><?= $qualificacao['estabelecimento'] ?></p>
-                    <small class="text-muted">
-                      <?= $meses[(int)$qualificacao['mes']] ?>/<?= $qualificacao['ano'] ?>
-                    </small>
-                  </div>
-                  <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                    <a href="<?= baseUrl() ?>Qualificacao/form/update/<?= $qualificacao['curriculum_qualificacao_id'] ?>" class="btn btn-sm btn-outline-primary">
-                      <i class="bi bi-pencil-fill me-1"></i> Editar
-                    </a>
-                    <a href="javascript:void(0);"
-                    onclick="confirmarExclusao('<?= baseUrl() ?>Qualificacao/delete', { curriculum_qualificacao_id: <?= $qualificacao['curriculum_qualificacao_id'] ?> })"
-                    class="btn btn-sm btn-outline-danger">
-                      <i class="bi bi-trash-fill me-1"></i> Excluir
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
+        </div> <!-- Fim aba de postagens -->
+      </div>
 
       <div class="row g-4 my-4 align-items-center">
         <h2 class="text-center my-4">Configurações da Conta</h2>
@@ -212,7 +286,7 @@
             <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
           </a>
           <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
-          class="btn btn-sm btn-outline-danger m-2">
+            class="btn btn-sm btn-outline-danger m-2">
             <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
           </a>
           <a href="<?= baseUrl() ?>Curriculo/view/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
@@ -228,7 +302,7 @@
             <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
           </a>
           <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-          class="btn btn-sm btn-outline-danger m-2">
+            class="btn btn-sm btn-outline-danger m-2">
             <i class="bi bi-trash-fill me-1"></i> Excluir Perfil
           </a>
           <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-dark m-2">
@@ -239,3 +313,25 @@
     <?php endif; ?>
   </div>
 </div>
+
+<style>
+  .feed-container {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .post img.perfil {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+
+  .post .imagem-post {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+</style>

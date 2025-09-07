@@ -30,7 +30,7 @@ $usuarioId = Session::get('userId');
       <?php if (!empty($dados['imagem'])): ?>
         <div class="mb-3 col-12">
           <h5>Imagem</h5>
-          <img src="<?= baseUrl() . 'post.php?id=' . $dados['imagem'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+          <img src="<?= baseUrl() . 'post.php?id=' . $dados['postagem_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
       <?php endif; ?>
     </div>
