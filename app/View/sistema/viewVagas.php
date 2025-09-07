@@ -85,10 +85,43 @@ $aStatusVaga = ["1" => "Pendente", "2" => "Ativa", "3" => "Fechada"];
                   </div>
                 </div>
 
-                <!-- Botão Ver Currículo -->
-                <a href="<?= baseUrl() ?>Curriculo/view/<?= $candidato['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
-                  <i class="bi bi-eye-fill me-1"></i> Ver Currículo
-                </a>
+                <div class="d-none d-md-flex">
+                  <a href="mailto:<?= $candidato['email'] ?>" target="_blank" class="btn btn-sm btn-outline-primary m-2">
+                    <i class="bi bi-envelope"></i> Enviar Email
+                  </a>
+
+                  <a href="https://wa.me/55<?= $candidato['celular'] ?>" target="_blank" class="btn btn-sm btn-outline-success m-2">
+                    <i class="bi bi-whatsapp"></i> Enviar Mensagem
+                  </a>
+
+                  <a href="<?= baseUrl() ?>Curriculo/view/<?= $candidato['curriculum_id'] ?>" class="btn btn-sm btn-outline-dark m-2">
+                    <i class="bi bi-eye-fill me-1"></i> Ver Currículo
+                  </a>
+                </div>
+
+                <!-- Dropdown para telas pequenas -->
+                <div class="dropdown d-md-none">
+                  <button class="btn btn-primary btn-sm dropdown-toggle m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ações
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="mailto:<?= $candidato['email'] ?>" target="_blank">
+                        <i class="bi bi-envelope"></i> Enviar Email
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="https://wa.me/55<?= $candidato['celular'] ?>" target="_blank">
+                        <i class="bi bi-whatsapp"></i> Enviar Mensagem
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="<?= baseUrl() ?>Curriculo/view/<?= $candidato['curriculum_id'] ?>">
+                        <i class="bi bi-eye-fill me-1"></i> Ver Currículo
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             <?php endforeach; ?>
           </ul>

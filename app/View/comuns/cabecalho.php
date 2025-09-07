@@ -35,6 +35,9 @@ if (!empty($_SESSION['toast'])): ?>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
 <body>
   <!-- Toastify -->
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -70,6 +73,5 @@ if (!empty($_SESSION['toast'])): ?>
           <a href="<?= baseUrl() ?>Postagem/form/insert" class="btn btn-primary ms-2">Nova publicação</a>
         <?php endif; ?>
       </div>
-
     </div>
   </header>

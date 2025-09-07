@@ -11,7 +11,7 @@ class CandidaturaModel extends ModelMain
     public function getCandidatosComUsuario($vagaId)
     {
         return $this->db->table($this->table)
-            ->select('vaga_curriculum.curriculum_id, usuario.usuario_id, usuario.nome, usuario.login, vaga_curriculum.dateCandidatura, curriculum.foto')
+            ->select('vaga_curriculum.curriculum_id, usuario.usuario_id, usuario.nome, usuario.login, vaga_curriculum.dateCandidatura, curriculum.celular, curriculum.email, curriculum.foto')
             ->join('curriculum', 'curriculum.curriculum_id = vaga_curriculum.curriculum_id')
             ->join('usuario', 'usuario.pessoa_fisica_id = curriculum.pessoa_fisica_id')
             ->where('vaga_curriculum.vaga_id', $vagaId)
