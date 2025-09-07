@@ -94,14 +94,25 @@ $meses = [
 
       <!-- Controle de abas -->
       <ul class="nav nav-tabs mb-3" id="UserTabs" role="tablist">
+        <?php if (!empty($dados['escolaridades']) || !empty($dados['experiencias']) || !empty($dados['qualificacoes'])): ?>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">
+              Dados do Usuário
+            </button>
+          </li>
+        <?php endif; ?>
+
+        <?php if (!empty($dados['postagens'])): ?>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="postagem-tab" data-bs-toggle="tab" data-bs-target="#postagem" type="button" role="tab" aria-controls="postagem" aria-selected="false">
+              Postagens
+            </button>
+          </li>
+        <?php endif; ?>
+
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">
-            Dados do Usuário
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="postagem-tab" data-bs-toggle="tab" data-bs-target="#postagem" type="button" role="tab" aria-controls="postagem" aria-selected="false">
-            Postagens
+          <button class="nav-link" id="configuracoes-tab" data-bs-toggle="tab" data-bs-target="#configuracoes" type="button" role="tab" aria-controls="configuracoes" aria-selected="false">
+            Configurações
           </button>
         </li>
       </ul>
@@ -257,57 +268,60 @@ $meses = [
             <?php endforeach; ?>
           </div>
         </div> <!-- Fim aba de postagens -->
-      </div>
 
-      <div class="row g-4 my-4 align-items-center">
-        <h2 class="text-center my-4">Configurações da Conta</h2>
+        <!-- Aba de configurações -->
+        <div class="tab-pane fade" id="configuracoes" role="tabpanel" aria-labelledby="configuracoes">
+          <div class="row g-4 my-4 align-items-center">
+            <h2 class="text-center my-4">Configurações da Conta</h2>
 
-        <div class="container my-2">
-          <h5>Cadastre novas conquistas</h5>
+            <div class="container my-2">
+              <h5>Cadastre novas conquistas</h5>
 
-          <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-outline-success m-2">
-            <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
-          </a>
+              <a href="<?= baseUrl() ?>Escolaridade/form/insert/0" class="btn btn-outline-success m-2">
+                <i class="bi bi-plus-lg"></i> Cadastrar Escolaridade
+              </a>
 
-          <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-outline-success m-2">
-            <i class="bi bi-plus-lg"></i> Cadastrar Experiências
-          </a>
+              <a href="<?= baseUrl() ?>Experiencias/form/insert/0" class="btn btn-outline-success m-2">
+                <i class="bi bi-plus-lg"></i> Cadastrar Experiências
+              </a>
 
-          <a href="<?= baseUrl() ?>Qualificacao/form/insert/0" class="btn btn-outline-success m-2">
-            <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
-          </a>
-        </div>
+              <a href="<?= baseUrl() ?>Qualificacao/form/insert/0" class="btn btn-outline-success m-2">
+                <i class="bi bi-plus-lg"></i> Cadastrar Qualificações
+              </a>
+            </div>
 
-        <hr>
+            <hr>
 
-        <div class="col-12 my-2">
-          <h5>Edite seu currículo</h5>
-          <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
-            <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
-          </a>
-          <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
-            class="btn btn-sm btn-outline-danger m-2">
-            <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
-          </a>
-          <a href="<?= baseUrl() ?>Curriculo/view/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
-            <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
-          </a>
-        </div>
+            <div class="col-12 my-2">
+              <h5>Edite seu currículo</h5>
+              <a href="<?= baseUrl() ?>Curriculo/form/update/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
+                <i class="bi bi-pencil-fill me-1"></i> Editar Currículo
+              </a>
+              <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Curriculo/delete', { curriculum_id: <?= $dados['curriculo']['curriculum_id'] ?> })"
+                class="btn btn-sm btn-outline-danger m-2">
+                <i class="bi bi-trash-fill me-1"></i> Deletar Currículo
+              </a>
+              <a href="<?= baseUrl() ?>Curriculo/view/<?= $dados['curriculo']['curriculum_id'] ?>" class="btn btn-sm btn-outline-success m-2">
+                <i class="bi bi-eye-fill me-1"></i> Visualizar Currículo
+              </a>
+            </div>
 
-        <hr>
+            <hr>
 
-        <div class="col-12">
-          <h5>Edite seu perfil</h5>
-          <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
-            <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
-          </a>
-          <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-            class="btn btn-sm btn-outline-danger m-2">
-            <i class="bi bi-trash-fill me-1"></i> Excluir Perfil
-          </a>
-          <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-dark m-2">
-            <i class="bi bi-box-arrow-right"></i> Sair
-          </a>
+            <div class="col-12">
+              <h5>Edite seu perfil</h5>
+              <a href="<?= baseUrl() ?>Perfil/form/update/<?= $dados['usuario']['usuario_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
+                <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
+              </a>
+              <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
+                class="btn btn-sm btn-outline-danger m-2">
+                <i class="bi bi-trash-fill me-1"></i> Excluir Perfil
+              </a>
+              <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-dark m-2">
+                <i class="bi bi-box-arrow-right"></i> Sair
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     <?php endif; ?>
