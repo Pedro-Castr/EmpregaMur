@@ -17,10 +17,10 @@ $meses = [
 
 <script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
 
-<div class="main-container container-fluid min-vh-100 d-flex flex-column align-items-center bg-light p-4">
+<div class="main-container container-fluid d-flex flex-column align-items-center p-4">
   <div class="w-100" style="max-width: 800px;">
     <?php if (empty($dados['curriculo'])): ?>
-      <div class="card border-0 rounded-4 p-4 text-center bg-light">
+      <div class="card border-0 rounded-4 p-4 text-center">
         <div class="card-body">
           <h5 class="card-title mb-3">Currículo não encontrado!</h5>
           <p class="card-text text-muted mb-4">
@@ -50,7 +50,7 @@ $meses = [
       </div>
     <?php else: ?>
 
-      <div class="card border-0 rounded-4 p-2 bg-light">
+      <div class="card border-0 rounded-4 p-2">
         <div class="row g-4 align-items-center">
           <!-- Foto de perfil -->
           <div class="col-md-3 text-center">
