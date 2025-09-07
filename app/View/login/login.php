@@ -1,4 +1,4 @@
-<div class="login-wrapper">
+<div class="main-container login-wrapper">
   <div class="login-box">
     <h3 class="text-center mb-4">Acesse sua conta</h3>
     <form action="login/signIn" method="POST">

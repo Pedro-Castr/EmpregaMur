@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
 
-<div class="card col-lg-5 mx-auto shadow-sm p-4" style="margin-top: 50px; border-radius: 10px; background: #fff;">
+<div class="main-container card col-lg-5 mx-auto shadow-sm p-4" style="margin-top: 50px; border-radius: 10px; background: #fff;">
   <div class="card-header text-center border-0 pb-3">
     <h2 class="fw-bold">Recuperação de Senha</h2>
     <p class="text-muted">Olá <strong><?= htmlspecialchars($dados['nome']) ?></strong>, digite sua nova senha abaixo.</p>

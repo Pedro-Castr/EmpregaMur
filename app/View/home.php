@@ -1,4 +1,4 @@
-<div class="my-4 feed-container">
+<div class="main-container my-4 feed-container">
   <?php foreach ($dados['postagem'] as $value): ?>
     <div class="card post mb-4 shadow-sm">
       <div class="card-body">

@@ -9,7 +9,7 @@ $usuarioId = Session::get('userId');
 
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <h2 class="my-3 text-center">Editar Perfil</h2>
   <p class="text-muted text-center">Atualize seu nome e, se desejar, altere sua senha.</p>
 

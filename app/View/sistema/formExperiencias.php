@@ -10,7 +10,7 @@ if (in_array($this->request->getAction(), ['update']) && empty(setValor('fimMes'
 }
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Cadastre suas Experiências</h2>
     <p class="text-muted text-center">Compartilhe sua trajetória profissional e mostre às empresas onde você já atuou, suas conquistas e como pode contribuir com novos desafios.</p>

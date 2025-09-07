@@ -5,7 +5,7 @@ use Core\Library\Request;
 $request = new Request();
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Cadastre uma Vaga de Emprego</h2>
     <p class="text-muted text-center">Informe os detalhes da vaga para atrair candidatos qualificados e encontrar o profissional ideal para sua empresa.</p>

@@ -17,7 +17,7 @@ $meses = [
 
 <script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
 
-<div class="container py-4">
+<div class="main-container container py-4">
   <div class="card border-0 rounded-4 shadow-sm">
     <div class="card-body">
 

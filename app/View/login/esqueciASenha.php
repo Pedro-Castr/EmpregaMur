@@ -1,4 +1,4 @@
-<div class="recuperar-wrapper">
+<div class="main-container recuperar-wrapper">
   <div class="recuperar-box">
     <h3 class="mb-4 text-center">🔒 Esqueci minha senha</h3>
     <form action="<?= baseUrl() ?>login/esqueciASenhaEnvio" method="POST" novalidate>

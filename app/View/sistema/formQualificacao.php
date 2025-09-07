@@ -5,7 +5,7 @@ use Core\Library\Request;
 $request = new Request();
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Cadastre sua Qualificação</h2>
     <p class="text-muted text-center">Adicione cursos e certificações que complementam sua formação e destacam suas habilidades no mercado de trabalho.</p>

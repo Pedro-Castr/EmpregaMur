@@ -15,7 +15,7 @@ $request = new Request();
   });
 </script>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Cadastre seu Currículo</h2>
     <p class="text-muted text-center">Preencha as informações abaixo para criar seu currículo e aumentar suas chances de conquistar uma nova oportunidade profissional.</p>

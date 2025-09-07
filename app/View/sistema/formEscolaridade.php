@@ -5,7 +5,7 @@ use Core\Library\Request;
 $request = new Request();
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Cadastre sua Escolaridade</h2>
     <p class="text-muted text-center">Informe seus dados escolares para enriquecer ainda mais seu currículo e mostrar às empresas seu nível de formação e dedicação aos estudos.</p>

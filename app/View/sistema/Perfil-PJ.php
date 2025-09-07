@@ -23,7 +23,7 @@ if (!empty($dados['vagas'])) {
 }
 ?>
 
-<div class="container-fluid min-vh-100 d-flex flex-column align-items-center bg-light p-4">
+<div class="main-container container-fluid min-vh-100 d-flex flex-column align-items-center bg-light p-4">
   <div class="w-100" style="max-width: 800px;">
     <?php if (empty($dados['estabelecimento']['endereco'])): ?>
       <div class="card border-0 rounded-4 p-4 text-center bg-light">

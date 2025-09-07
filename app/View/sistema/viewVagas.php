@@ -4,7 +4,7 @@ $aVinculo = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
 $aStatusVaga = ["1" => "Pendente", "2" => "Ativa", "3" => "Fechada"];
 ?>
 
-<div class="container py-4">
+<div class="main-container container py-4">
   <div class="card border-0 rounded-4 shadow-sm">
     <div class="card-body">
       <!-- Nome e botões de configuração -->

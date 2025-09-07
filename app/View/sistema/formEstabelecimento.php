@@ -5,7 +5,7 @@ use Core\Library\Request;
 $request = new Request();
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <h2 class="my-3 text-center">Atualize seu Perfil</h2>
   <p class="text-muted text-center">Preencha as informações abaixo para que sua empresa chame atenção de possíveis funcionários.</p>
 

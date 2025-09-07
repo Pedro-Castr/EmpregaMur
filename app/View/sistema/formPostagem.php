@@ -7,7 +7,7 @@ $request = new Request();
 $usuarioId = Session::get('userId');
 ?>
 
-<div class="container py-3">
+<div class="main-container container py-3">
   <?php if (in_array($this->request->getAction(), ['insert'])): ?>
     <h2 class="my-3 text-center">Tem algo bacana para compartilhar?</h2>
     <p class="text-muted text-center">Publique aqui e deixe que sua mensagem chegue às pessoas certas.</p>
