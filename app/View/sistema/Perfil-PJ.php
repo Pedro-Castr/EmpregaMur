@@ -1,26 +1,26 @@
 <?php
-  $aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
-  $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
+$aModalidade  = ["1" => "Presencial", "2" => "Semipresencial", "3" => "Remoto"];
+$aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
 
-  $vagasPendentes = [];
-  $vagasAbertas = [];
-  $vagasFechadas = [];
+$vagasPendentes = [];
+$vagasAbertas = [];
+$vagasFechadas = [];
 
-  if (!empty($dados['vagas'])) {
-    foreach ($dados['vagas'] as $vaga) {
-      switch ($vaga['statusVaga']) {
-        case 1:
-          $vagasPendentes[] = $vaga;
-          break;
-        case 2:
-          $vagasAbertas[] = $vaga;
-          break;
-        case 3:
-          $vagasFechadas[] = $vaga;
-          break;
-      }
+if (!empty($dados['vagas'])) {
+  foreach ($dados['vagas'] as $vaga) {
+    switch ($vaga['statusVaga']) {
+      case 1:
+        $vagasPendentes[] = $vaga;
+        break;
+      case 2:
+        $vagasAbertas[] = $vaga;
+        break;
+      case 3:
+        $vagasFechadas[] = $vaga;
+        break;
     }
   }
+}
 ?>
 
 <div class="container-fluid min-vh-100 d-flex flex-column align-items-center bg-light p-4">
@@ -41,7 +41,7 @@
           <!-- Botões Excluir e Sair -->
           <div class="mt-5">
             <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-            class="btn btn-outline-danger me-2 mb-2 mb-md-0">
+              class="btn btn-outline-danger me-2 mb-2 mb-md-0">
               <i class="bi bi-trash-fill me-1"></i> Excluir Conta
             </a>
 
@@ -68,18 +68,35 @@
         </div>
       </div>
 
-      <hr class="my-4">
+      <ul class="nav nav-tabs mb-3" id="UserTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="vagas-tab" data-bs-toggle="tab" data-bs-target="#vagas" type="button" role="tab" aria-controls="vagas" aria-selected="true">
+            Controle de Vagas
+          </button>
+        </li>
 
-      <div class="row g-4 my-4 align-items-center">
-        <h2 class="text-center my-4">Configurações da Conta</h2>
+        <?php if (!empty($dados['postagens'])): ?>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="postagem-tab" data-bs-toggle="tab" data-bs-target="#postagem" type="button" role="tab" aria-controls="postagem" aria-selected="false">
+              Postagens
+            </button>
+          </li>
+        <?php endif; ?>
 
-        <div class="col-12">
-          <h5>Gerencie suas vagas</h5>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="configuracoes-tab" data-bs-toggle="tab" data-bs-target="#configuracoes" type="button" role="tab" aria-controls="configuracoes" aria-selected="false">
+            Configurações
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="UserTabsContents">
+        <!-- Início aba de vagas -->
+        <div class="tab-pane fade show active" id="vagas" role="tabpanel" aria-labelledby="vagas">
           <a href="<?= baseUrl() ?>Vagas/form/insert/0" class="btn btn-success m-2 mb-4">
             <i class="bi bi-plus-lg"></i> Criar Nova Vaga
           </a>
 
-          <!-- Vagas -->
           <?php if (!empty($dados['vagas'])): ?>
             <!-- Vagas Abertas -->
             <?php if (!empty($vagasAbertas)): ?>
@@ -130,8 +147,8 @@
                           <i class="bi bi-pencil-fill me-1"></i> Editar
                         </a>
                         <a href="javascript:void(0);"
-                        onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
-                        class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
+                          onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
+                          class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
                           <i class="bi bi-trash-fill me-1"></i> Excluir
                         </a>
                       </div>
@@ -163,8 +180,8 @@
                           <i class="bi bi-pencil-fill me-1"></i> Editar
                         </a>
                         <a href="javascript:void(0);"
-                        onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
-                        class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
+                          onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
+                          class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
                           <i class="bi bi-trash-fill me-1"></i> Excluir
                         </a>
                       </div>
@@ -174,22 +191,93 @@
               <?php endforeach; ?>
             <?php endif; ?>
           <?php endif; ?>
-        </div>
+        </div> <!-- Fim aba de vagas -->
 
-        <div class="col-12">
+        <!-- Início aba de postagens -->
+        <div class="tab-pane fade" id="postagem" role="tabpanel" aria-labelledby="postagem">
+          <div class="container my-4 feed-container">
+            <?php foreach ($dados['postagens'] as $value): ?>
+              <div class="card post mb-4 shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!-- Foto de perfil -->
+                    <div class="text-center">
+                      <?php if (!empty($value['foto_perfil'])): ?>
+                        <?php if (!empty($value['pessoa_fisica_id'])): ?>
+                          <img src="<?= baseUrl() . 'fotoPF.php?id=' . $value['curriculum_id'] ?>" class="rounded-circle perfil me-3">
+                        <?php else: ?>
+                          <img src="<?= baseUrl() . 'fotoPJ.php?id=' . $value['estabelecimento_id'] ?>" class="rounded-circle perfil me-3">
+                        <?php endif; ?>
+                      <?php else: ?>
+                        <img src="<?= baseUrl() ?>assets/img/default-profile.png" class="rounded-circle perfil me-3">
+                      <?php endif; ?>
+                    </div>
+                    <!-- Nome e data da postagem -->
+                    <div>
+                      <h6 class="mb-0"><?= $value['nome'] ?></h6>
+                      <small class="text-muted">Postado em <?= date('d/m/Y H:i', strtotime($value['data_criacao'])) ?></small>
+                    </div>
+                  </div>
+                  <!-- Imagem da postagem -->
+                  <?php if (!empty($value['imagem'])): ?>
+                    <img src="<?= baseUrl() . 'post.php?id=' . $value['postagem_id'] ?>" class="img-fluid rounded imagem-post mb-3">
+                  <?php endif; ?>
+                  <!-- Comentário da postagem -->
+                  <p><?= $value['comentario'] ?></p>
+                </div>
+                <!-- Botões da postagem -->
+                <div class=" p-2 d-flex justify-content-center gap-5">
+                  <a href="<?= baseUrl() ?>Postagem/form/update/<?= $value['postagem_id'] ?>" class="btn btn-outline-primary">
+                    <i class="bi bi-pencil-fill me-1"></i> Editar
+                  </a>
+                  <a href="javascript:void(0);"
+                    onclick="confirmarExclusao('<?= baseUrl() ?>Postagem/delete', { postagem_id: <?= $value['postagem_id'] ?> })"
+                    class="btn btn-outline-danger">
+                    <i class="bi bi-trash-fill me-1"></i> Excluir
+                  </a>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div> <!-- Fim aba de postagens -->
+
+        <!-- Início Aba de configurações -->
+        <div class="tab-pane fade" id="configuracoes" role="tabpanel" aria-labelledby="configuracoes">
           <h5>Edite seu perfil</h5>
           <a href="<?= baseUrl() ?>Estabelecimento/form/update/<?= $dados['usuario']['estabelecimento_id'] ?>" class="btn btn-sm btn-outline-primary m-2">
             <i class="bi bi-pencil-fill me-1"></i> Editar Perfil
           </a>
           <a href="javascript:void(0);" onclick="confirmarExclusao('<?= baseUrl() ?>Perfil/delete', { usuario_id: <?= $dados['usuario']['usuario_id'] ?> })"
-          class="btn btn-sm btn-outline-danger m-2">
+            class="btn btn-sm btn-outline-danger m-2">
             <i class="bi bi-trash-fill me-1"></i> Excluir Perfil
           </a>
           <a href="javascript:void(0);" onclick="confirmarLogout('<?= baseUrl() ?>Login/signOut')" class="btn btn-sm btn-outline-dark m-2">
             <i class="bi bi-box-arrow-right"></i> Sair
           </a>
-        </div>
+        </div> <!-- Fim aba de configurações -->
       </div>
     <?php endif; ?>
   </div>
 </div>
+
+<style>
+  .feed-container {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .post img.perfil {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+
+  .post .imagem-post {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+</style>

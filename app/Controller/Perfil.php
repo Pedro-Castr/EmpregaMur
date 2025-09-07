@@ -126,10 +126,15 @@ class Perfil extends ControllerMain
 
             $vagas = $vagaModel->getByEstabelecimentoId($estabelecimentoId);
 
+            // Postagens
+            $PostagemModel = new PostagemModel();
+            $postagens = $PostagemModel->getPostagensById($userId);
+
             $dados = [
                 'usuario' => $dadosUsuario,
                 'estabelecimento' => $dadosEstabelecimento,
-                'vagas' => $vagas
+                'vagas' => $vagas,
+                'postagens' => $postagens
             ];
 
             return $this->loadView("sistema\\Perfil-PJ", $dados);
