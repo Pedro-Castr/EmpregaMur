@@ -118,7 +118,7 @@ $meses = [
       </ul>
 
       <div class="tab-content" id="UserTabsContents">
-        <!-- Aba de dados -->
+        <!-- Início aba de dados -->
         <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados">
           <!-- Escolaridade -->
           <?php if (!empty($dados['escolaridades'])): ?>
@@ -221,7 +221,7 @@ $meses = [
           <?php endif; ?>
         </div> <!-- Fim aba de dados -->
 
-        <!-- Aba de postagens -->
+        <!-- Início aba de postagens -->
         <div class="tab-pane fade" id="postagem" role="tabpanel" aria-labelledby="postagem">
           <div class="container my-4 feed-container">
             <?php foreach ($dados['postagens'] as $value): ?>
@@ -269,7 +269,7 @@ $meses = [
           </div>
         </div> <!-- Fim aba de postagens -->
 
-        <!-- Aba de configurações -->
+        <!-- Início aba de configurações -->
         <div class="tab-pane fade" id="configuracoes" role="tabpanel" aria-labelledby="configuracoes">
           <div class="row g-4 my-4 align-items-center">
             <h2 class="text-center my-4">Configurações da Conta</h2>
@@ -322,7 +322,7 @@ $meses = [
               </a>
             </div>
           </div>
-        </div>
+        </div> <!-- Fim aba de configurações -->
       </div>
     <?php endif; ?>
   </div>
