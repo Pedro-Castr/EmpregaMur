@@ -31,13 +31,12 @@ class EXperienciasModel extends ModelMain
     public function listaEscolaridade()
     {
         return $this->db->select("curriculum_escolaridade.*, escolaridade.descricao")
-        ->join("escolaridade", "escolaridade.escolaridade_id = curriculum_escolaridade.escolaridade_id")
-        ->orderBy("escolaridade.descricao")->findAll();
+            ->join("escolaridade", "escolaridade.escolaridade_id = curriculum_escolaridade.escolaridade_id")
+            ->orderBy("escolaridade.descricao")->findAll();
     }
 
     public function getByCurriculumId($curriculumId)
     {
         return $this->db->where('curriculum_id', $curriculumId)->findAll();
     }
-
 }

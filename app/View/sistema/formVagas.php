@@ -1,6 +1,8 @@
 <?php
-  use Core\Library\Request;
-  $request = new Request();
+
+use Core\Library\Request;
+
+$request = new Request();
 ?>
 
 <div class="container py-3">
@@ -73,7 +75,7 @@
     <div class="mb-3">
       <label for="sobreaVaga" class="form-label">Sobre a vaga</label>
       <textarea class="form-control" id="sobreaVaga" name="sobreaVaga" rows="4"
-      placeholder="Descreva os detalhes da vaga, como atividades a serem realizadas, perfil desejado e diferenciais do cargo."><?= setValor("sobreaVaga") ?></textarea>
+        placeholder="Descreva os detalhes da vaga, como atividades a serem realizadas, perfil desejado e diferenciais do cargo."><?= setValor("sobreaVaga") ?></textarea>
       <?= setMsgFilderError("sobreaVaga") ?>
     </div>
 

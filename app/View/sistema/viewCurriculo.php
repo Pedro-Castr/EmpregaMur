@@ -1,9 +1,18 @@
 <?php
-  $meses = [
-    1 => 'Jan', 2 => 'Fev', 3 => 'Mar', 4 => 'Abr',
-    5 => 'Mai', 6 => 'Jun', 7 => 'Jul', 8 => 'Ago',
-    9 => 'Set', 10 => 'Out', 11 => 'Nov', 12 => 'Dez'
-  ];
+$meses = [
+  1 => 'Jan',
+  2 => 'Fev',
+  3 => 'Mar',
+  4 => 'Abr',
+  5 => 'Mai',
+  6 => 'Jun',
+  7 => 'Jul',
+  8 => 'Ago',
+  9 => 'Set',
+  10 => 'Out',
+  11 => 'Nov',
+  12 => 'Dez'
+];
 ?>
 
 <script src="<?= baseUrl(); ?>assets/js/mascaras.js"></script>
@@ -19,7 +28,7 @@
       <div class="text-center mb-4">
         <?php if (!empty($dados['curriculo']['foto'])): ?>
           <img src="<?= baseUrl() . 'fotoPF.php?id=' . $dados['curriculo']['curriculum_id'] ?>" alt="Foto de perfil" class="img-thumbnail rounded-3"
-              style="width: 250px; height: 250px; object-fit: cover;">
+            style="width: 250px; height: 250px; object-fit: cover;">
         <?php else: ?>
           <img src="<?= baseUrl() ?>assets/img/default-profile.png" alt="Sem foto" class="img-thumbnail rounded-3" style="width: 250px; height: 250px; object-fit: cover;">
         <?php endif; ?>
@@ -41,12 +50,19 @@
           <strong>Sexo</strong>
           <p>
             <?php
-              switch ($dados['curriculo']['sexo']) {
-                case 'M': echo 'Masculino'; break;
-                case 'F': echo 'Feminino'; break;
-                case 'O': echo 'Outro'; break;
-                default:  echo '-';
-              }
+            switch ($dados['curriculo']['sexo']) {
+              case 'M':
+                echo 'Masculino';
+                break;
+              case 'F':
+                echo 'Feminino';
+                break;
+              case 'O':
+                echo 'Outro';
+                break;
+              default:
+                echo '-';
+            }
             ?>
           </p>
         </div>
@@ -125,13 +141,13 @@
                 <h5 class="card-title mb-1"><?= $experiencias['nome_cargo'] ?></h5>
                 <p class="text-muted mb-1"><?= $experiencias['estabelecimento'] ?></p>
                 <small class="text-muted">
-                      <?= $meses[(int)$experiencias['inicioMes']] ?>/<?= $experiencias['inicioAno'] ?> –
-                      <?php if (!empty($experiencias['fimMes']) && !empty($experiencias['fimAno'])): ?>
-                        <?= $meses[(int)$experiencias['fimMes']] ?>/<?= $experiencias['fimAno'] ?>
-                      <?php else: ?>
-                        Atual
-                      <?php endif; ?>
-                    </small>
+                  <?= $meses[(int)$experiencias['inicioMes']] ?>/<?= $experiencias['inicioAno'] ?> –
+                  <?php if (!empty($experiencias['fimMes']) && !empty($experiencias['fimAno'])): ?>
+                    <?= $meses[(int)$experiencias['fimMes']] ?>/<?= $experiencias['fimAno'] ?>
+                  <?php else: ?>
+                    Atual
+                  <?php endif; ?>
+                </small>
               </div>
             </div>
           </div>

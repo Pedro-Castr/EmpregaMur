@@ -1,6 +1,8 @@
 <?php
-  use Core\Library\Request;
-  $request = new Request();
+
+use Core\Library\Request;
+
+$request = new Request();
 ?>
 
 <div class="container py-3">

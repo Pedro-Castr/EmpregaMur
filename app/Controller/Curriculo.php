@@ -172,8 +172,8 @@ class Curriculo extends ControllerMain
 
         if ($this->model->delete($post)) {
             return Redirect::page("perfil", [
-                    "toast" => ["tipo" => "success", "mensagem" => "Currículo excluído com sucesso"]
-                ]);
+                "toast" => ["tipo" => "success", "mensagem" => "Currículo excluído com sucesso"]
+            ]);
         } else {
             return Redirect::page($this->controller);
         }

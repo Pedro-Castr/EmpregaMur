@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Core\Library\ControllerMain;
 use Core\Library\Redirect;
-use Core\Library\Validator;
 use Core\Library\Session;
 
 class Postagem extends ControllerMain

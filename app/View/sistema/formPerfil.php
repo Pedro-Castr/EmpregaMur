@@ -1,9 +1,10 @@
 <?php
-  use Core\Library\Request;
-  use Core\Library\Session;
 
-  $request = new Request();
-  $usuarioId = Session::get('userId');
+use Core\Library\Request;
+use Core\Library\Session;
+
+$request = new Request();
+$usuarioId = Session::get('userId');
 ?>
 
 <script type="text/javascript" src="<?= baseUrl(); ?>assets/js/usuario.js"></script>
@@ -39,14 +40,14 @@
     <div class="mb-3">
       <label for="novaSenha" class="form-label">Nova Senha</label>
       <input type="password" class="form-control" id="novaSenha" name="novaSenha" placeholder="Digite a nova senha"
-      onkeyup="checa_segur_senha('novaSenha', 'confirmaNovaSenha', 'msgSenha', 'msgConfSenha', 'salvarAlteracoes');" >
+        onkeyup="checa_segur_senha('novaSenha', 'confirmaNovaSenha', 'msgSenha', 'msgConfSenha', 'salvarAlteracoes');">
       <small id="msgSenha" class="mt-3"></small>
     </div>
 
     <div class="mb-3">
       <label for="confirmaNovaSenha" class="form-label">Repita a Nova Senha</label>
       <input type="password" class="form-control" id="confirmaNovaSenha" name="confirmaNovaSenha" placeholder="Repita a nova senha"
-      onkeyup="checa_segur_senha('novaSenha', 'confirmaNovaSenha', 'msgSenha', 'msgConfSenha', 'salvarAlteracoes');" >
+        onkeyup="checa_segur_senha('novaSenha', 'confirmaNovaSenha', 'msgSenha', 'msgConfSenha', 'salvarAlteracoes');">
       <small id="msgConfSenha" class="mt-3"></small>
     </div>
 

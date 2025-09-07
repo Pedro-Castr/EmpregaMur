@@ -21,20 +21,20 @@
   </div>
 </div>
 
-  <style>
-    .login-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 1rem;
-    }
+<style>
+  .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
 
-    .login-box {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-      width: 100%;
-      max-width: 400px;
-    }
-  </style>
+  .login-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 400px;
+  }
+</style>

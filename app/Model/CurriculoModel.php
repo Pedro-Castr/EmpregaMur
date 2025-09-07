@@ -48,7 +48,6 @@ class CurriculoModel extends ModelMain
         ]
     ];
 
-
     /**
      * lista
      *

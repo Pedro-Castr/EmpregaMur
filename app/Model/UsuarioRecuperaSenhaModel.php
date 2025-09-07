@@ -52,5 +52,4 @@ class UsuarioRecuperaSenhaModel extends ModelMain
             return false;
         }
     }
-
 }

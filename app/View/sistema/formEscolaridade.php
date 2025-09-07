@@ -1,6 +1,8 @@
 <?php
-  use Core\Library\Request;
-  $request = new Request();
+
+use Core\Library\Request;
+
+$request = new Request();
 ?>
 
 <div class="container py-3">
@@ -54,7 +56,7 @@
     </div>
 
     <div class="row">
-    <div class="col-md-3 mb-3">
+      <div class="col-md-3 mb-3">
         <label for="inicioMes" class="form-label">Mês de Início</label>
         <select class="form-select" id="inicioMes" name="inicioMes">
           <option value="">Selecione</option>
@@ -79,11 +81,11 @@
         <select class="form-select" id="inicioAno" name="inicioAno">
           <option value="">Selecione</option>
           <?php
-            $anoAtual = date('Y');
-            for ($ano = $anoAtual; $ano >= 1950; $ano--) {
-              $selected = (setValor("inicioAno") == $ano) ? 'selected' : '';
-              echo "<option value=\"$ano\" $selected>$ano</option>";
-            }
+          $anoAtual = date('Y');
+          for ($ano = $anoAtual; $ano >= 1950; $ano--) {
+            $selected = (setValor("inicioAno") == $ano) ? 'selected' : '';
+            echo "<option value=\"$ano\" $selected>$ano</option>";
+          }
           ?>
         </select>
         <?= setMsgFilderError("inicioAno") ?>
@@ -114,11 +116,11 @@
         <select class="form-select" id="fimAno" name="fimAno">
           <option value="">Selecione</option>
           <?php
-            $anoAtual = date('Y');
-            for ($ano = $anoAtual; $ano >= 1950; $ano--) {
-              $selected = (setValor("fimAno") == $ano) ? 'selected' : '';
-              echo "<option value=\"$ano\" $selected>$ano</option>";
-            }
+          $anoAtual = date('Y');
+          for ($ano = $anoAtual; $ano >= 1950; $ano--) {
+            $selected = (setValor("fimAno") == $ano) ? 'selected' : '';
+            echo "<option value=\"$ano\" $selected>$ano</option>";
+          }
           ?>
         </select>
         <?= setMsgFilderError("fimAno") ?>

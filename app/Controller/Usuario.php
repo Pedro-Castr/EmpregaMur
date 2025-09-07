@@ -16,7 +16,7 @@ class Usuario extends ControllerMain
         $this->auxiliarConstruct();
         $this->loadHelper(['formHelper', 'tabela']);
     }
-    
+
     /**
      * index
      *
@@ -30,8 +30,8 @@ class Usuario extends ControllerMain
     /**
      * form
      *
-     * @param string $action 
-     * @param integeger $id 
+     * @param string $action
+     * @param integeger $id
      * @return void
      */
     public function form($action = null, $id = null)
@@ -48,7 +48,9 @@ class Usuario extends ControllerMain
 
 
         return $this->loadView(
-            "sistema/formUsuario", $dados);
+            "sistema/formUsuario",
+            $dados
+        );
     }
 
     /**
@@ -57,7 +59,7 @@ class Usuario extends ControllerMain
      * @return void
      */
     public function insert()
-    {        
+    {
         $post = $this->request->getPost();
         $lError = false;
 
@@ -74,7 +76,7 @@ class Usuario extends ControllerMain
                 return Redirect::page($this->controller, ["msgSucesso" => "Registro atualizado com sucesso."]);
             } else {
                 $lError = true;
-            }    
+            }
         } else {
             Session::set("inputs", $post);
             return Redirect::page($this->controller . '/form/' . $post['action'] . '/' . $post['id']);
@@ -87,7 +89,7 @@ class Usuario extends ControllerMain
      * @return void
      */
     public function update()
-    {        
+    {
         $post = $this->request->getPost();
         $lError = false;
 
@@ -104,7 +106,7 @@ class Usuario extends ControllerMain
                 return Redirect::page($this->controller, ["msgSucesso" => "Registro atualizado com sucesso."]);
             } else {
                 $lError = true;
-            }    
+            }
         } else {
             Session::set("inputs", $post);
             return Redirect::page($this->controller . '/form/' . $post['action'] . '/' . $post['id']);
@@ -119,7 +121,7 @@ class Usuario extends ControllerMain
     public function delete()
     {
         $post = $this->request->getPost();
-        
+
         if ($this->model->delete(["id" => $post['id']])) {
             return Redirect::page($this->controller, ['msgSucesso' => "Registro excluído com sucesso."]);
         } else {
@@ -142,7 +144,7 @@ class Usuario extends ControllerMain
      *
      * @return void
      */
-    public function updateNovaSenha() 
+    public function updateNovaSenha()
     {
         $post       = $this->request->getPost();
         $userAtual  = $this->model->getById($post["id"]);
@@ -158,33 +160,31 @@ class Usuario extends ControllerMain
                     $lUpdate = $this->model->db->where(['id' => $post['id']])->update([
                         'senha' => $novaSenhaCripyt
                     ]);
-                        
+
                     if ($lUpdate) {
                         // Atualiza sessão de senhas
                         Session::set("userSenha", $novaSenhaCripyt);
 
                         return Redirect::page("Usuario/formTrocarSenha", [
                             "msgSucesso"    => "Senha alterada com sucesso !"
-                        ]);  
+                        ]);
                     } else {
-                        return Redirect::page("Usuario/formTrocarSenha");    
+                        return Redirect::page("Usuario/formTrocarSenha");
                     }
-
                 } else {
                     return Redirect::page("Usuario/formTrocarSenha", [
                         "msgError"    => "Nova senha e conferência da senha estão divergentes !"
-                    ]);                  
+                    ]);
                 }
-
             } else {
                 return Redirect::page("Usuario/formTrocarSenha", [
                     "msgError"    => "Senha atual informada não confere!"
-                ]);               
+                ]);
             }
         } else {
             return Redirect::page("Usuario/formTrocarSenha", [
                 "msgError"    => "Usuário inválido !"
-            ]);   
+            ]);
         }
     }
 }

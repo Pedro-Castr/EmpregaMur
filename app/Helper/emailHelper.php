@@ -59,7 +59,7 @@ function emailRecuperacaoSenha($cLink)
                     <h2>Recuperação de senha EmpregaMur</h2>
                     <p>Você solicitou a recuperação da sua senha?</p>
                     <p>Caso tenha sido você, clique no botão abaixo para prosseguir com a recuperação:</p>
-                    <p><a href="'. $cLink . '" class="button" title="Recuperar a senha">Recuperar Senha</a></p>
+                    <p><a href="' . $cLink . '" class="button" title="Recuperar a senha">Recuperar Senha</a></p>
                     <p>Se você não solicitou essa alteração, pode ignorar este email com segurança.</p>
                     <p>Atenciosamente,<br>Equipe EmpregaMur</p>
                     <div class="footer">

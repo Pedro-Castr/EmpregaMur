@@ -15,13 +15,13 @@
         <label for="NovaSenha" class="form-label fw-semibold">Nova Senha</label>
         <div class="input-group has-validation">
           <input type="password"
-                class="form-control"
-                id="NovaSenha"
-                name="NovaSenha"
-                placeholder="Digite a nova senha"
-                onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
-                required
-                aria-describedby="msgSenhaNova">
+            class="form-control"
+            id="NovaSenha"
+            name="NovaSenha"
+            placeholder="Digite a nova senha"
+            onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
+            required
+            aria-describedby="msgSenhaNova">
         </div>
         <div id="msgSenhaNova" class="form-text text-muted mt-1"></div>
       </div>
@@ -30,13 +30,13 @@
         <label for="NovaSenha2" class="form-label fw-semibold">Confirme a Nova Senha</label>
         <div class="input-group has-validation">
           <input type="password"
-                class="form-control"
-                id="NovaSenha2"
-                name="NovaSenha2"
-                placeholder="Confirme a nova senha"
-                onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
-                required
-                aria-describedby="msgConfSenhaNova">
+            class="form-control"
+            id="NovaSenha2"
+            name="NovaSenha2"
+            placeholder="Confirme a nova senha"
+            onkeyup="checa_segur_senha('NovaSenha', 'NovaSenha2', 'msgSenhaNova', 'msgConfSenhaNova', 'btEnviar');"
+            required
+            aria-describedby="msgConfSenhaNova">
         </div>
         <div id="msgConfSenhaNova" class="form-text text-muted mt-1"></div>
       </div>

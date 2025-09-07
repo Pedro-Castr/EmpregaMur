@@ -43,7 +43,7 @@ class Login extends ControllerMain
         if (count($aUser) > 0) {
 
             // validar a senha
-            if (!password_verify(trim($post["senha"]), trim($aUser['senha'])) ) {
+            if (!password_verify(trim($post["senha"]), trim($aUser['senha']))) {
                 return Redirect::page("login", [
                     "toast" => ["mensagem" => "Login ou senha inválido", "tipo" => "error"],
                     'inputs' => ["email" => $post['email']]
@@ -51,14 +51,14 @@ class Login extends ControllerMain
             }
 
             //  Criar flag's de usuário logado no sistema
-            Session::set("userId"   , $aUser['usuario_id']);
-            Session::set("userNome" , $aUser['nome']);
+            Session::set("userId", $aUser['usuario_id']);
+            Session::set("userNome", $aUser['nome']);
             Session::set("userEmail", $aUser['login']);
             Session::set("userTipo", $aUser['tipo']);
             if ($aUser['tipo'] == "PJ") {
-                Session::set("estabelecimento_id" , $aUser['estabelecimento_id']);
+                Session::set("estabelecimento_id", $aUser['estabelecimento_id']);
             } else {
-                Session::set("pessoa_fisica_id" , $aUser['pessoa_fisica_id']);
+                Session::set("pessoa_fisica_id", $aUser['pessoa_fisica_id']);
             }
 
 
@@ -66,11 +66,10 @@ class Login extends ControllerMain
             return Redirect::page("home", [
                 "toast" => ["tipo" => "success", "mensagem" => "Usuário logado com sucesso"]
             ]);
-
         } else {
             return Redirect::page("login", [
                 "toast" => ["mensagem" => "Login ou senha inválido", "tipo" => "error"],
-                'inputs' => ["email" =>$post['email']]
+                'inputs' => ["email" => $post['email']]
             ]);
         }
     }
@@ -119,7 +118,6 @@ class Login extends ControllerMain
             return Redirect::page("Login/esqueciASenha", [
                 "toast" => ["mensagem" => "Não foi possivel localizar o e-mail na base de dados", "tipo" => "error"],
             ]);
-
         } else {
 
             $created_at = date('Y-m-d H:i:s');
@@ -157,9 +155,8 @@ class Login extends ControllerMain
                 } else {
                     return Redirect::page("login/esqueciASenha");
                 }
-
             } else {
-                return Redirect::page("login/esqueciASenha", ["inputs" => $post ]);
+                return Redirect::page("login/esqueciASenha", ["inputs" => $post]);
             }
         }
     }
@@ -177,7 +174,7 @@ class Login extends ControllerMain
 
         if ($userChave) {
 
-            if (date("Y-m-d H:i:s") <= date("Y-m-d H:i:s" , strtotime("+1 hours" , strtotime($userChave['created_at'])))) {
+            if (date("Y-m-d H:i:s") <= date("Y-m-d H:i:s", strtotime("+1 hours", strtotime($userChave['created_at'])))) {
 
                 $usuarioModel = $this->loadModel('Usuario');
                 $user = $usuarioModel->getById($userChave['usuario_id']);
@@ -207,7 +204,6 @@ class Login extends ControllerMain
                             "toast" => ["mensagem" => "Link de recuperação da senha inválido", "tipo" => "error"],
                         ]);
                     }
-
                 } else {
 
                     // Desativa chave
@@ -216,9 +212,7 @@ class Login extends ControllerMain
                     return Redirect::page("Login/esqueciASenha", [
                         "toast" => ["mensagem" => "Usuário para o link de recuperação da senha não localizado", "tipo" => "error"],
                     ]);
-
                 }
-
             } else {
 
                 // Desativa chave
@@ -228,7 +222,6 @@ class Login extends ControllerMain
                     "toast" => ["mensagem" => "Link de recuperação da senha expirada", "tipo" => "error"],
                 ]);
             }
-
         } else {
             return Redirect::page("Login/esqueciASenha", [
                 "toast" => ["mensagem" => "Link de recuperação da senha não localizada", "tipo" => "error"],
@@ -253,12 +246,12 @@ class Login extends ControllerMain
             if (trim($post["NovaSenha"]) == trim($post["NovaSenha2"])) {
 
                 if ($UsuarioModel->db
-                                ->table("usuario")
-                                ->where(['usuario_id' => $post['usuario_id']])
-                                ->update([
-                                    'senha' => password_hash(trim($post["NovaSenha"]), PASSWORD_DEFAULT)
-                                ])
-                    ) {
+                    ->table("usuario")
+                    ->where(['usuario_id' => $post['usuario_id']])
+                    ->update([
+                        'senha' => password_hash(trim($post["NovaSenha"]), PASSWORD_DEFAULT)
+                    ])
+                ) {
 
                     // Desativa chave
                     $usuarioRecuperaSenhaModel = $this->loadModel('UsuarioRecuperaSenha');
@@ -268,16 +261,13 @@ class Login extends ControllerMain
                     return Redirect::page("Login", [
                         "msgSuccesso"    => "Senha atualizada com sucesso !"
                     ]);
-
                 } else {
                     return $this->loadView("login/recuperarSenha", $post);
                 }
-
             } else {
                 Session::set("toast", ["mensagem" => "Nova senha e conferência da senha estão divergentes", "tipo" => "error"]);
                 return $this->loadView("login/recuperarSenha", $post);
             }
-
         } else {
             Session::set("toast", ["mensagem" => "Usuário inválido", "tipo" => "error"]);
             return $this->loadView("login/recuperarSenha", $post);

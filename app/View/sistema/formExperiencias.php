@@ -1,11 +1,13 @@
 <?php
-  use Core\Library\Request;
-  $request = new Request();
 
-  $checked = '';
-  if (in_array($this->request->getAction(), ['update']) && empty(setValor('fimMes')) && empty(setValor('fimAno'))) {
-      $checked = 'checked';
-  }
+use Core\Library\Request;
+
+$request = new Request();
+
+$checked = '';
+if (in_array($this->request->getAction(), ['update']) && empty(setValor('fimMes')) && empty(setValor('fimAno'))) {
+  $checked = 'checked';
+}
 ?>
 
 <div class="container py-3">
@@ -71,11 +73,11 @@
         <select class="form-select" id="inicioAno" name="inicioAno">
           <option value="">Selecione</option>
           <?php
-            $anoAtual = date('Y');
-            for ($ano = $anoAtual; $ano >= 1950; $ano--) {
-              $selected = (setValor("inicioAno") == $ano) ? 'selected' : '';
-              echo "<option value=\"$ano\" $selected>$ano</option>";
-            }
+          $anoAtual = date('Y');
+          for ($ano = $anoAtual; $ano >= 1950; $ano--) {
+            $selected = (setValor("inicioAno") == $ano) ? 'selected' : '';
+            echo "<option value=\"$ano\" $selected>$ano</option>";
+          }
           ?>
         </select>
         <?= setMsgFilderError("inicioAno") ?>
@@ -106,11 +108,11 @@
         <select class="form-select" id="fimAno" name="fimAno">
           <option value="">Selecione</option>
           <?php
-            $anoAtual = date('Y');
-            for ($ano = $anoAtual; $ano >= 1950; $ano--) {
-              $selected = (setValor("fimAno") == $ano) ? 'selected' : '';
-              echo "<option value=\"$ano\" $selected>$ano</option>";
-            }
+          $anoAtual = date('Y');
+          for ($ano = $anoAtual; $ano >= 1950; $ano--) {
+            $selected = (setValor("fimAno") == $ano) ? 'selected' : '';
+            echo "<option value=\"$ano\" $selected>$ano</option>";
+          }
           ?>
         </select>
         <?= setMsgFilderError("fimAno") ?>
@@ -134,27 +136,26 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  const atualCheckbox = document.getElementById('atual');
-  const fimMes = document.getElementById('fimMes');
-  const fimAno = document.getElementById('fimAno');
+  document.addEventListener('DOMContentLoaded', function() {
+    const atualCheckbox = document.getElementById('atual');
+    const fimMes = document.getElementById('fimMes');
+    const fimAno = document.getElementById('fimAno');
 
-  function toggleFim() {
-    if (atualCheckbox.checked) {
-      fimMes.disabled = true;
-      fimAno.disabled = true;
-      fimMes.value = '';
-      fimAno.value = '';
-    } else {
-      fimMes.disabled = false;
-      fimAno.disabled = false;
+    function toggleFim() {
+      if (atualCheckbox.checked) {
+        fimMes.disabled = true;
+        fimAno.disabled = true;
+        fimMes.value = '';
+        fimAno.value = '';
+      } else {
+        fimMes.disabled = false;
+        fimAno.disabled = false;
+      }
     }
-  }
 
-  atualCheckbox.addEventListener('change', toggleFim);
+    atualCheckbox.addEventListener('change', toggleFim);
 
-  // Executa ao carregar a página para manter o estado correto
-  toggleFim();
-});
-
+    // Executa ao carregar a página para manter o estado correto
+    toggleFim();
+  });
 </script>

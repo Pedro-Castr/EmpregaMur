@@ -10,7 +10,6 @@ use Core\Library\Session;
 
 class Qualificacao extends ControllerMain
 {
-
     public function __construct()
     {
         $this->auxiliarconstruct();
@@ -93,8 +92,8 @@ class Qualificacao extends ControllerMain
 
         if ($this->model->delete($post)) {
             return Redirect::page("perfil", [
-                    "toast" => ["tipo" => "success", "mensagem" => "Qualificação excluída com sucesso"]
-                ]);
+                "toast" => ["tipo" => "success", "mensagem" => "Qualificação excluída com sucesso"]
+            ]);
         } else {
             return Redirect::page($this->controller);
         }

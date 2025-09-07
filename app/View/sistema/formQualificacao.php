@@ -1,6 +1,8 @@
 <?php
-  use Core\Library\Request;
-  $request = new Request();
+
+use Core\Library\Request;
+
+$request = new Request();
 ?>
 
 <div class="container py-3">
@@ -51,11 +53,11 @@
         <select class="form-select" id="ano" name="ano">
           <option value="">Selecione</option>
           <?php
-            $anoAtual = date('Y');
-            for ($ano = $anoAtual; $ano >= 1950; $ano--) {
-              $selected = (setValor("ano") == $ano) ? 'selected' : '';
-              echo "<option value=\"$ano\" $selected>$ano</option>";
-            }
+          $anoAtual = date('Y');
+          for ($ano = $anoAtual; $ano >= 1950; $ano--) {
+            $selected = (setValor("ano") == $ano) ? 'selected' : '';
+            echo "<option value=\"$ano\" $selected>$ano</option>";
+          }
           ?>
         </select>
         <?= setMsgFilderError("ano") ?>

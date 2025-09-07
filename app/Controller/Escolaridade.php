@@ -10,7 +10,6 @@ use Core\Library\Redirect;
 use Core\Library\Validator;
 use Core\Library\Session;
 
-
 class Escolaridade extends ControllerMain
 {
 
@@ -53,8 +52,10 @@ class Escolaridade extends ControllerMain
             return Redirect::page($this->controller . "/form/insert/0");
         } else {
             // Verifica se a data de fim é maior que a de início
-            if ($post['inicioAno'] > $post['fimAno'] ||
-                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])) {
+            if (
+                $post['inicioAno'] > $post['fimAno'] ||
+                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])
+            ) {
                 Session::set('inputs', $post);
                 return Redirect::page($this->controller . "/form/insert/0", [
                     "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
@@ -88,8 +89,10 @@ class Escolaridade extends ControllerMain
             return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id']);
         } else {
             // Verifica se a data de fim é maior que a de início
-            if ($post['inicioAno'] > $post['fimAno'] ||
-                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])) {
+            if (
+                $post['inicioAno'] > $post['fimAno'] ||
+                ($post['inicioAno'] == $post['fimAno'] && $post['inicioMes'] > $post['fimMes'])
+            ) {
                 Session::set('inputs', $post);
                 return Redirect::page($this->controller . "/form/update/" . $post['curriculum_escolaridade_id'], [
                     "toast" => ["tipo" => "error", "mensagem" => "A data de início deve ser menor que a data de fim"]
@@ -117,8 +120,8 @@ class Escolaridade extends ControllerMain
 
         if ($this->model->delete($post)) {
             return Redirect::page("perfil", [
-                    "toast" => ["tipo" => "success", "mensagem" => "Escolaridade excluída com sucesso"]
-                ]);
+                "toast" => ["tipo" => "success", "mensagem" => "Escolaridade excluída com sucesso"]
+            ]);
         } else {
             return Redirect::page($this->controller);
         }
