@@ -19,7 +19,7 @@ $request = new Request();
         <input type="file" class="form-control" id="foto" name="foto">
       </div>
 
-      <?php if (!empty($dados['data']['estabelecimento_id'])): ?>
+      <?php if (!empty($dados['data']['foto'])): ?>
         <div class="mb-3 col-12">
           <h5>Imagem</h5>
           <img src="<?= baseUrl() . 'fotoPJ.php?id=' . $dados['data']['estabelecimento_id'] ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">

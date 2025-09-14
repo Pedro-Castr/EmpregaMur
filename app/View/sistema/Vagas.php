@@ -90,9 +90,9 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
                   <?php if ($tipo == 'PF'): ?>
                     <div class="card-footer bg-transparent text-end">
                       <?php if ($value['candidatado']): ?>
-                        <button class="btn btn-sm btn-success" disabled>Já Candidatado</button>
+                        <button type="button" class="btn btn-sm btn-success" disabled>Já Candidatado</button>
                       <?php else: ?>
-                        <button class="btn btn-sm btn-outline-success" onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
+                        <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
                           Candidatar a Vaga
                         </button>
                       <?php endif; ?>
@@ -106,7 +106,7 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
       </div> <!-- Fim container fluid -->
   </form>
 <?php else: ?>
-  <div class="container py-5">
+  <div class="main-container container py-5">
     <form action="<?= baseUrl() ?>Vagas" method="post" class="mb-3">
       <div class="input-group w-75 mx-auto">
         <input type="text" name="pesquisa" placeholder="Buscar vagas..." value="<?= htmlspecialchars($pesquisa ?? '') ?>" class="form-control" />

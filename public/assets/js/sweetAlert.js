@@ -60,8 +60,13 @@ function confirmarCandidatura(vagaId, curriculumId) {
     cancelButtonText: 'Cancelar',
   }).then((result) => {
     if (result.isConfirmed) {
-      // Redireciona para o método candidatar no controller
-      window.location.href = `${baseUrl}Vagas/candidatar/${vagaId}/${curriculumId}`;
+      Swal.fire({
+        title: 'Candidatura Confirmada!',
+        text: 'Em breve essa empresa analisará seu currículo',
+        icon: 'success',
+      }).then(() => {
+        window.location.href = `${baseUrl}Vagas/candidatar/${vagaId}/${curriculumId}`;
+      });
     }
   });
 }
