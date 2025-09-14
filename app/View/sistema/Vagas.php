@@ -81,18 +81,30 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
               <div class="col-md-6 col-lg-6">
                 <div class="card vaga-card h-100">
                   <div class="card-body">
-                    <h5 class="card-title"><?= $value['descricao'] ?></h5>
-                    <p class="card-text text-muted small"><?= $value['nome_estabelecimento'] ?></p>
+                    <!-- Foto + nome do estabelecimento -->
+                    <div class="d-flex align-items-center mb-3">
+                      <img src="<?= baseUrl() . 'fotoPJ.php?id=' . $value['estabelecimento_id'] ?? baseUrl() . "assets/img/default-profile.png" ?>"
+                        class="rounded-circle me-3 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
+
+                      <div>
+                        <h5 class="card-title mb-0"><?= $value['descricao'] ?></h5>
+                        <p class="text-muted small mb-0"><?= $value['nome_estabelecimento'] ?></p>
+                      </div>
+                    </div>
+
+                    <!-- Descrição da vaga -->
                     <p class="card-text"><?= $value['sobreaVaga'] ?></p>
                     <span class="badge bg-primary me-2"><?= $aModalidade[$value['modalidade']] ?></span>
                     <span class="badge bg-success"><?= $aVinculo[$value['vinculo']] ?></span>
                   </div>
+
                   <?php if ($tipo == 'PF'): ?>
                     <div class="card-footer bg-transparent text-end">
                       <?php if ($value['candidatado']): ?>
                         <button type="button" class="btn btn-sm btn-success" disabled>Já Candidatado</button>
                       <?php else: ?>
-                        <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
+                        <button type="button" class="btn btn-sm btn-outline-success"
+                          onclick="confirmarCandidatura(<?= $value['vaga_id'] ?>, <?= $dados['curriculum_id'] ?>)">
                           Candidatar a Vaga
                         </button>
                       <?php endif; ?>
@@ -100,6 +112,7 @@ $aVinculo  = ["1" => "CLT", "2" => "PJ", "3" => "Estágio"];
                   <?php endif; ?>
                 </div>
               </div>
+
             <?php endforeach; ?>
           </div>
         </div> <!-- Fim lista de vagas -->

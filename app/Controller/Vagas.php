@@ -54,6 +54,7 @@ class Vagas extends ControllerMain
         foreach ($vagasAbertas as $vaga) {
             $detalheEstabelecimento = $estabelecimentoModel->getByEstabelecimentoId($vaga['estabelecimento_id']);
             $vaga['nome_estabelecimento'] = $detalheEstabelecimento['nome'] ?? 'Não informado';
+            $vaga['foto_estabelecimento'] = $detalheEstabelecimento['foto'] ?? 'Não informado';
 
             // Verifica se o candidato já se inscreveu na vaga
             $vaga['candidatado'] = false; // padrão
