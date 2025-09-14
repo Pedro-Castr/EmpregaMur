@@ -282,17 +282,17 @@ END$$
 CREATE PROCEDURE AtualizaStatusVagas()
 BEGIN
   -- Atualiza vagas para "ABERTA" (statusVaga = 2)
-  UPDATE vagas
+  UPDATE vaga
   SET statusVaga = 2
   WHERE CURDATE() BETWEEN dtInicio AND dtFim;
 
   -- Atualiza vagas para "FECHADA" (statusVaga = 3)
-  UPDATE vagas
+  UPDATE vaga
   SET statusVaga = 3
   WHERE dtFim < CURDATE();
 
   -- Atualiza vagas para "PENDENTE" (statusVaga = 1)
-  UPDATE vagas
+  UPDATE vaga
   SET statusVaga = 1
   WHERE dtInicio > CURDATE();
 END$$
