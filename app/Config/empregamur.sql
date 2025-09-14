@@ -44,7 +44,7 @@ CREATE TABLE usuario (
   nome VARCHAR(150) NOT NULL,
   login VARCHAR(50) DEFAULT NULL,
   senha VARCHAR(50) DEFAULT NULL,
-  tipo CHAR(2) NOT NULL COOMENT 'PF - Pessoa Física, PJ - Pessoa Jurídica, AD - Administrador',
+  tipo CHAR(2) NOT NULL COMMENT 'PF - Pessoa Física, PJ - Pessoa Jurídica, AD - Administrador',
   foto_perfil LONGBLOB DEFAULT NULL,
   PRIMARY KEY (usuario_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
@@ -80,7 +80,7 @@ CREATE TABLE curriculum (
   foto LONGBLOB,
   email VARCHAR(120) NOT NULL,
   apresentacaoPessoal TEXT,
-  PRIMARY KEY (curriculum_id) ON DELETE CASCADE,
+  PRIMARY KEY (curriculum_id),
   INDEX idx_cidade (cidade_id),
   INDEX idx_pessoa_fisica (pessoa_fisica_id),
   FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id),
@@ -186,7 +186,7 @@ CREATE TABLE termodeuso (
   statusRegistro INT NOT NULL DEFAULT 1 COMMENT '1 - Ativo, 2 - Inativo',
   rascunho INT DEFAULT 1 COMMENT '1 - Rascunho, 2 - Definitivo',
   usuario_id INT NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (termodeuso_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id)
 );
 
