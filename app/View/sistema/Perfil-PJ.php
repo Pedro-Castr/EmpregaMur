@@ -23,10 +23,10 @@ if (!empty($dados['vagas'])) {
 }
 ?>
 
-<div class="main-container container-fluid min-vh-100 d-flex flex-column align-items-center bg-light p-4">
+<div class="main-container container-fluid d-flex flex-column align-items-center p-4">
   <div class="w-100" style="max-width: 800px;">
     <?php if (empty($dados['estabelecimento']['endereco'])): ?>
-      <div class="card border-0 rounded-4 p-4 text-center bg-light">
+      <div class="card border-0 rounded-4 p-4 text-center">
         <div class="card-body">
           <h5 class="card-title mb-3">Perfil incompleto!</h5>
           <p class="card-text text-muted mb-4">
@@ -53,7 +53,7 @@ if (!empty($dados['vagas'])) {
       </div>
     <?php else: ?>
 
-      <div class="card border-0 rounded-4 p-2 bg-light">
+      <div class="card border-0 rounded-4 p-2">
         <div class="g-4 d-flex flex-column justify-content-center align-items-center text-center">
           <!-- Dados Pessoais -->
           <div class="col-md-3 text-center">
@@ -68,6 +68,7 @@ if (!empty($dados['vagas'])) {
         </div>
       </div>
 
+      <!-- Controle de Abas -->
       <ul class="nav nav-tabs mb-3" id="UserTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="vagas-tab" data-bs-toggle="tab" data-bs-target="#vagas" type="button" role="tab" aria-controls="vagas" aria-selected="true">
@@ -143,13 +144,8 @@ if (!empty($dados['vagas'])) {
                         </small>
                       </div>
                       <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                        <a href="<?= baseUrl() ?>Vagas/form/update/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-primary" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-pencil-fill me-1"></i> Editar
-                        </a>
-                        <a href="javascript:void(0);"
-                          onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
-                          class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        <a href="<?= baseUrl() ?>Vagas/view/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-success" style="min-width:70px; white-space: nowrap;">
+                          <i class="bi bi-gear-fill me-1"></i> Gerenciar
                         </a>
                       </div>
                     </div>
@@ -176,13 +172,8 @@ if (!empty($dados['vagas'])) {
                         </small>
                       </div>
                       <div class="mt-3 mt-md-0 d-flex align-items-start gap-2">
-                        <a href="<?= baseUrl() ?>Vagas/form/update/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-primary" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-pencil-fill me-1"></i> Editar
-                        </a>
-                        <a href="javascript:void(0);"
-                          onclick="confirmarExclusao('<?= baseUrl() ?>Vagas/delete', { vaga_id: <?= $vaga['vaga_id'] ?> })"
-                          class="btn btn-sm btn-outline-danger" style="min-width:70px; white-space: nowrap;">
-                          <i class="bi bi-trash-fill me-1"></i> Excluir
+                        <a href="<?= baseUrl() ?>Vagas/view/<?= $vaga['vaga_id'] ?>" class="btn btn-sm btn-outline-success" style="min-width:70px; white-space: nowrap;">
+                          <i class="bi bi-gear-fill me-1"></i> Gerenciar
                         </a>
                       </div>
                     </div>
