@@ -80,13 +80,13 @@ class ControllerMain
             $nomeHelper = [$nomeHelper];
         }
 
-        foreach ($nomeHelper AS $value) {
-            $pathHelperAtom = ".." . DIRECTORY_SEPARATOR . "core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "{$value}.php";
+        foreach ($nomeHelper as $value) {
+            $pathHelperAtom = PATHAPP . "core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "{$value}.php";
 
             if (file_exists($pathHelperAtom)) {
                 require_once $pathHelperAtom;
             } else {
-                $pathHelperUser = ".." . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "{$value}.php";
+                $pathHelperUser = PATHAPP . "app" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "{$value}.php";
 
                 if (file_exists($pathHelperUser)) {
                     require_once $pathHelperUser;
@@ -106,7 +106,7 @@ class ControllerMain
     public function loadView($nome, $dados = [], $exibeCabRodape = true)
     {
         $aDados = $dados;
-        $pathView = ".." . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "View" . DIRECTORY_SEPARATOR;
+        $pathView = PATHAPP . "app" . DIRECTORY_SEPARATOR . "View" . DIRECTORY_SEPARATOR;
 
         // carrega cabeçalho
         if ($exibeCabRodape) {
@@ -120,12 +120,12 @@ class ControllerMain
 
         // Será utilizado para recuperar valores e preencher o formulário
         if (isset($dados['data'])) {
-			$_POST = $dados['data'];
-		} else {
-			if (count($dados) > 0) {
-				$_POST = $dados;
-			}
-		}
+            $_POST = $dados['data'];
+        } else {
+            if (count($dados) > 0) {
+                $_POST = $dados;
+            }
+        }
 
         // Será utilizado futuramente para recuperar valores quando idenficado
         if (Session::get("errors") != false) {
