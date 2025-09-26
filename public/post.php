@@ -3,7 +3,8 @@
 use Core\Library\Ambiente;
 use Core\Library\Database;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+defined('PATHAPP') || define("PATHAPP", ".." . DIRECTORY_SEPARATOR);
+require_once PATHAPP . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
 // Carrega variáveis do .env para $_ENV
 $ambiente = new Ambiente();

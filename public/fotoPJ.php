@@ -1,8 +1,10 @@
 <?php
+
 use Core\Library\Ambiente;
 use Core\Library\Database;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+defined('PATHAPP') || define("PATHAPP", ".." . DIRECTORY_SEPARATOR);
+require_once PATHAPP . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
 // Carrega variáveis do .env para $_ENV
 $ambiente = new Ambiente();
@@ -42,7 +44,6 @@ try {
     // Envia cabeçalho correto para imagem
     header("Content-Type: image/png");
     echo $resultado['foto'];
-
 } catch (Exception $e) {
     http_response_code(500);
     echo "Erro ao acessar o banco: " . $e->getMessage();
