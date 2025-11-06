@@ -43,7 +43,7 @@ CREATE TABLE usuario (
   estabelecimento_id INT,
   nome VARCHAR(150) NOT NULL,
   login VARCHAR(50) DEFAULT NULL,
-  senha VARCHAR(50) DEFAULT NULL,
+  senha VARCHAR(255) DEFAULT NULL,
   tipo CHAR(2) NOT NULL COMMENT 'PF - Pessoa Física, PJ - Pessoa Jurídica, AD - Administrador',
   foto_perfil LONGBLOB DEFAULT NULL,
   PRIMARY KEY (usuario_id),

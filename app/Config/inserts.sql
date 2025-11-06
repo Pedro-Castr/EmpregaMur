@@ -31,7 +31,7 @@ INSERT INTO escolaridade (descricao) VALUES
 
 /* Insert do usuário administrador */
 INSERT INTO usuario (nome, login, senha, tipo) VALUES
-("Administrador", "empregamurADM", "fasm@2025", "AD")
+("Administrador", "empregamurADM", "fasm@2025", "AD");
 
 /* Insert do termo de uso padrão */
 INSERT INTO termodeuso (textoTermo, statusRegistro, rascunho, usuario_id) VALUES
