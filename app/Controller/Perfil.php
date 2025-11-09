@@ -144,9 +144,9 @@ class Perfil extends ControllerMain
     public function form($action, $id)
     {
         if (Session::get('userTipo') == 'PF') {
-            return $this->loadView("sistema/formPerfil-PF", $this->model->getById($id));
+            return $this->loadView("sistema/formPerfil", $this->model->getById($id));
         } else if (Session::get('userTipo') == 'PJ') {
-            return $this->loadView("sistema/formPerfil-PJ", $this->model->getById($id));
+            return $this->loadView("sistema/formEstabelecimento", $this->model->getById($id));
         }
     }
 

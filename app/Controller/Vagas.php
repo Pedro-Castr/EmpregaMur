@@ -238,7 +238,7 @@ class Vagas extends ControllerMain
 
         // Insere
         if ($CandidaturaModel->insert($data)) {
-            return Redirect::page('vaga', [
+            return Redirect::page('Vagas', [
                 "toast" => ["tipo" => "success", "mensagem" => "Candidatura enviada com sucesso"]
             ]);
         } else {
