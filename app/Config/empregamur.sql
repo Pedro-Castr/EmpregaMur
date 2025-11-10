@@ -197,7 +197,7 @@ CREATE TABLE termodeusoaceite (
   PRIMARY KEY (termodeuso_id, usuario_id),
   INDEX idx_usuario (usuario_id),
   INDEX idx_termodeuso (termodeuso_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE,
   FOREIGN KEY (termodeuso_id) REFERENCES termodeuso (termodeuso_id)
 );
 
